@@ -1,0 +1,118 @@
+{% extends "PILUserBundle::index.html.twig" %}
+
+{% block body %}
+
+
+    <div class="content-section-a">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-5 col-sm-6">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">Découvre PILote, un outil de gestion de projet clair et complet</h2>
+                    <p class="lead">Un service d'organisation plutôt complet<br>
+					Intuitif. Collaboratif. S'adapte à vous	<br>
+					Premier point très important pour moi : le service est disponible presque partout, à savoir sur le web<br>
+					Cela se présente sous la forme d'un tableau de bord sur lequel on peut épingler des petites cartes dans des listes.<br>
+					Ces cartes simples en apparence renferment une multitudes d'options accessibles en cliquant dessus.<br>
+					Ajoute par-dessus quelques fonctions pour trier, filtrer, classer, un mode collaboratif, et voici un outil plutôt complet.<br>
+					Et c'est gratuit !<br>
+					<br>
+					<b>Les tableaux (boards)</b><br>
+					Ce sont les espaces sur lesquelles se trouveront tes tâches. Tu peux en créer autant que nécessaire, rien ne t'empêche ainsi de créer des tableau perso / boulot, ou d'en créer un par projet...<br>
+					Chaque board peut être privé, partagé par une organisation avec d'autres membres, ou public <br>
+					Chaque tableau comporte des listes (Lists) de cartes (Cards). Le nom de chaque liste est personnalisable, ainsi que l'emplacement de chacune d'elle par simple glissé – déposé<br>
+					</p>
+                </div>
+                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+                    <img class="img-responsive" src="{{ asset('img/ipad.png') }}" alt="">
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="content-section-b">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">Le menu</h2>
+                    <p class="lead">
+					Un menu est activable sur la droite (lien show sidebar en haut à droite) et permet de consulter l'historique de l'activité du tableau, la liste des membres, et un menu qui offre quelques fonctions intéressantes :<br>
+					<br>- filtrer les cartes, utile lorsque ton tableau sera bien rempli (filter cards)<br>
+					- consulter les cartes archivées (archived items)<br>
+					- accéder à des options supplémentaires (power-ups), mais on y revient plus loin.<br>
+					- accéder à des paramètres (settings) permettant entre autres de modifier les informations de base du board, de gérer les permissions de commentaires et d'invitations, l'envoi d'emails, et les labels.<br>
+					- s'abonner au board<br></p>
+                </div>
+                <div class="col-lg-5 col-sm-pull-6  col-sm-6">
+                    <img class="img-responsive" src="{{ asset('img/doge.png') }}" alt="">
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="content-section-a">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-5 col-sm-6">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">Les cartes </h2>
+                    <p class="lead">Un clic depuis une liste surAdd a card permet d'ajouter une carte en lui donnant un petit nom.<br>
+					Une fois enregistrée, tu peux accéder à un menu rapide via la flèche de droite, ou à l'interface complète de la carte en cliquant dessus.<br>
+					Il est alors possible de faire un tas de choses :<br>
+					- ajouter une description<br>
+					- écrire des commentaires<br>
+					- assigner des libellés <br>
+					- assigner les tâches à des membres<br>
+					- ajouter une liste de tâches (checklist). Très pratique pour diviser une tâche en petits morceaux<br>
+					- ajouter une date d'échéance <br>
+					- attacher des pièces jointes <br>
+					- déplacer, s'abonner, ou archiver la carte</p>
+                </div>
+                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+                    <img class="img-responsive" src="{{ asset('img/phones.png') }}" alt="">
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="banner">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <h2>Participez à PILote :</h2>
+                </div>
+                <div class="col-lg-6">
+                    <ul class="list-inline banner-social-buttons">
+                        <li><a href="#" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Facebook</span></a>
+                        </li>
+                        <li><a href="#" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
+                        </li>
+                        <li><a href="#" class="btn btn-default btn-lg"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">Linkedin</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    
+{% endblock %}

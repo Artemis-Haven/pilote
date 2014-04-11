@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>PILote</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('css/landing-page.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('css/signin.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('css/jumbotron.css') }}" type="text/css" />
+
+    <!-- Custom Google Web Font -->
+    <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}" />
+    <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Barre de navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{ path('piluser_accueil') }}">PILote</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="{{ path('piluser_apropos') }}">A propos</a>
+                    </li>
+                    <li><a href="{{ path('piluser_contact') }}">Contact</a>
+                    </li>
+                    <li><a href="{{ path('fos_user_security_login') }}">Connexion</a>
+                    </li>
+                    <li><a href="{{ path('fos_user_registration_register') }}">S'enregistrer</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    {% block body %}{% endblock %}
+    
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="list-inline">
+                        <li><a href="{{ path('piluser_accueil') }}">Accueil</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="{{ path('piluser_apropos') }}">A propos</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="{{ path('piluser_contact') }}">Contact</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="{{ path('fos_user_security_login') }}">Connexion</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="{{ path('fos_user_registration_register') }}">S'enregistrer</a>
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted small">Copyright &copy; Polytech 2014. Tous droits réservés.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script src="{{ asset('http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/bootstrap.js') }}"></script>
+</body>
+
+</html>
