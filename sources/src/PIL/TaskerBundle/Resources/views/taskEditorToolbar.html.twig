@@ -1,0 +1,61 @@
+<div class="btn-toolbar" data-role="editor-toolbar" data-target="#editor">
+	{# Boutons GRAS - ITALIQUE - BARRÉ - SOULIGNÉ #}
+	<div class="btn-group">
+		<button type="button" class="btn btn-default" data-edit="bold" title="Gras (Ctrl/Cmd+B)"><i class="fa fa-bold"></i></button>
+		<button type="button" class="btn btn-default" data-edit="italic" title="Italique (Ctrl/Cmd+I)"><i class="fa fa-italic"></i></button>
+		<button type="button" class="btn btn-default" data-edit="strikethrough" title="Barré"><i class="fa fa-strikethrough"></i></button>
+		<button type="button" class="btn btn-default" data-edit="underline" title="Souligné (Ctrl/Cmd+U)"><i class="fa fa-underline"></i></button>
+	</div>
+	{# Bouton : Taille de la police #}
+	<div class="btn-group">
+		<a class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="Taille du texte">
+			<i class="fa fa-text-height"></i>
+			<b class="caret"></b>
+		</a>
+		<ul class="dropdown-menu">
+			<li><a data-edit="fontSize 5"><font size="5">Grand</font></a></li>
+			<li><a data-edit="fontSize 3"><font size="3">Normal</font></a></li>
+			<li><a data-edit="fontSize 1"><font size="1">Petit</font></a></li>
+		</ul>
+	</div>
+	{# Boutons d'alignement #}
+	<div class="btn-group">
+		<button type="button" class="btn btn-default" data-edit="justifyleft" title="Aligner à gauche (Ctrl/Cmd+L)">
+			<i class="fa fa-align-left"></i>
+		</button>
+		<button type="button" class="btn btn-default" data-edit="justifycenter" title="Centrer (Ctrl/Cmd+E)">
+			<i class="fa fa-align-center"></i>
+		</button>
+		<button type="button" class="btn btn-default" data-edit="justifyright" title="Aligner à droite (Ctrl/Cmd+R)">
+			<i class="fa fa-align-right"></i>
+		</button>
+		<button type="button" class="btn btn-default" data-edit="justifyfull" title="Justifier (Ctrl/Cmd+J)">
+			<i class="fa fa-align-justify"></i>
+		</button>
+	</div>
+	{# Bouton pour ajouter un lien #}
+	<div class="btn-group">
+		<a class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="Ajouter un lien hypertexte"><i class="fa fa-link"></i></a>
+		<div class="dropdown-menu">
+			<div class="input-group">
+	            <input type="text" class="form-control" placeholder="URL du lien" data-edit="createLink">
+	            <span class="input-group-btn">
+	                <button type="button" class="btn btn-primary">Ajouter</button>
+	            </span>
+	        </div>
+		</div>
+	</div>
+	{# Boutons supplémentaires : Listes - Indentation - Barre horizontale #}
+	<div class="btn-group">
+		<a class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="Autres">• • •</a>
+		<ul class="dropdown-menu">		
+			<li><a data-edit="insertunorderedlist" title="Liste à puce"><i class="fa fa-list-ul"></i> Liste à puce</a></li>
+			<li><a data-edit="insertorderedlist" title="Liste ordonnée"><i class="fa fa-list-ol"></i> Liste ordonnée</a></li>
+		    <li class="divider"></li>
+			<li><a data-edit="indent" title="Indenter (Tab)"><i class="fa fa-indent"></i> Indenter</a></li>
+			<li><a data-edit="outdent" title="Réduire l'indentation (Shift+Tab)"><i class="fa fa-outdent"></i> Désindenter</a></li>
+		    <li class="divider"></li>
+			<li><a data-edit="inserthorizontalrule" title="Insérer une barre horizontale"><i class="fa fa-minus"></i> Barre horizontale</a></li>
+		</ul>
+	</div>
+</div>

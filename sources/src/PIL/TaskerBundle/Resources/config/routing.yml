@@ -1,0 +1,47 @@
+#PIL/TaskerBundle/Ressources/config/routing.yml
+
+piltasker_accueil:
+    path: /index
+    defaults: { _controller: PILTaskerBundle:Tasker:index }
+    
+piltasker_board:
+    path: /board/{boardId}
+    defaults: { _controller: PILTaskerBundle:Tasker:board }
+    requirements:
+        boardId: \d+
+
+PILTaskerBundle_board:
+    resource: "@PILTaskerBundle/Resources/config/routing/board.yml"
+    prefix:   /crud/board
+
+PILTaskerBundle_crud_domain:
+    resource: "@PILTaskerBundle/Resources/config/routing/domain.yml"
+    prefix:   /crud/domain
+
+PILTaskerBundle_crud_step:
+    resource: "@PILTaskerBundle/Resources/config/routing/step.yml"
+    prefix:   /crud/step
+    
+PILTaskerBundle_crud_tlist:
+    resource: "@PILTaskerBundle/Resources/config/routing/tlist.yml"
+    prefix:   /crud/tlist
+
+PILTaskerBundle_crud_task:
+    resource: "@PILTaskerBundle/Resources/config/routing/task.yml"
+    prefix:   /crud/task
+
+PILTaskerBundle_checklist:
+    resource: "@PILTaskerBundle/Resources/config/routing/checklist.yml"
+    prefix:   /crud/checklist
+
+PILTaskerBundle_checklistoption:
+    resource: "@PILTaskerBundle/Resources/config/routing/checklistoption.yml"
+    prefix:   /crud/checklistoption
+
+PILTaskerBundle_ajax_board_request:
+    resource: "@PILTaskerBundle/Resources/config/routing/ajaxBoardRequest.yml"
+    prefix:   /boardRequest
+    options:
+        expose: true
+    requirements:
+        _method:  POST

@@ -1,0 +1,57 @@
+{% extends "PILAdminBundle::baseAdmin.html.twig" %}
+
+{% block body %}
+<div id="page-wrapper">
+
+        <div class="row">
+          <div class="col-lg-12">
+            <h1>Administration <small>Gestion des utilisateurs</small></h1>
+            <ol class="breadcrumb">
+              <li class="active"><a href="{{ path('pil_admin_homepage') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+              <li class="active"><i class="fa fa-table"></i> Gestion des utilisateurs</li>
+            </ol>
+            <div class="alert alert-success alert-dismissable">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              Vous pouvez gérer à partir de cette page les utilisateurs (les administrateurs sont affichés en rouge). Dans
+              la colonne "gestion", vous pouvez supprimer l'utilisateur selectionné en cliquant sur la poubelle, ou le promouvoir
+              en cliquant sur la petite étoile.
+            </div>
+          </div>
+        </div><!-- /.row -->
+       
+        <!-- Table affichant les utilisateurs-->
+        <div class="row">
+          <div class="col-lg-12">
+            <h2>Liste des utilisateurs</h2>
+            <div class="table-responsive">
+              <table class="table table-bordered table-hover tablesorter">
+                <thead>
+                  <tr>
+                    <th>Identifiant <i class="fa fa-sort"></i></th>
+                    <th>Mail <i class="fa fa-sort"></i></th>
+                    <th>Statut <i class="fa fa-sort"></i></th>
+                    <th>Dernière connexion <i class="fa fa-sort"></i></th>
+                    <th>Gestion <i class="fa fa-sort"></i></th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %} 
+                        <tr>
+                            <td>{{ user.username|e }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.roles[0] }}</td> <!-- Ne sont pas définis ! il faut le faire en dur...-->
+                            <td>{{ user.lastLogin |date("m/d/Y")}}</td>
+                            <td>
+                                <a href="#"><span class="glyphicon glyphicon glyphicon-trash"></span></a>
+                                <a href="#"><span class="glyphicon glyphicon glyphicon-star"></span></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+               </tbody>
+              </table>
+            </div>
+          </div>
+        </div><!-- /.row -->
+
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+footer {
+  padding: 15px;
+  margin: 0 auto;
+}
+
+body {
+  padding-top: 50px;
+  padding-bottom: 20px;
+}
+
+#nonAuthentNavbar, footer {
+	font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-weight: 700;
+}
+
+* {
+	outline: none;
+}
+
+button::-moz-focus-inner {
+  border: 0;
+}
+

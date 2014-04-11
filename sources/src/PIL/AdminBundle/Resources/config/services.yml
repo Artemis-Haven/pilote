@@ -1,0 +1,7 @@
+parameters:
+#    pil_admin.example.class: PIL\AdminBundle\Example
+
+services:
+#    pil_admin.example:
+#        class: %pil_admin.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

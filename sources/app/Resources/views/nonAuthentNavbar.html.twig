@@ -1,0 +1,27 @@
+<nav id="nonAuthentNavbar" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Barre de navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{ path('piluser_accueil') }}">PILote</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="{{ path('piluser_apropos') }}">A propos</a>
+                </li>
+                <li><a href="{{ path('piluser_contact') }}">Contact</a>
+                </li>
+                <li><a href="{{ path('fos_user_security_login') }}">Connexion</a>
+                </li>
+                <li><a href="{{ path('fos_user_registration_register') }}">S'enregistrer</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

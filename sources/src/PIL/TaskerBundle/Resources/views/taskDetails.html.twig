@@ -1,0 +1,101 @@
+<div class="modal-content">
+  	<div class="modal-header">
+  		{# Pour rajouter un bouton de fermeture de la fenêtre, en haut à droite #}
+    	{# <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> #}
+		<h4 class="modal-taskTitle" id="modalLabel">
+			<span class="glyphicon glyphicon-record"></span> 
+			<b title="Cliquer pour éditer">{{ task.name }} </b>
+		</h4>
+		<span class="modal-taskList"> dans la liste <b>{{ domain.name }}</b> : <b>{{ tList.name }}</b></span>
+  	</div>
+
+	<div class="modal-body">
+		<article>
+			<p class="modal-summaryIcons">
+				<span><span class="glyphicon glyphicon-eye-open"></span></span>
+				<span><span class="glyphicon glyphicon-comment"></span> 1</span>
+				<span><span class="glyphicon glyphicon-list"></span> 2/3</span>
+				<span><span class="glyphicon glyphicon-time"></span> 13 mars à 14:00</span>
+			</p>
+			
+			<div class="modal-taskContent">
+				<p class="modal-toolbar">
+					{% include "PILTaskerBundle::taskEditorToolbar.html.twig" %}
+				</p>
+				<div id="editor">{{ task.content | raw }}</div>
+			</div>
+			<div class="checklistContainer">
+				{% for checkList in task.checkLists %}
+					<div id="checklist-{{ checkList.id }}" class="checklist">
+						<h4>
+							<span class="glyphicon glyphicon-list"></span> 
+							<span class="title">{{ checkList.name }}</span>
+						</h4>
+							{% for chkLstOpt in checkList.checkListOptions %}
+								<p id="checklistOption-{{ chkLstOpt.id }}" class="checkbox">
+									<label><input {% if chkLstOpt.checked %} checked="true" {% endif %} type="checkbox">{{ chkLstOpt.optionText }}</label>
+								</p>
+								<span id="editChkLstOptBtn-{{ chkLstOpt.id }}" class="glyphicon glyphicon-pencil"></span><br>
+							{% endfor %}
+							<p id="addChecklistOptionBtn-{{checkList.id}}">Ajouter une ligne...</p>
+					</div>
+				{% endfor %}
+			</div>
+			<h4>
+				<span class="glyphicon glyphicon-align-left"></span> 
+				Activité
+			</h4>
+
+			<p>Commentaires                
+                <div class="postComment"  >
+                    <span class="comment-user glyphicon glyphicon-user" title="{{ app.user.username }}"></span>
+                    <div class="comment-contenu">
+                        <textarea id="saisieComment"  class="textarea-comment" placeholder="Write a comment" onblur="btndisappear()" onfocus="btnappear()" ></textarea>
+                        <div class="commentBtn">
+                            <input class="postBt btn-default" id="postBt-{{ task.id }}" type="button" value="Comment"/>
+                            <span class="suppBt glyphicon glyphicon-remove"></span>
+                        </div>
+                    </div>    
+                </div>
+                
+                <div class="comment">
+                   {% for comment in task.comments | reverse %} {# Pour chaque commentaire #}
+                            <div class="nouvelComment" > 
+                                <div class="newComment-User glyphicon glyphicon-user" title="{{ comment.user }}" ></div>
+                                <div class="newComment">
+                                    <div class="newComment-Data">{{comment.comment}}</div>
+                                    <p class="newComment-Time">{{comment.date | date('d/m/Y H:i.')}}</p>
+                                </div>
+                            </div>
+                     {% endfor %} {# Fin "pour chaque commentaire" #}
+                </div>
+			</p>
+
+		</article>
+
+		<aside>
+			<h4>Labels</h4>
+			<p>Label 1 <br>Label 2</p>
+			<button class="btn btn-default"><span class="glyphicon glyphicon-tags"> </span> Éditer les labels</button>
+			<h4>Membres</h4>
+			<p>IMG1 IMG2</p>
+			<button class="btn btn-default"><span class="glyphicon glyphicon-user"></span> Assigner...</button>
+			<h4>Actions</h4>
+			<button id="addChecklistBtn-{{ task.id }}" class="btn btn-default"><span class="glyphicon glyphicon-list"></span> Ajouter Checklist</button>
+			<button class="btn btn-default"><span class="glyphicon glyphicon-time"></span> Planifier...</button>
+			<button class="btn btn-default"><span class="glyphicon glyphicon-file"></span> Joindre un fichier</button>
+			<button class="btn btn-default"><span class="glyphicon glyphicon-arrow-right"></span> Déplacer...</button>
+			<button class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span> Souscrire</button>
+			<button class="btn btn-default"><span class="glyphicon glyphicon-inbox"></span> Archiver</button>
+		</aside>
+	</div>
+
+	<div class="modal-footer">
+    	<button id="deleteTaskBtn" type="button" class="btn btn-danger deleteTaskBtn">
+    		Supprimer
+    	</button>
+    	<button type="button" class="btn btn-primary" data-dismiss="modal">
+    		Enregistrer
+    	</button>
+	</div>
+</div>

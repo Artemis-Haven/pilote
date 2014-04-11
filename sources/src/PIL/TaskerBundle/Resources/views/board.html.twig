@@ -1,0 +1,153 @@
+{% extends '::base.html.twig' %}
+
+{# Ceci est le bloc qui remplace le titre de la page (normalement dans le <head>) #}
+{% block pageTitle %} {{ parent() }} - {{ board }}{% endblock %}
+
+{# Ceci est le bloc qui remplace le bloc identique de la vue dont cette vue hérite #}
+{% block boardTitle %} {{ board }} {% endblock %}
+
+{# Idem, on ajoute les feuilles CSS spécifiques à cette vue dans le block de style #}
+{% block styles %}
+	<link rel="stylesheet" href="{{ asset('css/board.css') }}" class="css">
+	<link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}" class="css">
+	<link rel="stylesheet" href="{{ asset('css/custom-scrollbar.css') }}" class="css">
+{% endblock %}
+
+
+{# Bloc principal #}
+{% block body %}
+
+<section id="board-{{ board.id }}" class="boardSection">
+		
+	{# Ce DIV est l'accordéon qui contient chaque Domaine #}
+	<div class="panel-group" id="accordion">
+
+		{% for domain in board.domains %} {# Pour chaque domaine #}
+		<div id="domain-{{ domain.id }}" class="panel domain">
+			<div class="panel-heading"> {# Titre des domaines #}
+				<h4 class="panel-title">
+			        <a data-toggle="collapse" data-parent="#accordion" href="#domainPanel-{{ domain.id }}">{{ domain }}</a>
+			        <span title='Supprimer "{{ domain.name }}"' id="deleteDomainBtn-{{ domain.id }}" class="deleteDomainBtn glyphicon glyphicon-minus"></span> 
+			        <span title='Renommer "{{ domain.name }}"' id="renameDomainBtn-{{ domain.id }}" class="renameDomainBtn glyphicon glyphicon-edit"></span> 
+			        <span title="Ajouter un corps de métier" id="addDomainBtn-{{ board.id }}" class="addDomainBtn glyphicon glyphicon-plus"></span> 
+			    </h4>
+			</div> {# Fin "titre des domaines" #}
+
+			{# Début du domaine #}
+			<div id="domainPanel-{{ domain.id }}" class="panel-collapse collapse {%if loop.first %}in{% endif %}">
+				<div class="panel-body">
+
+				{# Barre d'onglets qui contient les étapes #}
+				<ul id="stepList-{{domain.id}}" class="nav nav-tabs">
+					{% for step in domain.steps %} {# Pour chaque étape #}
+					<li {% if loop.first %} class="active" {% endif %}>
+						<a data-target="#tab-{{ step.id }}" data-toggle="tab">
+							<span class="stepTitle">{{ step }} </span>
+							<div class="stepMenu dropdown">
+								<a data-toggle="dropdown" class="caret"></a>
+								<ul class="dropdown-menu" role="menu">
+									<li id="renameStepBtn-{{ step.id }}" class="renameStepBtn">
+										<a><span class="glyphicon glyphicon-edit"></span> Renommer</a>
+									</li>
+									<li id="deleteStepBtn-{{ step.id }}" class="deleteStepBtn">
+										<a><span class="glyphicon glyphicon-minus"></span> Supprimer</a>
+									</li>
+								</ul>
+							</div>
+						</a>
+					</li>
+					{% endfor %} {# Fin "pour chaque étape" #}
+					<li> {# Bouton + pour ajouter une nouvelle étape #}
+						<a id="addStepBtn-{{domain.id}}" title="Ajouter une étape" href="#" class="addStepBtn glyphicon glyphicon-plus"></a>
+					</li>
+				</ul>{# Fin de la barre d'onglets avec les étapes #}
+
+				<div class="tab-content">
+				{% for step in domain.steps %} {# Pour chaque étape, on crée un panel #}
+					<div class="tab-pane {%if loop.first %}active{% endif %}" id="tab-{{ step.id }}"
+					style="width: {{step.tLists|length * 260 + 260}}px;">
+					  	{% for tList in step.tLists %} {# Pour chaque liste #}
+					  	<div id="tList-{{ tList.id }}" class="taskList panel"> {# Début de la liste de taches #}
+							<div class="panel-heading">
+								<p>{{ tList }}</p>
+								<div class="listMenu dropdown">
+									<a data-toggle="dropdown" href="#" class="caret"></a>
+									<ul class="dropdown-menu" role="menu">
+										<li id="renameListBtn-{{ tList.id }}" class="renameListBtn">
+											<a><span class="glyphicon glyphicon-edit"></span> Renommer</a>
+										</li>
+										<li id="deleteListBtn-{{ tList.id }}" class="deleteListBtn">
+											<a><span class="glyphicon glyphicon-minus"></span> Supprimer</a>
+										</li>
+									</ul>
+								</div>
+							</div> {# Titre de la liste #}
+							<article class="sortableTasksContainer">
+								<div class="blankTask"></div>
+								{% for task in tList.tasks %} {# Pour chaque tache #}
+								<div id="task-{{ task.id }}" class="task" data-toggle="modal" data-target="#modalTask">
+									<p class="task-header">{{ task }}</p>
+								</div>
+								{% endfor %} {# Fin "pour chaque tache" #}
+							<div id="addTaskBtn-{{ tList.id }}" class="addTaskBtn">
+								Ajouter une tâche...
+							</div>
+							</article>
+						</div> {# Fin de la liste de taches #}
+						{% endfor %} {# Fin "pour chaque liste" #}
+						<div id="addListBtn-{{step.id}}" class="addListBtn panel"> 
+							<p>Ajouter une nouvelle liste</p> {# panel pour ajouter une nouvelle liste #}
+							<span class="glyphicon glyphicon-plus"></span>
+						</div>
+					</div>
+				 {% endfor %} {# Fin "pour chaque étape" #}
+				  
+				</div>
+
+				</div>
+			</div> {# Fin du domaine #}
+		</div>
+		{# Fin "pour chaque domaine" #}
+		{% endfor %}
+		
+	</div>	
+	
+</section>
+
+{# Cette section contient la fenêtre modale qui s'affichera
+lors du clic sur une tâche. Elle est vide par défaut et le contenu
+est inséré ou supprimé à l'ouverture ou la fermeture de la fenêtre. #}
+
+<section class="taskDetailsSection">
+	<div class="modal fade" id="modalTask" tabindex="-1" 
+			role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+		</div>
+	</div>
+</section>
+
+{% endblock %}
+
+{% block scripts %}
+	{{ parent() }}
+	<script src="{{ asset('js/custom-scrollbar.min.js') }}"></script>
+	<script src="{{ asset('js/jquery-ui-custom.min.js') }}"></script>
+	<script src="{{ asset('js/jquery.hotkeys.js') }}"></script>
+	<script src="{{ asset('js/board/sortableTask.js') }}"></script>
+	<script src="{{ asset('js/bootstrap-wysiwyg.js') }}"></script>
+	<script src="{{ asset('js/board/manageDomain.js') }}"></script>
+	<script src="{{ asset('js/board/manageStep.js') }}"></script>
+	<script src="{{ asset('js/board/manageList.js') }}"></script>
+	<script src="{{ asset('js/board/manageTask.js') }}"></script>
+	<script src="{{ asset('js/board/manageChecklists.js') }}"></script>
+    <script src="{{ asset('js/board/detailtache.js') }}"></script>
+	<script>
+	/*$(document).ready(function() {
+  		$(".sortableTasksContainer").customScrollbar({
+		  skin: "default-skin", 
+		  hScroll: false,
+		  updateOnWindowResize: true
+		  });
+  	});*/
+	</script>
+{% endblock %}

@@ -1,0 +1,30 @@
+crud_domain:
+    pattern:  /
+    defaults: { _controller: "PILTaskerBundle:Domain:index" }
+
+crud_domain_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "PILTaskerBundle:Domain:show" }
+
+crud_domain_new:
+    pattern:  /new
+    defaults: { _controller: "PILTaskerBundle:Domain:new" }
+
+crud_domain_create:
+    pattern:  /create
+    defaults: { _controller: "PILTaskerBundle:Domain:create" }
+    requirements: { _method: post }
+
+crud_domain_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "PILTaskerBundle:Domain:edit" }
+
+crud_domain_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "PILTaskerBundle:Domain:update" }
+    requirements: { _method: post|put }
+
+crud_domain_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "PILTaskerBundle:Domain:delete" }
+    requirements: { _method: post|delete }

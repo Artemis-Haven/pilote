@@ -1,0 +1,30 @@
+crud_task:
+    pattern:  /
+    defaults: { _controller: "PILTaskerBundle:Task:index" }
+
+crud_task_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "PILTaskerBundle:Task:show" }
+
+crud_task_new:
+    pattern:  /new
+    defaults: { _controller: "PILTaskerBundle:Task:new" }
+
+crud_task_create:
+    pattern:  /create
+    defaults: { _controller: "PILTaskerBundle:Task:create" }
+    requirements: { _method: post }
+
+crud_task_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "PILTaskerBundle:Task:edit" }
+
+crud_task_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "PILTaskerBundle:Task:update" }
+    requirements: { _method: post|put }
+
+crud_task_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "PILTaskerBundle:Task:delete" }
+    requirements: { _method: post|delete }

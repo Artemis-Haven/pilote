@@ -1,0 +1,48 @@
+{# On étend notre layout #}
+{% extends "::base.html.twig" %}
+
+    {% block styles %}
+    <!-- CSS pour la page d'accueil -->
+    <link rel="stylesheet" href="{{ asset('css/landing-page.css') }}" type="text/css" />
+
+    <!-- Custom Google Web Font -->
+    <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
+    {% endblock %}
+    
+    {% block body %}{% endblock %}
+    
+    {% block footer %}
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="list-inline">
+                        <li><a href="{{ path('piluser_accueil') }}">Accueil</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="{{ path('piluser_apropos') }}">A propos</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="{{ path('piluser_contact') }}">Contact</a>
+                        </li>
+                        {% if is_granted('ROLE_USER') %}
+                            <li class="footer-menu-divider">&sdot;</li>
+                            <li><a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+                            </li>
+                        {% else %}
+                            <li class="footer-menu-divider">&sdot;</li>
+                            <li><a href="{{ path('fos_user_security_login') }}">Connexion</a>
+                            </li>
+                            <li class="footer-menu-divider">&sdot;</li>
+                            <li><a href="{{ path('fos_user_registration_register') }}">S'enregistrer</a>
+                            </li>
+                        {% endif %}
+
+                    </ul>
+                    <p class="copyright text-muted small">Copyright &copy; Polytech 2014. Tous droits réservés.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    {% endblock %}
+    

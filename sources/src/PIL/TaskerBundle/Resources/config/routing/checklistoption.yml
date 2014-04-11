@@ -1,0 +1,30 @@
+checklistoption:
+    pattern:  /
+    defaults: { _controller: "PILTaskerBundle:CheckListOption:index" }
+
+checklistoption_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "PILTaskerBundle:CheckListOption:show" }
+
+checklistoption_new:
+    pattern:  /new
+    defaults: { _controller: "PILTaskerBundle:CheckListOption:new" }
+
+checklistoption_create:
+    pattern:  /create
+    defaults: { _controller: "PILTaskerBundle:CheckListOption:create" }
+    requirements: { _method: post }
+
+checklistoption_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "PILTaskerBundle:CheckListOption:edit" }
+
+checklistoption_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "PILTaskerBundle:CheckListOption:update" }
+    requirements: { _method: post|put }
+
+checklistoption_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "PILTaskerBundle:CheckListOption:delete" }
+    requirements: { _method: post|delete }

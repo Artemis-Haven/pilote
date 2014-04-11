@@ -1,0 +1,30 @@
+crud_tlist:
+    pattern:  /
+    defaults: { _controller: "PILTaskerBundle:TList:index" }
+
+crud_tlist_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "PILTaskerBundle:TList:show" }
+
+crud_tlist_new:
+    pattern:  /new
+    defaults: { _controller: "PILTaskerBundle:TList:new" }
+
+crud_tlist_create:
+    pattern:  /create
+    defaults: { _controller: "PILTaskerBundle:TList:create" }
+    requirements: { _method: post }
+
+crud_tlist_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "PILTaskerBundle:TList:edit" }
+
+crud_tlist_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "PILTaskerBundle:TList:update" }
+    requirements: { _method: post|put }
+
+crud_tlist_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "PILTaskerBundle:TList:delete" }
+    requirements: { _method: post|delete }

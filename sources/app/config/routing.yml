@@ -1,4 +1,32 @@
 # app/config/routing.yml
+
+# Lien vers les routings des 3 bundles
+pil_admin:
+    resource: "@PILAdminBundle/Resources/config/routing.yml"
+    prefix:   /admin
+
+pil_user:
+    resource: "@PILUserBundle/Resources/config/routing.yml"
+    prefix:   /
+
+pil_tasker:
+    resource: "@PILTaskerBundle/Resources/config/routing.yml"
+    prefix:   /
+
+# Lien vers les pages du dossier app/Resources/views
+piluser_accueil:
+    path: /accueil
+    defaults: { _controller: PILUserBundle:User:index }
+    
+piluser_apropos:
+    path: /apropos
+    defaults: { _controller: PILUserBundle:User:apropos }
+    
+piluser_contact:
+    path: /contact
+    defaults: { _controller: PILUserBundle:User:contact }
+    
+# Routes de FOSUserBundle
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 
@@ -17,3 +45,7 @@ fos_user_resetting:
 fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /profile
+    
+# Routes de FOSJSRoutingBundle
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
