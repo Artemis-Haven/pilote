@@ -7,14 +7,33 @@ Il est principalement écrit en PHP et en Javascript et utilise le framework PHP
 
 ##Installation
 
-Sous Linux :
+###Sous Linux :
+
+**Pré-requis :**  Apache, PHP, MySQL et une bonne connexion à internet.
+
+> Pour installer ces paquets, ou juste pour vérifier qu'ils sont déjà présents, tapez dans une console : `sudo apt-get install apache2 php5 mysql-server libapache2-mod-php5 php5-mysql`
+
 1. Ouvrez une console et, dans le dossier souhaité, tapez`git clone https://github.com/Artemis-Haven/pilote.git`
+
 2. Entrez dans le dossier sources avec `cd pilote/sources`
-3. (Si besoin, Editez le fichier php.ini pour allouer suffisament de mémoire pour php)
+
+3. Si besoin, éditez le fichier php.ini pour allouer suffisament de mémoire pour php
+
 4. Installez les dépendances avec `php composer.phar install`
+
 5. Pendant l'installation, remplir les champs demandés (ceux de `parameters.yml`)
+
 6. Réglez les problèmes de cache en faisant `sudo chmod 777 -R app/logs/* app/cache/* && sudo php app/console cache:clear && sudo chmod 777 -R app/logs/* app/cache/*`
-7. (Editez si besoin le fichier `app/config/parameters.yml` pour rajouter par exemple la ligne : `router.request_context.base_url: /Teamwork/pilote/sources/web/app_dev.php`
+
+7. Si besoin, éditez le fichier `app/config/parameters.yml` pour rajouter le chemin d'accès à votre site depuis `localhost`. Cela sert à générer les routes pour les fichiers Javascript.
+Par exemple si vous accédez à la page d'accueil via l'url `localhost/pilote/sources/web/app_dev.php/accueil`
+la ligne à rajouter sera `router.request_context.base_url: /pilote/sources/web/app_dev.php` 
+
+8. Générez la base de données avec la commande `php app/console doctrine:database:create && php app/console doctrine:schema:update --force`
+
+9. Générez le fichier de *routing* pour les requêtes AJAX avec `php app/console fos:js-routing:dump`
+
+10. Si tout s'est bien passé, le site est désormais opérationnel. Sinon, appelez les pompiers.
 
 ##Organisation du projet
 Voici l'arborescence du site :
