@@ -1,0 +1,40 @@
+{% extends 'PILMessageBundle::layout.html.twig' %}
+
+{% block fos_message_content %}
+
+<h2>{{ thread.subject }}</h2>
+
+<div class="row">
+    <div class="col-lg-6">   
+    {% for message in thread.messages %}
+    
+        <div class="panel panel-primary">
+              <div class="panel-heading">
+                    <h6 class="panel-title">{% trans with {'%sender%': message.sender|e, '%date%': message.createdAt|date("d/m/Y")} from 'FOSMessageBundle' %}message_info{% endtrans %}</h6>
+              </div>
+              <div class="panel-body">
+                <div class="messenger_thread_message_body" id="message_{{ message.id }}">
+                    {# On affiche le contenu du message #}
+                    {{ message.body }}
+                </div>
+              </div>
+        </div>    
+    
+    {% endfor %}
+
+    {# Le formulaire pour répondre #}
+    <div class="container">
+            <div class="row">
+                    <div class="span4 well" style="padding-bottom:0">
+                            <form action="{{ url('fos_message_thread_view', {'threadId': thread.id}) }}" method="post">
+                                 {{ form_widget(form) }} 
+                                <input class="btn btn-primary" type="submit" />
+                            </form>
+                    </div>
+              </div>
+     </div>
+    </div>
+</div>
+<p> fichier à modifier : PIL/MessageBundle/Ressources/Views/Message/thread.html.twig</p>
+
+{% endblock %}

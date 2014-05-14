@@ -1,0 +1,24 @@
+{% extends '::base.html.twig' %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ asset('css/fullcalendar.css') }}" class="css">
+<link rel="stylesheet" href="{{ asset('css/fullcalendar.print.css') }}" media='print' />
+<style>
+#calendar {
+	width: 900px;
+	margin: 0 auto;
+}
+</style>
+{% endblock %}
+
+{% block body %}
+
+<!-- Création du calendrier -->
+<p>test d'affichage</p>
+<div id='calendar'></div>
+
+<script src="{{ asset('js/jquery.js') }}"></script>
+<script src="{{ asset('js/jquery-ui-custom.min.js') }}"></script>
+<script src="{{ asset('js/board/fullcalendar.min.js') }}"></script>
+
+{% endblock %}

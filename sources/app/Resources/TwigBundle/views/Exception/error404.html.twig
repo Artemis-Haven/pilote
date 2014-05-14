@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Une erreur est survenue : {{ status_text }}</title>
+    <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/mainStyle.css') }}" type="text/css" />
+  </head>
+  <body>
+      {% if is_granted('ROLE_USER') %}
+	    {% include "::authentNavbar.html.twig" %}
+      {% else %}
+	    {% include "::nonAuthentNavbar.html.twig" %}
+      {% endif %}
+      
+    <h1>Oups ! Il semblerait qu'une erreur soit survenue...</h1>
+    <h2>Le serveur a retourné une erreur "{{ status_code }} {{ status_text }}".</h2>
+
+    <div>
+      Il semblerait que la page à laquelle vous tentiez d'accéder n'existe pas... Dommage !
+      Vous pouvez revenir à l'acceuil en suivant <a href="{{ path('pil_admin_homepage')}}">ce lien</a>.
+    </div>
+  </body>
+</html>
