@@ -45,3 +45,9 @@ PILTaskerBundle_ajax_board_request:
         expose: true
     requirements:
         _method:  POST
+
+piltasker_calendar:
+    path:   /board/{boardId}/calendar
+    defaults: { _controller: PILTaskerBundle:Calendar:showCalendar }
+    requirements:
+        boardId: \d+

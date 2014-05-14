@@ -49,3 +49,9 @@ fos_user_change_password:
 # Routes de FOSJSRoutingBundle
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+    
+# Routes de FOSMessageBundle
+fos_message:
+    resource: "@FOSMessageBundle/Resources/config/routing.xml"
+    prefix: /message
+    

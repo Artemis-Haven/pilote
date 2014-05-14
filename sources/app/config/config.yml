@@ -69,6 +69,22 @@ swiftmailer:
     spool:     { type: memory }
 
 fos_user:
-    db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
+    db_driver: orm # 
     firewall_name: main
     user_class: PIL\UserBundle\Entity\User
+    service:
+        mailer: fos_user.mailer.twig_swift
+    registration:
+        confirmation:
+            enabled: false
+            #from_email:
+                # Adresse de l'expediteur
+                #address: alain.krok@gmail.com
+                # Nom de l'expediteur
+                #sender_name: Equipe PILote
+            #template: PILUserBundle:Registration:Registration.email.html.twig
+
+fos_message:
+    db_driver: orm
+    thread_class: PIL\MessageBundle\Entity\Thread
+    message_class: PIL\MessageBundle\Entity\Message

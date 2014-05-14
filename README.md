@@ -13,7 +13,7 @@ Sous Linux :
 3. (Si besoin, Editez le fichier php.ini pour allouer suffisament de mémoire pour php)
 4. Installez les dépendances avec `php composer.phar install`
 5. Pendant l'installation, remplir les champs demandés (ceux de `parameters.yml`)
-6. Réglez les problèmes de cache en faisant `sudo chmod 777 -R app/logs/ app/cache/* && sudo php app/console cache:clear && sudo chmod 777 -R app/logs/ app/cache/*`
+6. Réglez les problèmes de cache en faisant `sudo chmod 777 -R app/logs/* app/cache/* && sudo php app/console cache:clear && sudo chmod 777 -R app/logs/* app/cache/*`
 7. (Editez si besoin le fichier `app/config/parameters.yml` pour rajouter par exemple la ligne : `router.request_context.base_url: /Teamwork/pilote/sources/web/app_dev.php`
 
 ##Organisation du projet

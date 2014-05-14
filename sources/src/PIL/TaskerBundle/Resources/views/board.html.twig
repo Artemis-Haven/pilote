@@ -10,7 +10,6 @@
 {% block styles %}
 	<link rel="stylesheet" href="{{ asset('css/board.css') }}" class="css">
 	<link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}" class="css">
-	<link rel="stylesheet" href="{{ asset('css/custom-scrollbar.css') }}" class="css">
 {% endblock %}
 
 
@@ -130,7 +129,6 @@ est inséré ou supprimé à l'ouverture ou la fermeture de la fenêtre. #}
 
 {% block scripts %}
 	{{ parent() }}
-	<script src="{{ asset('js/custom-scrollbar.min.js') }}"></script>
 	<script src="{{ asset('js/jquery-ui-custom.min.js') }}"></script>
 	<script src="{{ asset('js/jquery.hotkeys.js') }}"></script>
 	<script src="{{ asset('js/board/sortableTask.js') }}"></script>
@@ -141,13 +139,4 @@ est inséré ou supprimé à l'ouverture ou la fermeture de la fenêtre. #}
 	<script src="{{ asset('js/board/manageTask.js') }}"></script>
 	<script src="{{ asset('js/board/manageChecklists.js') }}"></script>
     <script src="{{ asset('js/board/detailtache.js') }}"></script>
-	<script>
-	/*$(document).ready(function() {
-  		$(".sortableTasksContainer").customScrollbar({
-		  skin: "default-skin", 
-		  hScroll: false,
-		  updateOnWindowResize: true
-		  });
-  	});*/
-	</script>
 {% endblock %}

@@ -42,8 +42,24 @@
 			<li>
 			      <ul class="nav navbar-nav navbar-right">
             			
-        			<ul class="nav navbar-brand" id="date"></ul>
-
+                                <!-- Message -->
+                                <li class="dropdown"> 
+						<a 
+						{% if fos_message_nb_unread() > 0  %}
+							style="color:#CC2200;"
+						{% endif %}
+						href="#" class="dropdown-toggle" data-toggle="dropdown">
+							<span class="glyphicon glyphicon glyphicon-envelope"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a href="{{ path('fos_message_inbox') }}"><span class="glyphicon glyphicon glyphicon-inbox"></span> Inbox <span class="badge">{{ fos_message_nb_unread() }}</span></a></li>
+							<li><a href="{{ path('fos_message_thread_new') }}"><span class="glyphicon glyphicon glyphicon-pencil"></span> Créer</a></li>
+                                                        <li><a href="{{ path('fos_message_deleted') }}"><span class="glyphicon glyphicon glyphicon-remove-sign"></span> Archivés</a></li>
+                                                        <li><a href="{{ path('fos_message_sent') }}"><span class="glyphicon glyphicon glyphicon-send"></span> Envoyés</a></li>
+						</ul>
+			        </li>
+                                
+                                
 			      	<li class="dropdown"> 
 						<a 
 						{% if is_granted('ROLE_ADMIN') %}
@@ -55,7 +71,6 @@
 						<ul class="dropdown-menu">
 							<li><a href="{{ path('fos_user_profile_show') }}"><span class="glyphicon glyphicon glyphicon-eye-open"></span> Profil </a></li>
 							<li><a href="#"><span class="glyphicon glyphicon glyphicon-question-sign"></span> Aide</a></li>
-                                                        <li><a href="#"><span class="glyphicon glyphicon glyphicon-envelope"></span> Messages <span class="badge">3</span></a></li>
 							<li class="divider"></li>
                                                         {% if is_granted('ROLE_ADMIN') %}
                                                         <li><a href="{{ path('pil_admin_homepage') }}"><span class="glyphicon glyphicon glyphicon-cog"></span> Administration</a></li>

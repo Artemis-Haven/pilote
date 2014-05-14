@@ -3,6 +3,7 @@
 namespace PIL\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use FOS\MessageBundle\Model\ParticipantInterface;
 use FOS\UserBundle\Entity\User as BaseUser;
 use FOS\TaskerBundle\Entity\HasCommented;
 
@@ -10,7 +11,7 @@ use FOS\TaskerBundle\Entity\HasCommented;
  * @ORM\Entity
  * @ORM\Table(name="pilote_user")
  */
-class User extends BaseUser
+class User extends BaseUser implements ParticipantInterface
 {
     /**
 16   * @ORM\Id
