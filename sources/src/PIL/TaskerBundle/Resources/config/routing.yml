@@ -9,7 +9,20 @@ piltasker_board:
     defaults: { _controller: PILTaskerBundle:Tasker:board }
     requirements:
         boardId: \d+
-
+        
+piltasker_gantt:
+    path: /board/{boardId}/gantt
+    defaults: { _controller: PILTaskerBundle:Gantt:index }
+    requirements:
+        boardId: \d+
+        
+piltasker_gantt_domaine:
+    path: /board/{boardId}/gantt-{domaineId}
+    defaults: { _controller: PILTaskerBundle:Gantt:gantt }
+    requirements:
+        boardId: \d+
+        domaineId: \d+
+        
 PILTaskerBundle_board:
     resource: "@PILTaskerBundle/Resources/config/routing/board.yml"
     prefix:   /crud/board

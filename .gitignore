@@ -11,3 +11,4 @@ web/bundles/*
 app/config/parameters.ini
 app/config/parameters.yml
 /nbproject/private/
+sources/web/js/fos_js_routes.js

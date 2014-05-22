@@ -3,3 +3,9 @@
 {% block fos_user_content %}
 {% include "FOSUserBundle:Profile:edit_content.html.twig" %}
 {% endblock fos_user_content %}
+{% block scripts %}
+{{ parent() }}
+<script type="text/javascript">
+    $( "form input[type=text], form input[type=password], form input[type=email]" ).addClass( "form-control" );
+</script>
+{% endblock %}

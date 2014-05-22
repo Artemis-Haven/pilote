@@ -6,8 +6,9 @@ Ce site a été développé dans le cadre d'un Projet d'Ingénierie  du Logiciel
 Il est principalement écrit en PHP et en Javascript et utilise le framework PHP **Symfony2** et **JQuery**.
 
 ##Installation
+_(Temps de déploiement estimé : 5 min dans le meilleur des cas)_
 
-###Sous Linux :
+###Sous Linux et OSX (Mac) :
 
 **Pré-requis :**  Apache, PHP, MySQL, un client Git et une bonne connexion à internet.
 
@@ -37,19 +38,20 @@ la ligne à rajouter sera `router.request_context.base_url: /pilote/sources/web/
 
 ###Sous Windows
 
-**Pré-requis :**  Wamp avec Apache, PHP et MySQL, un client Git et une bonne connexion à internet.
+**Pré-requis :**  Wamp||Xamp avec Apache, PHP et MySQL, un client Git et une bonne connexion à internet.
 
-1. Ouvrez une invite de commande et placez vous dans le répertoire dans lequel vous souhaitez installer le projet. Tapez ensuite la commande `git clone https://github.com/Artemis-Haven/pilote.git`
+1. Depuis votre client Git, récupérez les fichiers du projet depuis l'adresse `https://github.com/Artemis-Haven/pilote.git`. Selon votre client, la procédure n'est pas la même. _Pour un client en ligne de commande, ouvrez une invite de commande et placez vous dans le répertoire dans lequel vous souhaitez installer le projet. Tapez ensuite la commande `git clone https://github.com/Artemis-Haven/pilote.git`_
 
-2. Placez-vous dans le répertoire sources `cd pilote/sources`
+2. Placez-vous dans le répertoire sources `cd pilote/sources` depuis une invite de commande.
 
-3. Si besoin, éditez le fichier php.ini pour allouer suffisament de mémoire pour php
+4. Installez les dépendances avec `php composer.phar install`. Quelques erreurs à cette étape peuvent survenir :
+ 1. Si vous utilisez un client graphique, vous devrez peut-être indiquer dans les variables d'environnement de votre système l'emplacement du git en ligne de commande utilisé par votre client graphique.
+ 2. Si php indique que vous n'avez pas assez de mémoire, modifiez le fichier `php.ini` de votre PHP en ligne de commande afin d'allouer plus de mémoire, en modifiant la ligne `memory_limit = 128M ;`
+ 3. Si l'erreur `Failed to download incenteev/composer-parameter-handler from dist: You must enable the openssl extension to download files via https` survient, suivez les étapes suivantes :
+   1. Ouvrez le fichier `php.ini` de votre PHP en ligne de commande situé dans le répertoire `wamp\bin\php\php#.#.##`
+    2. Décommentez la ligne `;extension=php_openssl.dll` en retirant le point-virgule `;` en début de ligne
 
-4. Installez les dépendances avec `php composer.phar install`. Si l'erreur `Failed to download incenteev/composer-parameter-handler from dist: You must enable the openssl extension to download files via https` survient, suivez les étapes suivantes :
-- Ouvrez le fichier `php.ini` de votre PHP en ligne de commande situé dans le répertoire `wamp\bin\php\php#.#.##`
-- Décommentez la ligne `;extension=php_openssl.dll` en retirant le point-virgule `;` en début de ligne
-
-5. Pendant l'installation, remplir les champs demandés (ceux de `parameters.yml`)
+5. Pendant l'installation, remplir les champs demandés (ceux de `parameters.yml`). Certains paramètres peuvent être laissés par défaut et éditables plus tard si besoin. Dans ce cas, appuyez simplement sur la touche [Entrée]
 ```
 Creating the "app/config/parameters.yml" file
 Some parameters are missing. Please provide them.
@@ -66,7 +68,6 @@ mailer_password (null): [Entrée]
 locale (en): fr
 secret (ThisTokenIsNotSoSecretChangeIt): [Entrée]
 ```
-
 6. Générez la base de données avec la commande `php app/console doctrine:database:create && php app/console doctrine:schema:update --force`
 
 7. Générez le fichier de *routing* pour les requêtes AJAX avec `php app/console fos:js-routing:dump`

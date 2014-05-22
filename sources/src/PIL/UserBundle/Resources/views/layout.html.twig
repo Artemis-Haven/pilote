@@ -3,8 +3,13 @@
 
 {% block styles %}
     <link rel="stylesheet" href="{{ asset('css/formulaires.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('css/cssProfile.css') }}" type="text/css" />
 {% endblock %}
-
+{% block scripts %}
+        {{ parent() }}
+	<script src="{{ asset('js/board/manageTask.js') }}"></script>
+    <script src="{{ asset('js/board/detailtache.js') }}"></script>
+{% endblock %}
 {# Dans notre layout, il faut définir le block body #}
 {% block body %}
 

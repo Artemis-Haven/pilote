@@ -511,7 +511,7 @@ window.dhtmlx || (dhtmlx = function(t) {
     t = t || window.event;
     var e = t.target || t.srcElement, n = gantt.locate(t);
     if (null !== n) {
-        var i = !gantt.checkEvent("onTaskClick") || gantt.callEvent("onTaskClick", [n, t]);
+        var i = !gantt.checkEvent("onTaskClick") || gantt.callEvent("onTaskClick", [n, t]);  
         i && gantt.config.select_task && gantt.selectTask(n)
     } else
         gantt.callEvent("onEmptyClick", [t]);
@@ -583,6 +583,11 @@ window.dhtmlx || (dhtmlx = function(t) {
             this.scrollTo(a), this.callEvent("onTaskRowClick", [e, n])
         }
     }, this), this._click.gantt_grid_head_cell = dhtmlx.bind(function(t, e, n) {
+//********************************        
+// Here 
+//********************************
+        alert("123");
+        /*
         var i = n.getAttribute("column_id");
         if (this.callEvent("onGridHeaderClick", [i, t]))
             if ("add" == i)
@@ -591,7 +596,11 @@ window.dhtmlx || (dhtmlx = function(t) {
                 var a = this._sort && this._sort.direction && this._sort.name == i ? this._sort.direction : "desc";
                 a = "desc" == a ? "asc" : "desc", this._sort = {name: i, direction: a}, this._render_grid_header(), this.sort(i, "desc" == a)
             }
+      */
+     
+     
     }, this), !this.config.sort && this.config.order_branch && this._init_dnd(), this._click.gantt_add = dhtmlx.bind(function(t, e) {
+        
         if (!this.config.readonly) {
             var n = e ? this.getTask(e) : !1, i = "";
             if (n)
@@ -601,10 +610,15 @@ window.dhtmlx || (dhtmlx = function(t) {
                 i = a ? this.getTask(a).start_date : this.getState().min_date
             }
             n && (n.$open = !0);
+            
             var s = {text: gantt.locale.labels.new_task, start_date: this.templates.xml_format(i), duration: 1, progress: 0, parent: e};
+            alert("Désole, Vous ne pouvez pas create une tache ici, retourne au page board SVP");
+            /*
             this.callEvent("onTaskCreated", [s]), this.addTask(s), this.showTask(s.id), this.selectTask(s.id), this.config.details_on_create && this.showLightbox(s.id)
+            */
         }
     }, this)
+    
 }, gantt._render_grid = function() {
     this._is_grid_visible() && (this._calc_grid_width(), this._render_grid_header())
 }, gantt._calc_grid_width = function() {
@@ -2003,10 +2017,26 @@ window.dhtmlx || (dhtmlx = function(t) {
     a[1] && "undefined" == typeof a[1].width && (a[1].width = i._second_column_width), a[2] && "undefined" == typeof a[2].width && (a[2].width = i._third_column_width), i._lightbox_template && (gantt._lightbox_template = i._lightbox_template), gantt._init_skin = function() {
     }
 }, gantt.skins = {}, gantt._lightbox_methods = {}, gantt._lightbox_template = "<div class='dhx_cal_ltitle'><span class='dhx_mark'>&nbsp;</span><span class='dhx_time'></span><span class='dhx_title'></span></div><div class='dhx_cal_larea'></div>", gantt.showLightbox = function(t) {
+// ! ! ! ! ! ! ! HERE ! ! ! ! ! ! ! !
+//alert(t);
+var uneID =t;
+$('#modalTask').modal({show:true});
+getTaskDetails(t);
+//	getTaskDetails($( this ).attr('id').replace('task-', ''));
+
+
+  /* 
     if (t && !this.config.readonly && this.callEvent("onBeforeLightbox", [t])) {
-        var e = this.getTask(t), n = this.getLightbox(this._get_safe_type(e.type));
+    
+           
+         var e = this.getTask(t), n = this.getLightbox(this._get_safe_type(e.type));
+            alert(e);
+            alert(n);
+            
         this._center_lightbox(n), this.showCover(), this._fill_lightbox(t, n), this.callEvent("onLightbox", [t])
-    }
+        
+   }*/
+   
 }, gantt._get_timepicker_step = function() {
     if (this.config.round_dnd_dates) {
         var t = gantt._tasks, e = this._get_line(t.unit) * t.step / 60;
