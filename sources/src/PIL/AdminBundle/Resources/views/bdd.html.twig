@@ -10,11 +10,219 @@
               <li class="active"><a href="{{ path('pil_admin_homepage') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
               <li class="active"><i class="fa fa-edit"></i> Gestion base de données</li>
             </ol>
+            <div class="alert alert-success alert-dismissable">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              Vous pouvez gérer à partir de cet espace les droits de chaque rôle ! Have fun !
+            </div>
           </div>
         </div>
-    
-        <div class="row">
-            <h3>En attente des différentes fonctionnalités à développer...</h3>
+
+        <div class="col-lg-12">
+            <h2>Gestion des droits</h2>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Action</th>
+                            <th>User anonyme</th>
+                            <th>User authentifié</th>
+                            <th>Membre équipe</th>
+                            <th>Chef de projet</th>
+                            <th>Admin</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {# Gestion de tâche #}
+                        <tr>
+                            <td rowspan='4'>Tâche</td>
+                            <td>Créer</td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                        </tr>
+                        <tr>
+                            <td>Lire</td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                        </tr>
+                        <tr>
+                            <td>Editer</td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                        </tr>
+                        <tr>
+                            <td>Supprimer</td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                        </tr>
+                        {# Fin de gestion tâche #}
+
+                        {# Gestion d'une liste#}
+                        <tr>
+                            <td rowspan='4'>Liste</td>
+                            <td>Créer</td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                        </tr>
+                        <tr>
+                            <td>Lire</td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                        </tr>
+                        <tr>
+                            <td>Editer/Archiver</td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                        </tr>
+                        <tr>
+                            <td>Supprimer</td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                        </tr>
+                        {# Fin de gestion d'une liste #}
+
+                        {# Gestion d'une phase #}
+                        <tr>
+                            <td rowspan='4'>Phase</td>
+                            <td>Créer</td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                        </tr>
+                        <tr>
+                            <td>Lire</td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                        </tr>
+                        <tr>
+                            <td>Editer</td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                        </tr>
+                        <tr>
+                            <td>Supprimer</td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                        </tr>
+                        {# Fin de gestion d'une phase #}
+
+                        {# Gestion d'un domaine #}
+                        <tr>
+                            <td rowspan='4'>Domaine</td>
+                            <td>Créer</td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                        </tr>
+                        <tr>
+                            <td>Lire</td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                        </tr>
+                        <tr>
+                            <td>Editer</td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                        </tr>
+                        <tr>
+                            <td>Supprimer</td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                        </tr>
+                        {# Fin de gestion d'un domaine #}
+
+                        {# Gestion d'un projet #}
+                        <tr>
+                            <td rowspan='5'>Projet</td>
+                            <td>Créer</td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                        </tr>
+                        <tr>
+                            <td>Lire</td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                        </tr>
+                        <tr>
+                            <td>Editer</td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                        </tr>
+                        <tr>
+                            <td>Supprimer</td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                        </tr>
+                        <tr>
+                            <td>Ajouter membre</td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox"></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                            <td><input type="checkbox" name="my-checkbox" checked></td>
+                        </tr>
+                        {# Fin de gestion d'un projet #}
+                    </tbody>
+                </table>
+          </div>
         </div>
 </div>
+
 {% endblock %}

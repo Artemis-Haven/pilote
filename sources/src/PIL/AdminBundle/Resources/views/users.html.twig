@@ -13,12 +13,12 @@
             <div class="alert alert-success alert-dismissable">
               <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
               Vous pouvez gérer à partir de cette page les utilisateurs (les administrateurs sont affichés en rouge). Dans
-              la colonne "gestion", vous pouvez supprimer l'utilisateur selectionné en cliquant sur la poubelle, ou le promouvoir
-              en cliquant sur la petite étoile.
+              la colonne "gestion", vous pouvez supprimer l'utilisateur selectionné en cliquant sur la poubelle, le promouvoir
+              en cliquant sur la petite flèche vers le haut ou le déclasser en cliquant sur la petite flèche vers le bas.
             </div>
           </div>
         </div><!-- /.row -->
-       
+
         <!-- Table affichant les utilisateurs-->
         <div class="row">
           <div class="col-lg-12">
@@ -35,15 +35,16 @@
                   </tr>
                 </thead>
                 <tbody>
-                    {% for user in users %} 
+                    {% for user in users %}
                         <tr>
                             <td>{{ user.username|e }}</td>
                             <td>{{ user.email }}</td>
                             <td>{{ user.roles[0] }}</td> <!-- Ne sont pas définis ! il faut le faire en dur...-->
-                            <td>{{ user.lastLogin |date("m/d/Y")}}</td>
+                            <td>{{ user.lastLogin |date("d/m/Y")}}</td>
                             <td>
                                 <a href="#"><span class="glyphicon glyphicon glyphicon-trash"></span></a>
-                                <a href="#"><span class="glyphicon glyphicon glyphicon-star"></span></a>
+                                <a href="#"><span class="glyphicon glyphicon glyphicon-arrow-up"></span></a>
+                                <a href="#"><span class="glyphicon glyphicon glyphicon-arrow-down"></span></a>
                             </td>
                         </tr>
                     {% endfor %}
