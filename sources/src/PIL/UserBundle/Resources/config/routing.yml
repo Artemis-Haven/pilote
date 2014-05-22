@@ -1,0 +1,7 @@
+pil_profil_show:
+    pattern:  /
+    defaults: { _controller: PILUserBundle:Profile:show }
+    
+pil_profil_edit:
+    pattern:  /edit
+    defaults: { _controller: PILUserBundle:Profile:edit }

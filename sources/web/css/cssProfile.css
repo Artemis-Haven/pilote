@@ -1,0 +1,67 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 19 mars 2014, 21:03:19
+    Author     : Yamin
+*/
+
+.enteteProfil 
+{
+    height: 150px;
+    padding-left:20%;
+    background-color: #EBEBEB;
+}
+.imageProfil
+{
+    margin-top: 20px;
+    display: inline-block;
+    width: 100px;
+}
+.imageProfil img
+{
+    width:100px;
+    height:100px
+}
+.infosProfil
+{
+    margin-bottom:10px;
+    width: 200px;
+    display: inline-block;   
+}
+.infosProfil
+{
+    font-size: x-large;
+}
+.corpsProfil
+{
+    margin-top: 50px;
+    padding-top: 10px;
+    margin-left:15%;
+    width: 70%;
+}
+
+.corpsProfil section
+{
+    margin-top: 5px;
+    width: 300px;
+    min-height:100px;
+    display: inline-block;
+    vertical-align: top;
+    border-radius: 4px 4px 4px 4px;
+    border: #D2D2D2 1px solid;
+    padding-top: 10px;
+    padding-left: 10px;
+}
+.corpsProfil section p
+{
+    padding-left: 10px;
+    padding-top: 5px;
+}
+.corpsProfil section:hover
+{
+    background-color: #EBEBEB;
+    cursor: pointer;
+}
