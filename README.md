@@ -9,7 +9,7 @@ Il est principalement écrit en PHP et en Javascript et utilise le framework PHP
 
 ###Sous Linux :
 
-**Pré-requis :**  Apache, PHP, MySQL et une bonne connexion à internet.
+**Pré-requis :**  Apache, PHP, MySQL, un client Git et une bonne connexion à internet.
 
 > Pour installer ces paquets, ou juste pour vérifier qu'ils sont déjà présents, tapez dans une console : `sudo apt-get install apache2 php5 mysql-server libapache2-mod-php5 php5-mysql`
 
@@ -34,6 +34,44 @@ la ligne à rajouter sera `router.request_context.base_url: /pilote/sources/web/
 9. Générez le fichier de *routing* pour les requêtes AJAX avec `php app/console fos:js-routing:dump`
 
 10. Si tout s'est bien passé, le site est désormais opérationnel. Sinon, appelez les pompiers.
+
+###Sous Windows
+
+**Pré-requis :**  Wamp avec Apache, PHP et MySQL, un client Git et une bonne connexion à internet.
+
+1. Ouvrez une invite de commande et placez vous dans le répertoire dans lequel vous souhaitez installer le projet. Tapez ensuite la commande `git clone https://github.com/Artemis-Haven/pilote.git`
+
+2. Placez-vous dans le répertoire sources `cd pilote/sources`
+
+3. Si besoin, éditez le fichier php.ini pour allouer suffisament de mémoire pour php
+
+4. Installez les dépendances avec `php composer.phar install`. Si l'erreur `Failed to download incenteev/composer-parameter-handler from dist: You must enable the openssl extension to download files via https` survient, suivez les étapes suivantes :
+- Ouvrez le fichier `php.ini` de votre PHP en ligne de commande situé dans le répertoire `wamp\bin\php\php#.#.##`
+- Décommentez la ligne `;extension=php_openssl.dll` en retirant le point-virgule `;` en début de ligne
+
+5. Pendant l'installation, remplir les champs demandés (ceux de `parameters.yml`)
+```
+Creating the "app/config/parameters.yml" file
+Some parameters are missing. Please provide them.
+database\_driver (pdo_mysql): [Entrée]
+database_host (127.0.0.1): [Entrée]
+database_port (null): [Entrée]
+database_name (symfony): <nom_base_de_données>
+database_user (root): [Entrée]
+database_password (null): [Entrée]
+mailer_transport (smtp): [Entrée]
+mailer_host (127.0.0.1): [Entrée]
+mailer_user (null): [Entrée]
+mailer_password (null): [Entrée]
+locale (en): fr
+secret (ThisTokenIsNotSoSecretChangeIt): [Entrée]
+```
+
+6. Générez la base de données avec la commande `php app/console doctrine:database:create && php app/console doctrine:schema:update --force`
+
+7. Générez le fichier de *routing* pour les requêtes AJAX avec `php app/console fos:js-routing:dump`
+
+8. Si tout s'est bien passé, le site est désormais opérationnel. Sinon, appelez les pompiers.
 
 ##Organisation du projet
 Voici l'arborescence du site :
