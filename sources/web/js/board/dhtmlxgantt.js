@@ -612,7 +612,7 @@ window.dhtmlx || (dhtmlx = function(t) {
             n && (n.$open = !0);
             
             var s = {text: gantt.locale.labels.new_task, start_date: this.templates.xml_format(i), duration: 1, progress: 0, parent: e};
-            alert("456");
+            alert("Désole, Vous ne pouvez pas create une tache ici, retourne au page board SVP");
             /*
             this.callEvent("onTaskCreated", [s]), this.addTask(s), this.showTask(s.id), this.selectTask(s.id), this.config.details_on_create && this.showLightbox(s.id)
             */
