@@ -1,12 +1,3 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : 12 mars 2014, 22:58:48
-    Author     : sofian
-*/
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -17,15 +8,15 @@ b, u, i, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
     margin: 0;
     padding: 0;
 }
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
+article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
     display: block;
 }
@@ -37,7 +28,7 @@ ol, ul {
 /*  CSS3 styles */
 
 input, textarea {
-    
+
     -mox-border-radius: 6px;
     -weblit-border-radius: 6px;
     border-radius: 6px;
@@ -45,7 +36,7 @@ input, textarea {
 
 
 body {
-    
+
     font-family: Verdana, Arial;
     font-size: 13px;
     color: #000;
@@ -53,7 +44,7 @@ body {
 }
 
 #wrapper {
-    
+
     margin: 50px auto; /* 50px from the top and auto centered */
     width: 960px;
 }
@@ -61,12 +52,12 @@ body {
 #form {
     margin:0 auto;
     width:400px;
-} 
+}
 
-h2 { 
-	color: white; 
-	background-color: #666; 
-	height: 30px; 
+h2 {
+	color: white;
+	background-color: #666;
+	height: 30px;
 	padding: 10px;
 }
 
@@ -82,9 +73,9 @@ input, textarea {
 	border: 1px solid #ddd;
 	font-size: 0.9em;
 	color: #666;
-	height: 25px;	
+	height: 25px;
 	padding: 10px;
-	margin-top: 3px;	
+	margin-top: 3px;
 }
 
 
@@ -97,7 +88,7 @@ textarea {
 
 
 input:focus, textarea:focus {
-	
+
     border:1px solid #99cc66;
 }
 
@@ -114,4 +105,3 @@ input:focus, textarea:focus {
 	#submit:hover {
 	    opacity:0.9;
 	}
-

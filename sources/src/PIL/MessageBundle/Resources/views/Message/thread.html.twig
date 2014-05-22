@@ -2,12 +2,12 @@
 
 {% block fos_message_content %}
 
-<h2>{{ thread.subject }}</h2>
+<h2>Sujet : {{ thread.subject }}</h2>
 
-<div class="row">
-    <div class="col-lg-6">   
+<div id="fos_user_profile_form">
+    <div class="col-lg-6">
     {% for message in thread.messages %}
-    
+
         <div class="panel panel-primary">
               <div class="panel-heading">
                     <h6 class="panel-title">{% trans with {'%sender%': message.sender|e, '%date%': message.createdAt|date("d/m/Y")} from 'FOSMessageBundle' %}message_info{% endtrans %}</h6>
@@ -18,23 +18,21 @@
                     {{ message.body }}
                 </div>
               </div>
-        </div>    
-    
+        </div>
+
     {% endfor %}
 
     {# Le formulaire pour répondre #}
-    <div class="container">
-            <div class="row">
-                    <div class="span4 well" style="padding-bottom:0">
-                            <form action="{{ url('fos_message_thread_view', {'threadId': thread.id}) }}" method="post">
-                                 {{ form_widget(form) }} 
-                                <input class="btn btn-primary" type="submit" />
-                            </form>
-                    </div>
-              </div>
-     </div>
-    </div>
+    <form class="form-signin" action="{{ url('fos_message_thread_view', {'threadId': thread.id}) }}" method="post">
+          <div>
+              {{ form_widget(form.body, {'attr': {'class': 'form-control'}}) }}
+          </div>
+          <br/>
+          <div>
+              <input class="btn btn-lg btn-primary btn-block" type="submit" value="Répondre"/>
+          </div>
+              {{ form_rest(form) }} {# pour le jeton CSRF en hidden #}
+    </form>
 </div>
-<p> fichier à modifier : PIL/MessageBundle/Ressources/Views/Message/thread.html.twig</p>
 
 {% endblock %}
