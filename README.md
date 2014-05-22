@@ -45,13 +45,14 @@ la ligne à rajouter sera `router.request_context.base_url: /pilote/sources/web/
 2. Placez-vous dans le répertoire sources `cd pilote/sources` depuis une invite de commande.
 
 4. Installez les dépendances avec `php composer.phar install`. Quelques erreurs à cette étape peuvent survenir :
- 1. Si vous utilisez un client graphique, vous devrez peut-être indiquer dans les variables d'environnement de votre système l'emplacement du git en ligne de commande utilisé par votre client graphique.
+ 1. Si vous utilisez un client graphique, vous devrez peut-être indiquer dans les variables d'environnement de votre système l'emplacement du git en ligne de commande utilisé par votre client graphique _(Exemple pour le client SourceTree : `C:\Users\<nom_utilisateur>\AppData\Local\Atlassian\SourceTree\git_local\bin`)_
  2. Si php indique que vous n'avez pas assez de mémoire, modifiez le fichier `php.ini` de votre PHP en ligne de commande afin d'allouer plus de mémoire, en modifiant la ligne `memory_limit = 128M ;`
  3. Si l'erreur `Failed to download incenteev/composer-parameter-handler from dist: You must enable the openssl extension to download files via https` survient, suivez les étapes suivantes :
    1. Ouvrez le fichier `php.ini` de votre PHP en ligne de commande situé dans le répertoire `wamp\bin\php\php#.#.##`
     2. Décommentez la ligne `;extension=php_openssl.dll` en retirant le point-virgule `;` en début de ligne
 
-5. Pendant l'installation, remplir les champs demandés (ceux de `parameters.yml`). Certains paramètres peuvent être laissés par défaut et éditables plus tard si besoin. Dans ce cas, appuyez simplement sur la touche [Entrée]
+5. Pendant l'installation, remplir les champs demandés (ceux de `parameters.yml`). Certains paramètres peuvent être laissés par défaut et éditables plus tard si besoin. Dans ce cas, appuyez simplement sur la touche [Entrée]. (_Si la commande lève une exception PDO, indiquez le port de MySQL pour le champ database_port (3306)_)
+
 ```
 Creating the "app/config/parameters.yml" file
 Some parameters are missing. Please provide them.
@@ -72,7 +73,9 @@ secret (ThisTokenIsNotSoSecretChangeIt): [Entrée]
 
 7. Générez le fichier de *routing* pour les requêtes AJAX avec `php app/console fos:js-routing:dump`
 
-8. Si tout s'est bien passé, le site est désormais opérationnel. Sinon, appelez les pompiers.
+8. Lancez le serveur au moyen de la commande `php app/console server:run`
+
+9. Si tout s'est bien passé, le site est désormais disponible à l'adresse `http://localhost:8000/accueil`.
 
 ##Organisation du projet
 Voici l'arborescence du site :
