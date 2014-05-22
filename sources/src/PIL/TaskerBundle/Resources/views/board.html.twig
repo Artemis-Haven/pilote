@@ -29,6 +29,7 @@
 			        <span title='Supprimer "{{ domain.name }}"' id="deleteDomainBtn-{{ domain.id }}" class="deleteDomainBtn glyphicon glyphicon-minus"></span> 
 			        <span title='Renommer "{{ domain.name }}"' id="renameDomainBtn-{{ domain.id }}" class="renameDomainBtn glyphicon glyphicon-edit"></span> 
 			        <span title="Ajouter un corps de métier" id="addDomainBtn-{{ board.id }}" class="addDomainBtn glyphicon glyphicon-plus"></span> 
+                                <a title='Show gantt "{{ domain.name }}"' id="showGanttDomainBtn-{{ domain.id }}" class="showGanttDomainBtn glyphicon glyphicon-picture" href="{{ path('piltasker_gantt_domaine', { 'boardId': board.id, 'domaineId': domain.id }) }}"></a>
 			    </h4>
 			</div> {# Fin "titre des domaines" #}
 
