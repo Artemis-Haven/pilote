@@ -7,7 +7,7 @@ Il est principalement écrit en PHP et en Javascript et utilise le framework PHP
 
 ##Installation
 
-###Sous Linux :
+###Sous OS X/Linux :
 
 **Pré-requis :**  Apache, PHP, MySQL, un client Git et une bonne connexion à internet.
 
