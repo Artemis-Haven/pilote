@@ -42,11 +42,13 @@ class TaskerController extends Controller
         {
             
             $em = $this->getDoctrine()->getManager();
-
+			$user = $this->container->get('security.context')->getToken()->getUser();
+          
             $tListId = $request->request->get('tListId');
             $tList = $em->getRepository('PILTaskerBundle:TList')->find($tListId);
             $newTask = new Task();
-            $tList->addTask($newTask);
+          	$user->addTask($newTask);
+            $tList->addTask($newTask, $tList->getMaxTaskPosition() + 1 );
 
             $em->persist($newTask);
             $em->flush();

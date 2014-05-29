@@ -13,7 +13,7 @@
     </div>
     
     <div class="corpsProfil">
-        {% for tache in taches %}
+        {% for tache in user.tasks %}
         <section onclick="getTaskDetails({{tache.id}});$('#modalTask').modal('toggle');">
             <b>{{ tache.name }}</b>
             <p>{{ tache.content|raw }}</p>
@@ -29,4 +29,5 @@
 		<div class="modal-dialog">
 		</div>
 	</div>
+ 
 </section>

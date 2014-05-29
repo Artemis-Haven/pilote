@@ -45,14 +45,19 @@ class TList
 
     /**
      * @ORM\OneToMany(targetEntity="PIL\TaskerBundle\Entity\Task", mappedBy="tList")
+     * @ORM\OrderBy({"position" = "ASC"})
      */
     private $tasks; 
 
 
-    public function addTask(\PIL\TaskerBundle\Entity\Task $task)
+    public function addTask(\PIL\TaskerBundle\Entity\Task $task, $position = 0)
     {
         $this->tasks[] = $task;
         $task->setTList($this); 
+      	if ($position != 0)
+        {
+            $task->setPosition($position);
+        }
         return $this;
     }
 
@@ -159,6 +164,16 @@ class TList
     public function getTasks()
     {
         return $this->tasks;
+    }
+  
+  	public function getMaxTaskPosition()
+    {
+        $max = 0;
+        foreach ($this->tasks as $t)
+        {
+          $max = ($t->getPosition() > $max) ? $t->getPosition() : $max; 
+        }
+      	return $max;
     }
 
     public function __toString() {

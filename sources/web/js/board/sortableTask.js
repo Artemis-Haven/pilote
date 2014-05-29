@@ -7,7 +7,15 @@ function setSortableTask() {
         items: ".task , .blankTask",
         handle: ".task-header",
         placeholder: "task-placeholder",
-        revert:true
+        revert:true,
+      	update: function(event, ui) {
+          	taskId = ui.item.attr('id').replace('task-', '');
+          	oldListId = 0;
+          	oldPosition = 0;
+          	newListId = 0;
+          	newPosition = ui.item.index();
+      		alert("Tache d'id "+taskId+" en position "+oldPosition+" dans la liste "+oldListId+" a bougé dans la liste "+newListId+" position "+newPosition);
+      	}
     });
     $( ".task" ).disableSelection();
 

@@ -25,6 +25,12 @@ class User extends BaseUser implements ParticipantInterface
      * @ORM\OneToMany(targetEntity="PIL\TaskerBundle\Entity\HasCommented", mappedBy="user")
      */
     private $comments; 
+    
+
+    /**
+     * @ORM\OneToMany(targetEntity="PIL\TaskerBundle\Entity\Task", mappedBy="creator")
+     */
+    private $tasks; 
 
 
     /**
@@ -58,5 +64,30 @@ class User extends BaseUser implements ParticipantInterface
     public function getComments()
     {
         return $this->comments;
+    }
+
+    /**
+     * Get tasks
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTasks()
+    {
+        return $this->tasks;
+    }
+
+
+    public function addTask(\PIL\TaskerBundle\Entity\Task $task)
+    {
+      	if ($this->tasks == null)
+          	$this->tasks = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tasks[] = $task;
+        $task->setCreator($this);
+        return $this;
+    }
+
+    public function removeTask(\PIL\TaskerBundle\Entity\Task $task)
+    {
+        $this->tasks->removeElement($task);
     }
 }
