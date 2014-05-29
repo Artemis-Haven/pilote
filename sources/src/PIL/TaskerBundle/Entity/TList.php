@@ -49,12 +49,19 @@ class TList
      */
     private $tasks; 
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="position", type="integer")
+     */
+    private $position;
 
-    public function addTask(\PIL\TaskerBundle\Entity\Task $task, $position = 0)
+
+    public function addTask(\PIL\TaskerBundle\Entity\Task $task, $position = -1)
     {
         $this->tasks[] = $task;
         $task->setTList($this); 
-      	if ($position != 0)
+      	if ($position != -1)
         {
             $task->setPosition($position);
         }
@@ -154,6 +161,7 @@ class TList
         $this->tasks = new \Doctrine\Common\Collections\ArrayCollection();
         $this->name = "Nouvelle Liste";
         $this->description = "";
+        $this->position = 0;
     }
 
     /**
@@ -174,6 +182,29 @@ class TList
           $max = ($t->getPosition() > $max) ? $t->getPosition() : $max; 
         }
       	return $max;
+    }
+
+    /**
+     * Set position
+     *
+     * @param integer $position
+     * @return TList
+     */
+    public function setPosition ($position)
+    {
+        $this->position = $position;
+
+        return $this;
+    }
+
+    /**
+     * Get position
+     *
+     * @return integer 
+     */
+    public function getPosition()
+    {
+        return $this->position;
     }
 
     public function __toString() {

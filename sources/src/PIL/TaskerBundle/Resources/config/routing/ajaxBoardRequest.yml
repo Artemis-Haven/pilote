@@ -73,3 +73,11 @@ piltasker_renameChecklistOption:
 piltasker_createComment:
     path: /createComment
     defaults: { _controller: PILTaskerBundle:Tasker:createComment }
+
+piltasker_moveTask:
+    path: /moveTask
+    defaults: { _controller: PILTaskerBundle:Position:moveTask }
+
+piltasker_moveList:
+    path: /moveList
+    defaults: { _controller: PILTaskerBundle:Position:moveList }

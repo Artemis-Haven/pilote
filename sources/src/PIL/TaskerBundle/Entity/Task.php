@@ -88,7 +88,7 @@ class Task
         $this->content = "";
         $this->startDate = new \DateTime("now");
         $this->endDate = new \DateTime("now");
-        $this->order = 0;
+        $this->position = 0;
     }
 
     /**

@@ -178,7 +178,7 @@ class TaskerController extends Controller
             $stepId = $request->request->get('stepId');
             $step = $em->getRepository('PILTaskerBundle:Step')->find($stepId);
             $newTList = new TList();
-            $step->addTList($newTList);
+            $step->addTList($newTList, $step->getMaxTListPosition() + 1 );
 
             $em->persist($newTList);
             $em->flush();
