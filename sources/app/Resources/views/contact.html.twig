@@ -15,23 +15,22 @@
 
 				<div class="clearfix"></div>
 				<h2 class="section-heading">Nous contacter</h2>
-				<hr class="section-heading-spacer">	
-				<br>		
-				<div id="form">
+				<p> Pour toute question, recensement de bug, remarque, il suffit de nous envoyer un mail via le formulaire de contact ci-dessous, et un membre de 
+				l'équipe vous répondra dès que possible ! </p>
+				<br>
 					<form class="form-signin" action="/PILote/web/app_dev.php/login_check" method="post">
-						<br>
-						<label for="username">Nom d&#039;utilisateur :</label>
-						<input type="text" class="form-control" placeholder="Pseudo" id="username" name="_username" value="" required="required" />
-						<br>
-						<label for="email">Adresse email :</label><br>
-						<input id="email" name="_email" value="" type="email" placeholder="Your email here"/>
-						<br><br>
-						<label for="message">Message :</label>
-						<br>
-						<textarea name="_message" placeholder="Your comments here"></textarea>
+						<br/>
+							<label for="username">Nom d&#039;utilisateur :</label>
+							<input type="text" class="form-control" id="username" name="_username" value="" required="required" />
+						<br/>
+							<label for="email">Adresse email :</label>
+							<input id="email" class="form-control" name="_email" value="" type="email" required="required"/>
+						<br/>
+							<label for="message">Message :</label>
+							<textarea class="form-control" name="_message" required="required"></textarea>
+						<br/>
 						<input class="btn btn-lg btn-primary btn-block" type="submit" id="_submit" name="_submit" value="Envoyer" />
 					</form>
-				</div>
 			</div>
 			<div class="col-lg-5 col-lg-offset-2 col-sm-6">
 				<img class="img-responsive" src="{{ asset('img/ipad.png') }}" alt="">
@@ -39,6 +38,8 @@
 		</div>
 	</div>
 </div>
+
+{# Bannière en bas de page contenant les liens vers les réseaux sociaux #}
 <div class="banner">
 	<div class="container">
 		<div class="row">
