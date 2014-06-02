@@ -1,8 +1,8 @@
-/*
+/* 
 Author: Start Bootstrap - http://startbootstrap.com
 'SB Admin' HTML Template by Start Bootstrap
 
-All Start Bootstrap themes are licensed under Apache 2.0.
+All Start Bootstrap themes are licensed under Apache 2.0. 
 For more info and more free Bootstrap 3 HTML themes, visit http://startbootstrap.com!
 */
 
@@ -107,7 +107,7 @@ table.tablesorter thead tr th:hover {
 	height: 100%;
 	border-radius: 0;
 	border: none;
-	background-color: #F7F7F7;
+	background-color: #222222;
 	overflow-y: auto;
   }
 

@@ -6,7 +6,7 @@
 <style>
 #calendar {
 	width: 900px;
-	margin: 40px auto;
+	margin: 0 auto;
 }
 </style>
 {% endblock %}
@@ -14,20 +14,11 @@
 {% block body %}
 
 <!-- Création du calendrier -->
+<p>test d'affichage</p>
 <div id='calendar'></div>
 
-{% endblock %}
-
-{% block scripts %}
-
-<script src="{{ asset('js/moment.js') }}"></script>
 <script src="{{ asset('js/jquery.js') }}"></script>
 <script src="{{ asset('js/jquery-ui-custom.min.js') }}"></script>
 <script src="{{ asset('js/board/fullcalendar.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/date.js') }}"></script>
-<script type="text/javascript">window.onload = date_heure();</script>
-<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-<script src="{{ asset('js/fos_js_routes.js') }}"></script>
-<script src="{{ asset('js/board/calendar.js') }}"></script> {# là où sont contenues les données à placer sur le calendrier #}
 
 {% endblock %}
