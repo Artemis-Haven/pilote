@@ -446,7 +446,7 @@ input.renameDomainField {
 }
 
 .checklist .glyphicon-pencil {
-    opacity: 0;
+    opacity: 0.4;
 }
 
 .checklist .glyphicon-pencil:hover {
@@ -607,4 +607,13 @@ body {
     outline:none;
     border: none;
     background-color: rgba(0, 0, 0, 0.3);
+}
+
+.modal-taskContent #editor {
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.modal-taskContent #editor:hover {
+    background-color: #DDD;
 }

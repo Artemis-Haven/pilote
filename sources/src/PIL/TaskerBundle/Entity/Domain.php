@@ -36,13 +36,13 @@ class Domain
     private $description;
     
     /**
-     * @ORM\ManyToOne(targetEntity="PIL\TaskerBundle\Entity\Board", inversedBy="domains")
+     * @ORM\ManyToOne(targetEntity="PIL\TaskerBundle\Entity\Board", inversedBy="domains", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $board;
 
     /**
-     * @ORM\OneToMany(targetEntity="PIL\TaskerBundle\Entity\Step", mappedBy="domain")
+     * @ORM\OneToMany(targetEntity="PIL\TaskerBundle\Entity\Step", mappedBy="domain", cascade={"persist", "remove"})
      */
     private $steps; 
 

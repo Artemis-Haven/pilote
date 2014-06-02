@@ -62,12 +62,12 @@ class Task
     private $creator;
 
     /**
-     * @ORM\OneToMany(targetEntity="PIL\TaskerBundle\Entity\HasCommented", mappedBy="task")
+     * @ORM\OneToMany(targetEntity="PIL\TaskerBundle\Entity\HasCommented", mappedBy="task", cascade="remove")
      */
     private $comments;
 
     /**
-     * @ORM\OneToMany(targetEntity="PIL\TaskerBundle\Entity\CheckList", mappedBy="task")
+     * @ORM\OneToMany(targetEntity="PIL\TaskerBundle\Entity\CheckList", mappedBy="task", cascade="remove")
      */
     private $checkLists;
 
@@ -87,7 +87,7 @@ class Task
         $this->name = "Nouvelle tâche";
         $this->content = "";
         $this->startDate = new \DateTime("now");
-        $this->endDate = new \DateTime("now");
+        $this->endDate = new \DateTime("tomorrow");
         $this->position = 0;
     }
 

@@ -1,15 +1,18 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Board creation</h1>
+<div class="container">
+	<div class="row">
+	    <div class="col-sm-4">
+	    	<h1>Nouveau projet</h1>
+		    {{ form(form) }}
 
-    {{ form(form) }}
+		    <a class="btn btn-default" href="{{ path('piltasker_accueil') }}">
+		        Retour
+		    </a>
+	    </div>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('board') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+	</div>
+</div>
+
 {% endblock %}

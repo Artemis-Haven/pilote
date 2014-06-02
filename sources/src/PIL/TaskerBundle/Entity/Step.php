@@ -50,13 +50,13 @@ class Step
     private $endDate;
     
     /**
-     * @ORM\ManyToOne(targetEntity="PIL\TaskerBundle\Entity\Domain", inversedBy="steps")
+     * @ORM\ManyToOne(targetEntity="PIL\TaskerBundle\Entity\Domain", inversedBy="steps", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $domain;
 
     /**
-     * @ORM\OneToMany(targetEntity="PIL\TaskerBundle\Entity\TList", mappedBy="step")
+     * @ORM\OneToMany(targetEntity="PIL\TaskerBundle\Entity\TList", mappedBy="step", cascade={"persist", "remove"})
      * @ORM\OrderBy({"position" = "ASC"})
      */
     private $tLists; 

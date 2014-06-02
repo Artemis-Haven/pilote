@@ -10,18 +10,27 @@
 			        <li class="dropdown">
 			          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon glyphicon-list"></span> Mes Projets </a>
 			          <ul class="dropdown-menu">
-			            <li><a href="{{ path('board_create') }}"><span class="glyphicon glyphicon glyphicon-plus"></span>  Ajouter</a></li>
-			            <li><a href="#"><span class="glyphicon glyphicon glyphicon-edit"></span>  Modifier</a></li>
-			            <li><a href="#"><span class="glyphicon glyphicon glyphicon-minus"></span>  Supprimer</a></li>
+			            <li><a href="{{ path('piltasker_accueil') }}"><span class="glyphicon glyphicon glyphicon-th"></span> Tous les projets</a></li>
 			            <li class="divider"></li>
-			            <li><a href="#">Liste des boards</a></li>
+			            {% for b in boardList %}
+			            	<li>
+			            		<a href="{{ path('piltasker_board', { 'boardId': b.id }) }}">{{ b.name }}</a>
+		            		</li>
+			            {% endfor %}
+			            <li class="divider"></li>
+			            <li><a href="{{ path('board_new') }}"><span class="glyphicon glyphicon glyphicon-plus"></span> Nouveau projet</a></li>
+			            <li class="divider visible-xs"></li>
+			            <li class="visible-xs"><a href="{{ path('pil_profil_show') }}"><span class="glyphicon glyphicon glyphicon-user"></span> {{ app.user.username }} </a></li>
+			            <li class="visible-xs"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon glyphicon-bell"></span> Notifications</a></li>
+			            <li class="divider visible-xs"></li>
+			            <li class="visible-xs"><a href="{{ path('fos_user_security_logout') }}"><span class="glyphicon glyphicon glyphicon-off"></span> Déconnexion</a></li>
 			          </ul>
 			        </li>
 		        </ul>
 		    </div>
 
 
-			      <form class="navbar-form navbar-left" role="search">
+			      <form class="navbar-form navbar-left hidden-xs" role="search">
 			        <div class="form-group">
 			          <input type="text" class="form-control" placeholder="Rechercher">
 			        </div>
@@ -33,8 +42,14 @@
 			</li>
 
 			<li>
-			      <ul class="nav navbar-brand">
-                                  <li>{% block boardTitle %}Projet Pilote{% endblock %}</li>
+			      <ul class="nav navbar-brand hidden-xs">
+                                  <li>
+                                  	{% if board is defined %}
+                                  		{{ board.name }}
+                                  	{% else %}
+                                  		{% block boardTitle %}Projet Pilote{% endblock %}
+                                  	{% endif %}
+                                  </li>
 			      </ul>
 
 			</li>
@@ -43,7 +58,7 @@
 			      <ul class="nav navbar-nav navbar-right">
             			
                                 <!-- Message -->
-                                <li class="dropdown"> 
+                                <li class="dropdown hidden-xs"> 
 						<a 
 						{% if fos_message_nb_unread() > 0  %}
 							style="color:#CC2200;"
@@ -60,7 +75,7 @@
 			        </li>
                                 
                                 
-			      	<li class="dropdown"> 
+			      	<li class="dropdown hidden-xs"> 
 						<a 
 						{% if is_granted('ROLE_ADMIN') %}
 							style="color:#CC2200;"
@@ -81,7 +96,7 @@
 
 			        
 
-			        <li class="dropdown">    
+			        <li class="dropdown hidden-xs">    
 			          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 			          	<span class="glyphicon glyphicon glyphicon-bell"></span>
 			          </a>
@@ -89,6 +104,7 @@
 						<li><a href="#">Notifications </a></li>
 					</ul>
 			        </li>
+					
 
 			      </ul>
 
@@ -96,3 +112,4 @@
 
 		  </div>
 	</nav>
+

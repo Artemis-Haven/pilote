@@ -22,7 +22,7 @@
 	<body>
 
 		{% if is_granted('ROLE_USER') %}
-	    	{% include "::authentNavbar.html.twig" %}
+	    	{% render(controller("PILTaskerBundle:Tasker:navbar") ) %}
 		{% else %}
 	    	{% include "::nonAuthentNavbar.html.twig" %}
 		{% endif %}

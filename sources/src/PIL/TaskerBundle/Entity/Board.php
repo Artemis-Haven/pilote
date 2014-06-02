@@ -43,7 +43,7 @@ class Board
     private $creationDate;
 
     /**
-     * @ORM\OneToMany(targetEntity="PIL\TaskerBundle\Entity\Domain", mappedBy="board")
+     * @ORM\OneToMany(targetEntity="PIL\TaskerBundle\Entity\Domain", mappedBy="board", cascade={"persist", "remove"})
      */
     private $domains; 
 
@@ -149,6 +149,21 @@ class Board
     public function __construct()
     {
         $this->domains = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->creationDate = new \DateTime('now');
+        $l1 = new TList();
+        $l1->setName("A faire");
+        $l2 = new TList();
+        $l2->setName("En cours");
+        $l3 = new TList();
+        $l3->setName("Fait");
+
+        $s = new Step();
+        $s->addTList($l1, 0);
+        $s->addTList($l2, 1);
+        $s->addTList($l3, 2);
+        $d = new Domain();
+        $d->addStep($s);
+        $this->addDomain($d);
     }
 
     /**

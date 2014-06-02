@@ -19,6 +19,10 @@ board_edit:
     pattern:  /{id}/edit
     defaults: { _controller: "PILTaskerBundle:Board:edit" }
 
+board_delete_check:
+    pattern:  /{id}/delete_check
+    defaults: { _controller: "PILTaskerBundle:Board:deleteCheck" }
+
 board_update:
     pattern:  /{id}/update
     defaults: { _controller: "PILTaskerBundle:Board:update" }

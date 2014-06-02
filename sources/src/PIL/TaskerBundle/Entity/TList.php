@@ -37,14 +37,14 @@ class TList
 
     
     /**
-     * @ORM\ManyToOne(targetEntity="PIL\TaskerBundle\Entity\Step", inversedBy="tLists")
+     * @ORM\ManyToOne(targetEntity="PIL\TaskerBundle\Entity\Step", inversedBy="tLists", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $step;
     
 
     /**
-     * @ORM\OneToMany(targetEntity="PIL\TaskerBundle\Entity\Task", mappedBy="tList")
+     * @ORM\OneToMany(targetEntity="PIL\TaskerBundle\Entity\Task", mappedBy="tList", cascade={"remove"})
      * @ORM\OrderBy({"position" = "ASC"})
      */
     private $tasks; 

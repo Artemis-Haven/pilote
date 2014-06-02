@@ -1,13 +1,25 @@
 {% extends "::base.html.twig" %}
 
 {% block body %}
-	<ul>
-	{% for board in boardList %}
-		<li>
-			<a href="{{ path('piltasker_board', { 'boardId': board.id }) }}">
-				<b>{{ board }}</b> : {{ board.description }}
+	<div class="container boardList">
+		<div class="row">
+			{% for board in boardList %}
+				<a href="{{ path("piltasker_board", {'boardId': board.id}) }}" class="col-sm-4 vignette">
+					<div class="well">
+						<span onClick="window.location.href='{{ path('board_delete_check', {'id': board.id}) }}'; return false;" title="Supprimer" 
+							class="glyphicon glyphicon glyphicon-remove pull-right"></span> 
+						<span onClick="window.location.href='{{ path('board_edit', {'id': board.id}) }}'; return false;" title="Renommer" 
+							class="glyphicon glyphicon glyphicon-edit pull-right"></span> 
+						<h4>{{ board }}</h4>
+						<p>{{ board.description }}</p>
+					</div>
+				</a>
+			{% endfor %}
+			<a href="{{ path("board_new") }}" class="col-sm-4 vignette nouvelle-vignette">
+				<div class="well">
+					<h4>Créer un nouveau projet</h4>
+				</div>
 			</a>
-		</li>
-	{% endfor %}
-	</ul>
+		</div>
+	</div>
 {% endblock %}

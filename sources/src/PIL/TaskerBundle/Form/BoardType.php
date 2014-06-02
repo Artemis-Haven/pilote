@@ -15,9 +15,8 @@ class BoardType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('description')
-            ->add('creationDate')
+            ->add('name', 'text', array('label' => 'Nom', 'attr' => array('class' => 'form-control' )))
+            ->add('description', 'textarea', array('label' => 'Description', 'attr' => array('class' => 'form-control' )))
         ;
     }
     

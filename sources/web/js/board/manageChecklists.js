@@ -21,9 +21,9 @@ function addChecklist(id) {
 			'</div>').appendTo('.checklistContainer');
 
 			/* activer les boutons pour ajouter une option */
-			/*$("#addChecklistOptionBtn-"+data.id).click(function(){
+			$("#addChecklistOptionBtn-"+data.id).click(function(){
 				addChecklistOption(data.id);
-			});*/
+			});
 
             /* Lors du clic sur le titre de la checklist, elle devient éditable */
             $("#checklist-"+data.id+" .title").click(function(){
@@ -67,15 +67,15 @@ function renameChecklist(id) {
 };
 
 /**
- * Ajouter une option de checklist dans la BdD et, en cas de succès, l'ajouter 7
+ * Ajouter une option de checklist dans la BdD et, en cas de succès, l'ajouter 
  * aussi dans la checklist appropriée.
  *
  * @param {number} id L'identifiant de la checklist dans lequel ajouter
  * l'option.
  */
-/*function addChecklistOption(id) {
+function addChecklistOption(id) {
 	/* Requête AJAX */
-    /*$.ajax({
+    $.ajax({
         type: "POST",
         dataType:"json",
         url: Routing.generate('piltasker_createChecklistOption'),
@@ -83,14 +83,14 @@ function renameChecklist(id) {
         cache: false,
         success: function(data){
         	/* insérer l'option */
-        	/*$('<p id="checklistOption-'+data.id+'" class="checkbox">'+
+        	$('<p id="checklistOption-'+data.id+'" class="checkbox">'+
 					'<label><input type="checkbox">'+data.optionText+'</label>'+
 				'</p>').insertBefore('#addChecklistOptionBtn-'+id);
         }
     }); 
 };
 
-
+/*
 function renameChecklistOption(id) {
     /* titleBlock sera l'élément contenant le titre */
     /*titleBlock = $("#checklistOption-"+id+" input");

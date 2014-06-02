@@ -21,3 +21,32 @@ button::-moz-focus-inner {
   border: 0;
 }
 
+
+
+/* ------------ */
+/* Page d'index */
+/* ------------ */
+
+.boardList .vignette {
+	padding: 10px;
+	color: #333;
+	text-decoration: none;
+}
+
+.boardList .vignette .glyphicon {
+	margin-left: 10px;
+	opacity: 0.3;
+	z-index: 50;
+}
+
+.boardList .vignette .glyphicon:hover {
+	opacity: 1;
+}
+
+.boardList .vignette .well:hover {
+	background-color: #EEE;
+}
+
+.boardList .nouvelle-vignette {
+	text-align: center;
+}

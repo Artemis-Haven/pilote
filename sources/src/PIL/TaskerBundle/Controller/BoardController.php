@@ -44,7 +44,7 @@ class BoardController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('board_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('piltasker_accueil'));
         }
 
         return $this->render('PILTaskerBundle:Board:new.html.twig', array(
@@ -65,9 +65,10 @@ class BoardController extends Controller
         $form = $this->createForm(new BoardType(), $entity, array(
             'action' => $this->generateUrl('board_create'),
             'method' => 'POST',
+            'attr' => array('class' => 'form' )
         ));
         
-        $form->add('submit', 'submit', array('label' => 'Ajouter'));
+        $form->add('submit', 'submit', array('label' => 'Créer', 'attr' => array('class' => 'btn btn-success' )));
 
         return $form;
     }
@@ -146,7 +147,7 @@ class BoardController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' => 'Valider', 'attr' => array('class' => 'btn btn-success' )));
 
         return $form;
     }
@@ -171,12 +172,34 @@ class BoardController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('board_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('piltasker_accueil'));
         }
 
         return $this->render('PILTaskerBundle:Board:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+        ));
+    }
+
+    /**
+     * Check before deleting a Board entity.
+     *
+     */
+    public function deleteCheckAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('PILTaskerBundle:Board')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Board entity.');
+        }
+
+        $deleteForm = $this->createDeleteForm($id);
+
+        return $this->render('PILTaskerBundle:Board:delete_check.html.twig', array(
+            'board'      => $entity,
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -201,7 +224,7 @@ class BoardController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('board'));
+        return $this->redirect($this->generateUrl('piltasker_accueil'));
     }
 
     /**
@@ -216,7 +239,7 @@ class BoardController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('board_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->add('submit', 'submit', array('label' => 'Supprimer', 'attr' => array('class' => 'btn btn-danger' )))
             ->getForm()
         ;
     }

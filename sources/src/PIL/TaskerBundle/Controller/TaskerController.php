@@ -24,6 +24,16 @@ class TaskerController extends Controller
         ));
     }
 
+    public function navbarAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $boardList = $em->getRepository('PILTaskerBundle:Board')->findAll();
+
+        return $this->render('::authentNavbar.html.twig', array(
+            'boardList' => $boardList,
+        ));
+    }
+
     public function boardAction($boardId)
     {
         $em = $this->getDoctrine()->getManager();
