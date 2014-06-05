@@ -54,16 +54,29 @@ class Task
      * @ORM\JoinColumn(nullable=false)
      */
     private $tList;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="PIL\USerBundle\Entity\User", inversedBy="tasks")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $creator;
 
     /**
-     * @ORM\OneToMany(targetEntity="PIL\TaskerBundle\Entity\HasCommented", mappedBy="task")
+     * @ORM\OneToMany(targetEntity="PIL\TaskerBundle\Entity\HasCommented", mappedBy="task", cascade="remove")
      */
     private $comments;
 
     /**
-     * @ORM\OneToMany(targetEntity="PIL\TaskerBundle\Entity\CheckList", mappedBy="task")
+     * @ORM\OneToMany(targetEntity="PIL\TaskerBundle\Entity\CheckList", mappedBy="task", cascade="remove")
      */
     private $checkLists;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="position", type="integer")
+     */
+    private $position;
     
 
     /**
@@ -74,7 +87,8 @@ class Task
         $this->name = "Nouvelle tâche";
         $this->content = "";
         $this->startDate = new \DateTime("now");
-        $this->endDate = new \DateTime("now");
+        $this->endDate = new \DateTime("tomorrow");
+        $this->position = 0;
     }
 
     /**
@@ -204,6 +218,30 @@ class Task
     }
 
 
+    /**
+     * Set tList
+     *
+     * @param \PIL\UserBundle\Entity\User $tList
+     * @return Task
+     */
+    public function setCreator(\PIL\UserBundle\Entity\User $user)
+    {
+        $this->creator = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get creator
+     *
+     * @return \PIL\UserBundle\Entity\User 
+     */
+    public function getCreator()
+    {
+        return $this->creator;
+    }
+
+
     public function addComment(\PIL\TaskerBundle\Entity\HasCommented $comment)
     {
         $this->comments[] = $comment;
@@ -247,6 +285,29 @@ class Task
     public function getCheckLists()
     {
         return $this->checkLists;
+    }
+
+    /**
+     * Set position
+     *
+     * @param integer $position
+     * @return Task
+     */
+    public function setPosition ($position)
+    {
+        $this->position = $position;
+
+        return $this;
+    }
+
+    /**
+     * Get position
+     *
+     * @return integer 
+     */
+    public function getPosition()
+    {
+        return $this->position;
     }
 
     public function __toString() {

@@ -50,13 +50,14 @@ class Step
     private $endDate;
     
     /**
-     * @ORM\ManyToOne(targetEntity="PIL\TaskerBundle\Entity\Domain", inversedBy="steps")
+     * @ORM\ManyToOne(targetEntity="PIL\TaskerBundle\Entity\Domain", inversedBy="steps", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $domain;
 
     /**
-     * @ORM\OneToMany(targetEntity="PIL\TaskerBundle\Entity\TList", mappedBy="step")
+     * @ORM\OneToMany(targetEntity="PIL\TaskerBundle\Entity\TList", mappedBy="step", cascade={"persist", "remove"})
+     * @ORM\OrderBy({"position" = "ASC"})
      */
     private $tLists; 
 
@@ -202,10 +203,14 @@ class Step
      * @param \PIL\TaskerBundle\Entity\TList $tList
      * @return Step
      */
-    public function addTList(\PIL\TaskerBundle\Entity\TList $tList)
+    public function addTList(\PIL\TaskerBundle\Entity\TList $tList, $position = -1)
     {
         $this->tLists[] = $tList;
         $tList->setStep($this); 
+      	if ($position != -1)
+        {
+            $tList->setPosition($position);
+        }
         return $this;
     }
 
@@ -227,6 +232,16 @@ class Step
     public function getTLists()
     {
         return $this->tLists;
+    }
+  
+  	public function getMaxTListPosition()
+    {
+        $max = 0;
+        foreach ($this->tLists as $l)
+        {
+          $max = ($l->getPosition() > $max) ? $l->getPosition() : $max; 
+        }
+      	return $max;
     }
 
     public function __toString() {

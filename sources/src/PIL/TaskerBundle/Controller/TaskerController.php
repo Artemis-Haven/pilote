@@ -24,6 +24,16 @@ class TaskerController extends Controller
         ));
     }
 
+    public function navbarAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $boardList = $em->getRepository('PILTaskerBundle:Board')->findAll();
+
+        return $this->render('::authentNavbar.html.twig', array(
+            'boardList' => $boardList,
+        ));
+    }
+
     public function boardAction($boardId)
     {
         $em = $this->getDoctrine()->getManager();
@@ -42,11 +52,13 @@ class TaskerController extends Controller
         {
             
             $em = $this->getDoctrine()->getManager();
-
+			$user = $this->container->get('security.context')->getToken()->getUser();
+          
             $tListId = $request->request->get('tListId');
             $tList = $em->getRepository('PILTaskerBundle:TList')->find($tListId);
             $newTask = new Task();
-            $tList->addTask($newTask);
+          	$user->addTask($newTask);
+            $tList->addTask($newTask, $tList->getMaxTaskPosition() + 1 );
 
             $em->persist($newTask);
             $em->flush();
@@ -176,7 +188,7 @@ class TaskerController extends Controller
             $stepId = $request->request->get('stepId');
             $step = $em->getRepository('PILTaskerBundle:Step')->find($stepId);
             $newTList = new TList();
-            $step->addTList($newTList);
+            $step->addTList($newTList, $step->getMaxTListPosition() + 1 );
 
             $em->persist($newTList);
             $em->flush();

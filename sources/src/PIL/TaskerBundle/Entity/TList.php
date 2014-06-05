@@ -37,22 +37,34 @@ class TList
 
     
     /**
-     * @ORM\ManyToOne(targetEntity="PIL\TaskerBundle\Entity\Step", inversedBy="tLists")
+     * @ORM\ManyToOne(targetEntity="PIL\TaskerBundle\Entity\Step", inversedBy="tLists", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $step;
     
 
     /**
-     * @ORM\OneToMany(targetEntity="PIL\TaskerBundle\Entity\Task", mappedBy="tList")
+     * @ORM\OneToMany(targetEntity="PIL\TaskerBundle\Entity\Task", mappedBy="tList", cascade={"remove"})
+     * @ORM\OrderBy({"position" = "ASC"})
      */
     private $tasks; 
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="position", type="integer")
+     */
+    private $position;
 
-    public function addTask(\PIL\TaskerBundle\Entity\Task $task)
+
+    public function addTask(\PIL\TaskerBundle\Entity\Task $task, $position = -1)
     {
         $this->tasks[] = $task;
         $task->setTList($this); 
+      	if ($position != -1)
+        {
+            $task->setPosition($position);
+        }
         return $this;
     }
 
@@ -149,6 +161,7 @@ class TList
         $this->tasks = new \Doctrine\Common\Collections\ArrayCollection();
         $this->name = "Nouvelle Liste";
         $this->description = "";
+        $this->position = 0;
     }
 
     /**
@@ -159,6 +172,39 @@ class TList
     public function getTasks()
     {
         return $this->tasks;
+    }
+  
+  	public function getMaxTaskPosition()
+    {
+        $max = 0;
+        foreach ($this->tasks as $t)
+        {
+          $max = ($t->getPosition() > $max) ? $t->getPosition() : $max; 
+        }
+      	return $max;
+    }
+
+    /**
+     * Set position
+     *
+     * @param integer $position
+     * @return TList
+     */
+    public function setPosition ($position)
+    {
+        $this->position = $position;
+
+        return $this;
+    }
+
+    /**
+     * Get position
+     *
+     * @return integer 
+     */
+    public function getPosition()
+    {
+        return $this->position;
     }
 
     public function __toString() {

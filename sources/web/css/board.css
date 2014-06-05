@@ -446,7 +446,7 @@ input.renameDomainField {
 }
 
 .checklist .glyphicon-pencil {
-    opacity: 0;
+    opacity: 0.4;
 }
 
 .checklist .glyphicon-pencil:hover {
@@ -583,6 +583,37 @@ body {
     background-color: rgba(255, 255, 255, 1);
 }
 
-.sortableTasksContainer {
-    overflow: scroll;
+/* -------------------------------------- */
+/* Pour avoir des scrollbars moins moches */
+/* -------------------------------------- */
+
+.sortableTasksContainer { overflow-y: scroll; }
+.sortableTasksContainer::-webkit-scrollbar-track-piece { background: none; }
+.sortableTasksContainer::-webkit-scrollbar-corner { background: none; }
+.sortableTasksContainer::-webkit-scrollbar-thumb { background: none; margin-left: -5px; }
+.sortableTasksContainer::-webkit-scrollbar { width: 6px; }
+.task { margin-left: 10px; }
+.sortableTasksContainer::-webkit-scrollbar-thumb {
+    outline:none;
+    border: none;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.domain .tab-content::-webkit-scrollbar-track-piece { background: none; }
+.domain .tab-content::-webkit-scrollbar-corner { background: none; }
+.domain .tab-content::-webkit-scrollbar-thumb { background: none; }
+.domain .tab-content::-webkit-scrollbar { height: 6px; }
+.domain .tab-content::-webkit-scrollbar-thumb {
+    outline:none;
+    border: none;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.modal-taskContent #editor {
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.modal-taskContent #editor:hover {
+    background-color: #DDD;
 }

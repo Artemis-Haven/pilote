@@ -11,48 +11,66 @@
 
 	<div class="modal-body">
 		<article>
+
+			{# ZONE DES ICONES EN HAUT DE LA FENETRE #}
+
 			<p class="modal-summaryIcons">
 				<span><span class="glyphicon glyphicon-eye-open"></span></span>
-				<span><span class="glyphicon glyphicon-comment"></span> 1</span>
+				<span><span class="glyphicon glyphicon-comment"></span> {{ task.comments | length }}</span>
 				<span><span class="glyphicon glyphicon-list"></span> 2/3</span>
 				<span><span class="glyphicon glyphicon-time"></span> 13 mars à 14:00</span>
 			</p>
 			
+			{# ZONE DU CONTENU EDITABLE DE LA TACHE #}
+
 			<div class="modal-taskContent">
 				<p class="modal-toolbar">
 					{% include "PILTaskerBundle::taskEditorToolbar.html.twig" %}
 				</p>
-				<div id="editor">{{ task.content | raw }}</div>
+				<div id="editor">
+					{% if task.content %}
+						{{ task.content | raw }}
+					{% else %}
+						Cliquez ici pour ajouter du texte.
+					{% endif %}
+				</div>
 			</div>
+
+			{# ZONE DES CHECKLISTS #}
+
 			<div class="checklistContainer">
 				{% for checkList in task.checkLists %}
 					<div id="checklist-{{ checkList.id }}" class="checklist">
 						<h4>
 							<span class="glyphicon glyphicon-list"></span> 
 							<span class="title">{{ checkList.name }}</span>
+							<span style="color:grey;" title="Supprimer la liste" class="glyphicon glyphicon-remove"></span>
 						</h4>
-							{% for chkLstOpt in checkList.checkListOptions %}
-								<p id="checklistOption-{{ chkLstOpt.id }}" class="checkbox">
-									<label><input {% if chkLstOpt.checked %} checked="true" {% endif %} type="checkbox">{{ chkLstOpt.optionText }}</label>
-								</p>
-								<span id="editChkLstOptBtn-{{ chkLstOpt.id }}" class="glyphicon glyphicon-pencil"></span><br>
-							{% endfor %}
-							<p id="addChecklistOptionBtn-{{checkList.id}}">Ajouter une ligne...</p>
+						{% for chkLstOpt in checkList.checkListOptions %}
+							<span id="checklistOption-{{ chkLstOpt.id }}" class="checkbox">
+								<label><input {% if chkLstOpt.checked %} checked="true" {% endif %} type="checkbox">{{ chkLstOpt.optionText }}</label>
+							</span>
+							<span id="editChkLstOptBtn-{{ chkLstOpt.id }}" class="glyphicon glyphicon-pencil"></span><br>
+						{% endfor %}
+						<p id="addChecklistOptionBtn-{{checkList.id}}">Ajouter une ligne...</p>
 					</div>
 				{% endfor %}
 			</div>
+			
+			{# ZONE DES COMMENTAIRES #}
+
 			<h4>
 				<span class="glyphicon glyphicon-align-left"></span> 
-				Activité
+				Commentaires
 			</h4>
 
-			<p>Commentaires                
+			<p>                
                 <div class="postComment"  >
                     <span class="comment-user glyphicon glyphicon-user" title="{{ app.user.username }}"></span>
                     <div class="comment-contenu">
-                        <textarea id="saisieComment"  class="textarea-comment" placeholder="Write a comment" onblur="btndisappear()" onfocus="btnappear()" ></textarea>
+                        <textarea id="saisieComment"  class=" frm-control textarea-comment" placeholder="Écrivez un commentaire" onblur="btndisappear()" onfocus="btnappear()" ></textarea>
                         <div class="commentBtn">
-                            <input class="postBt btn-default" id="postBt-{{ task.id }}" type="button" value="Comment"/>
+                            <input class="postBt btn btn-default" id="postBt-{{ task.id }}" type="button" value="Commenter"/>
                             <span class="suppBt glyphicon glyphicon-remove"></span>
                         </div>
                     </div>    
@@ -73,12 +91,14 @@
 
 		</article>
 
+		{# ZONE DE LA BARRE LATÉRALE DROITE AVEC LES DIVERS BOUTONS #}
+
 		<aside>
 			<h4>Labels</h4>
 			<p>Label 1 <br>Label 2</p>
 			<button class="btn btn-default"><span class="glyphicon glyphicon-tags"> </span> Éditer les labels</button>
 			<h4>Membres</h4>
-			<p>IMG1 IMG2</p>
+			<p>{{ task.creator }}</p>
 			<button class="btn btn-default"><span class="glyphicon glyphicon-user"></span> Assigner...</button>
 			<h4>Actions</h4>
 			<button id="addChecklistBtn-{{ task.id }}" class="btn btn-default"><span class="glyphicon glyphicon-list"></span> Ajouter Checklist</button>
@@ -89,6 +109,8 @@
 			<button class="btn btn-default"><span class="glyphicon glyphicon-inbox"></span> Archiver</button>
 		</aside>
 	</div>
+
+	{# ZONE DU BAS : FOOTER DE LA FENETRE #}
 
 	<div class="modal-footer">
     	<button id="deleteTaskBtn" type="button" class="btn btn-danger deleteTaskBtn">
