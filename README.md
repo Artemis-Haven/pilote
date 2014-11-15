@@ -1,9 +1,15 @@
 #Projet Pilote : Application Web de gestion collaborative de projets
-======
+
+
 ##Project Management Tool from Polytech students (French engineering school)
-======
+
+
 Ce site a été développé dans le cadre d'un Projet d'Ingénierie  du Logiciel de 4e année à **Polytech Tours**.
 Il est principalement écrit en PHP et en Javascript et utilise le framework PHP **Symfony2** et **JQuery**.
+
+#####*Info :* Pendant la durée de mon Projet de Fin d'Études à Polytech Tours, de septembre 2014 à mai 2015, les sources à jour de ce projet seront hébergées sur le dépôt interne de l'École. Ce dépôt sera mis à jour à la fin de l'année :)
+
+------
 
 ##Installation
 _(Temps de déploiement estimé : 5 min dans le meilleur des cas)_
