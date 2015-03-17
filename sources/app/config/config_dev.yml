@@ -6,10 +6,14 @@ framework:
         resource: "%kernel.root_dir%/config/routing_dev.yml"
         strict_requirements: true
     profiler: { only_exceptions: false }
+    session:
+        # handler_id set to null will use default session handler from php.ini
+        handler_id: session.handler.native_file
+        save_path: "%kernel.root_dir%/sessions"
 
 web_profiler:
-    toolbar: true
-    intercept_redirects: false
+    toolbar: "%debug_toolbar%"
+    intercept_redirects: "%debug_redirects%"
 
 monolog:
     handlers:
@@ -30,7 +34,7 @@ monolog:
         #    level:  info
 
 assetic:
-    use_controller: true
+    use_controller: "%use_assetic_controller%"
 
 #swiftmailer:
 #    delivery_address: me@example.com

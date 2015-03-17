@@ -1,0 +1,49 @@
+<aside>
+	{# Discussion liées aux projets de l'utilisateur : boardThreads #}
+	{% if app.user.boards|length > 0 %}
+	<div class="threadsList sheet">
+		<strong>Discuter avec les membres des projets</strong>
+		{% for board in app.user.boards %}
+			{% include 'PiloteMessageBundle::sidebarItem.html.twig' 
+				with {'thread': board.thread, 'text': board} %}
+		{% endfor %}
+	</div>
+	<br>
+	{% endif %}
+
+	{# Discussion simples entre les utilisateurs : simpleThreads #}
+	<div class="threadsList sheet">
+	<strong>Discussion privées</strong>
+	{% for thread in app.user.threads if thread.type == simpleThread %}
+		{% include 'PiloteMessageBundle::sidebarItem.html.twig' 
+			with {'thread': thread, 'text': thread.participants|join(', ') } %}
+	{% endfor %}
+	</div>
+	<br>
+
+	<div class="sheet">
+		<strong>Créer une nouvelle discussion</strong>
+		<form id="newThread" action="{{ path('pilote_message_newThread') }}" role="form" method="POST" class="form-inline">
+			<input id="autocompNewThread" name="newThread" type="text" class="form-control" placeholder="Rechercher">
+			<button type="submit" class="btn btn-default">Discuter</button>
+			<input type="hidden" name="userId" id="userId">
+		</form>
+	</div>
+	<br>
+	
+	{# Discussion entre l'utilisateur et les admins : adminThreads #}
+	{% if is_granted('ROLE_ADMIN') %}
+	<div class="threadsList sheet">
+		<strong>Demandes d'aide aux administrateurs</strong>
+		{% for thread in app.user.threads if thread.type == adminThread %}
+			{% include 'PiloteMessageBundle::sidebarItem.html.twig' 
+				with {'thread': thread, 'text': thread.creator} %}
+		{% endfor %}
+	</div>
+	{% else %}
+	<div class="sheet">
+		<a href="{{path('pilote_message_adminThread')}}">Contacter les administrateurs</a>
+	</div>
+	{% endif %}
+
+</aside>

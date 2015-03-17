@@ -1,0 +1,27 @@
+<div class="notification" onclick="location.href='{{notif.link}}';" data-id="{{notif.id}}" data-read="{{notif.read ? 1 : 0 }}">
+	<div class="glyphicon glyphicon-remove pull-right" title="Fermer" onclick="removeNotification($(this).parent());"></div>
+	<div class="notif-aside">
+		<div class="notif-photo">
+	        {% if notif.sender.picture == null %}
+	        <img src="{{ asset('img/img_profil_user.png') }}" alt="Photo de profil">
+	        {% else %}
+	        <img src="{{ asset(notif.sender.picture.webPath) }}" alt="Photo de profil">
+	        {% endif %}
+		</div>
+		<div class="notif-date">
+			{% if date(notif.date)|date('Ymd') >= 'now'|date('Ymd') %}
+				aujourd'hui
+			{% elseif date(notif.date)|date('Ymd') >= date('-1day')|date('Ymd') %}
+				hier
+			{% else %}
+				{{notif.date | localizeddate('none', 'short', null, null, "d MMM")}}
+			{% endif %}
+			<br>
+			à {{notif.date | localizeddate('none', 'none', null, null, "HH:mm")}}
+		</div>
+	</div>
+	<div class="notif-text">
+		<span class="notif-title">{{notif.title|raw}}</span>
+		<span class="notif-content">{{notif.content|raw}}</span>
+	</div>
+</div>

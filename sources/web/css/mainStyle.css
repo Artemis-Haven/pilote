@@ -1,17 +1,18 @@
+/* ----------------- */
+/* Éléments généraux */
+/* ----------------- */
+
 footer {
-  padding: 15px;
-  margin: 0 auto;
+	padding: 15px;
+	width: 100%;
 }
 
 body {
-  padding-top: 50px;
-  padding-bottom: 20px;
+	z-index: 1;
+	padding-top: 50px;
+	padding-bottom: 20px;
 }
 
-#nonAuthentNavbar, footer {
-	font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
-	font-weight: 700;
-}
 
 * {
 	outline: none;
@@ -21,14 +22,19 @@ button::-moz-focus-inner {
   border: 0;
 }
 
+.h-separ {
+	margin: 10px 0;
+	border-top: 1px solid #CCC;
+	border-bottom: 1px solid #FFF;
+}
 
 
-/* ------------ */
-/* Page d'index */
-/* ------------ */
+/* ------------------------ */
+/* Page listant les projets */
+/* ------------------------ */
 
 .boardList .vignette {
-	padding: 10px;
+	margin-top: 20px;
 	color: #333;
 	text-decoration: none;
 }
@@ -40,13 +46,394 @@ button::-moz-focus-inner {
 }
 
 .boardList .vignette .glyphicon:hover {
-	opacity: 1;
+	opacity: 0.8;
 }
 
-.boardList .vignette .well:hover {
-	background-color: #EEE;
+.boardList .vignette:hover {
+	box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.35);
 }
 
 .boardList .nouvelle-vignette {
 	text-align: center;
+}
+
+
+/* -------------- */
+/* Page de profil */
+/* -------------- */
+
+#user_show .photo, #user_edit .photo {
+	width: 200px;
+	max-height: 300px;
+	min-height: 200px;
+	margin: 10px auto;
+}
+
+#user_show h2 {
+	text-align: center;
+}
+
+/* CSS Trick pour customiser le bouton d'upload */
+#user_edit form {
+    position: relative;
+    overflow: hidden;
+}
+#user_edit form input[type="file"] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+
+/* --------------------------- */
+/* Page de réglage d'un projet */
+/* --------------------------- */
+
+.ui-helper-hidden-accessible {
+	display: none;
+}
+
+.boardSettingsSection table.table td {
+	vertical-align: middle;
+}
+
+.boardSettingsSection table.table>tbody>tr>td:nth-child(2) {
+	width: 180px;
+}
+
+#colorSelector > div {
+	height: 20px;
+	width: 30px;
+	display: inline-block;
+	border: 1px solid #AAA;
+	margin-right: 20px;
+	border-radius: 3px;
+}
+
+#colorSelector > div:hover, 
+#colorSelector > div.selected {
+	border-color: #000;
+}
+
+
+/* ------------------- */
+/* Barre de navigation */
+/* ------------------- */
+
+/* Permettre de masquer certains éléments en taille XS
+	sans provoquer de retours à la ligne */
+@media screen and (max-width: 747px) {
+	.navbar .visible-xs {
+		display: inline-block !important;
+	}
+} 
+
+/* Glyphicon invisible "bouche-trou" */
+.glyphicon-none:before {
+    content: "\2122";
+    color: transparent !important;
+}
+
+/* Centrer le titre */
+.navbar .navbar-center {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    text-align: center;
+}
+
+.navbar .dropdown-menu img {
+	margin: 5px 10px;
+	max-height: 150px;
+	max-width: 150px;
+}
+
+.sheet {
+	display: block;
+	padding: 15px;
+	background-color: #fff;
+	border-radius: 3px;
+	box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+/* ---------------- */
+/* Custom Bootstrap */
+/* ---------------- */
+
+.navbar-default {
+    background-color: #FFF;
+    border-color: #CFCFCF;
+    padding: 1rem 0;
+}
+
+body {
+	background-color: #F6F6F6;
+	font-family: "Open Sans",sans-serif;
+}
+
+a {
+	color: #345183;
+}
+
+.navbar-default .navbar-nav > li > a, .navbar-default .navbar-brand {
+	color: #666;
+	padding: 5px 10px;
+	margin: 0 5px;
+	height: 30px;
+}
+
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+	background-color: #e7e7e7;
+	border-radius: 3px;
+}
+
+.dropdown-menu > li > a {
+	padding: 3px 15px;
+	font-size: 14px;
+}
+
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+	color: #FFF;
+    background-color: #345183;
+}
+
+.form-control {
+	border-radius: 3px;
+}
+
+.btn {
+	font-weight: 700;
+	border-width: 1px 1px 2px 1px;
+	padding: 4px 16px 4px 16px;
+	font-size: 16px;
+}
+
+.btn-danger {
+	background-color: #A93529;
+	border-color: #80281F;
+}
+
+.btn-danger:hover {
+	background-color: #882B21;
+	border-color: #4F1913;
+}
+
+.btn-danger.disabled, .btn-danger[disabled] {
+	background-color: #A93529;
+	border-color: #80281F;
+}
+
+.btn-success {
+	background-color: #46A546;
+	border-color: #378137;
+}
+
+.btn-success:hover {
+	background-color: #3A883A;
+	border-color: #255625;
+}
+
+.btn-success.disabled, .btn-success[disabled] {
+	background-color: #46A546;
+	border-color: #378137;
+}
+
+.btn-warning {
+	background-color: #FF7C19;
+	border-color: #BB5B12;
+}
+
+.btn-warning:hover {
+	background-color: #D66915;
+	border-color: #9E4D0F;
+}
+
+.btn-warning.disabled, .btn-warning[disabled] {
+	background-color: #FF7C19;
+	border-color: #BB5B12;
+}
+
+/* ------------- */
+/* Notifications */
+/* ------------- */
+
+.notification {
+	padding: 5px;
+	text-align: justify;
+	font-size: 13px;
+}
+
+.notification:hover, .notification:focus {
+	opacity: 1;
+	cursor: pointer;
+}
+
+.notification .notif-aside, .notification .notif-text {
+	display: inline-block;
+}
+
+.notif-aside {
+	width: 60px;
+	text-align: center;
+}
+
+.notif-text {
+	width: 300px;
+	vertical-align: top;
+}
+
+.notification .notif-photo{
+	height: 40px;
+	width: 40px;
+	margin-right: 5px;
+	display: inline-block;
+}
+
+.notification .notif-photo > img {
+	height: 40px;
+	max-width: 40px;
+	margin: 0;
+}
+
+.notification .glyphicon-remove {
+	opacity: 0.5;
+}
+
+.notification .glyphicon-remove:hover {
+	opacity: 0.8;
+}
+
+.notification .notif-date {
+	font-size: 11px;
+	color: #888;
+}
+
+#notificationsContainer {
+	position: fixed;
+	top: 70px;
+	right: 20px;
+}
+
+#notificationsContainer .notification {
+	opacity: 0;
+	min-height: 60px;
+	color: #fff;
+	background-color: #345183;
+	border-radius: 3px;
+	box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
+	margin-bottom: 30px;
+}
+
+#notificationsContainer .notification:hover,
+#notificationsContainer .notification:focus {
+	opacity: 1 !important;
+}
+
+#notificationsContainer .notification .notif-text {
+	width: 215px;
+}
+
+#notificationsContainer .notification .notif-title {
+	font-weight: bold;
+}
+
+#notificationsContainer .notification .notif-date {
+	display: none;
+}
+
+#notificationsDropdown.unread .navbar-button .glyphicon {
+	color: red;
+}
+
+#notificationsMenu {
+	width: 400px;
+	max-height: 500px;
+	overflow-y: auto;
+	padding-top: 0;
+}
+
+#notificationsMenu > div {
+	border-bottom: 1px solid #DDD;
+}
+
+#notificationsMenu > div[data-read="0"] {
+	background-color: #eef;
+}
+
+#notificationsMenu > div:hover {
+	color: #fff;
+	background-color: #345183;
+}
+
+#notificationsMenu .notification .notif-title {
+	font-weight: bold;
+	width: 225px;
+}
+
+#loadNextNotifications {
+	margin-top: 5px;
+}
+
+/**************/
+/* Messagerie */
+/**************/
+
+#messenger .msgContainer > * {
+	display: inline-block;
+	vertical-align: top;
+}
+
+#messenger .msgPhoto img {
+    max-width: 50px;
+    max-height: 50px;
+}
+
+#messenger .msgSender {
+	display: inline-block;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+#messenger .msgDate {
+	float: right;
+	color: #999;
+	font-style: italic;
+}
+
+#messenger .msgContent {
+	margin-bottom: 15px;
+}
+
+#messagesList {
+	min-height: 200px;    
+	overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+#messagesList .emptyList {
+	padding-top: 100px;
+	text-align: center;
+	color: grey;
+}
+
+.threadsList > a {
+	display: block;
+	padding: 10px 15px;
+	margin-bottom: -1px;
+	border-bottom: 1px solid #DDD;
+}
+
+.threadsList > a:hover {
+	color: #fff;
+	background-color: #345183;
+	text-decoration: none;
+}
+
+#messagesMenu .new {
+	color:#CC2200;
 }

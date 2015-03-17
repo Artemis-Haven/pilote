@@ -10,24 +10,12 @@ function addDomain(id) {
     $.ajax({
         type: "POST",
         dataType:"json",
-        url: Routing.generate('piltasker_createDomain'),
+        url: Routing.generate('pilote_tasker_createDomain'),
         data: 'boardId=' + id,
         cache: false,
         success: function(data){
         	/* insérer le domaine vide */
-        	$('<div id="domain-'+data.domainId+'" class="panel domain">' +
-				'<div class="panel-heading">' +
-					'<h4 class="panel-title">' +
-				        '<a data-toggle="collapse" data-parent="#accordion" href="#domainPanel-'+data.domainId+'">'+data.domainName+'</a>' +
-				        '<span title=\'Supprimer "'+data.domainName+'"\' id="deleteDomainBtn-'+data.domainId+'" class="deleteDomainBtn glyphicon glyphicon-minus"></span> ' +
-				        '<span title=\'Renommer "'+data.domainName+'"\' id="renameDomainBtn-'+data.domainId+'" class="renameDomainBtn glyphicon glyphicon-edit"></span> ' +
-				        '<span title="Ajouter un corps de métier" id="addDomainBtn-'+id+'" class="addDomainBtn glyphicon glyphicon-plus"></span> ' +
-				    '</h4></div>' +
-				'<div id="domainPanel-'+data.domainId+'" class="panel-collapse collapse">' +
-					'<div class="panel-body">' +
-						'<ul id="stepList-'+data.domainId+'" class="nav nav-tabs">' +
-							'<li><a id="addStepBtn-'+data.domainId+'" title="Ajouter une étape" href="#" class="addStepBtn glyphicon glyphicon-plus"></a></li>' +
-							'</ul><div class="tab-content"></div></div></div></div>').appendTo('.boardSection .panel-group');
+        	$(data.domain).appendTo('.boardSection .panel-group');
 
 			/* activer les boutons pour ajouter une étape, supprimer un domaine et renommer le domaine */
 			$("#addStepBtn-"+data.domainId).click(function(){
@@ -53,11 +41,16 @@ function addDomain(id) {
  * @param {number} id L'identifiant du domaine concerné
  */
 function deleteDomain(id) {
+    if ($(".boardSection > #accordion > .domain").length == 1) {
+    	alert("Le board doit contenir au moins un domaine.");
+    	return false;
+    };
+    if (!confirm("Êtes-vous sûrs de vouloir supprimer ce domaine ?")) return false;
 	/* Requête AJAX */
     $.ajax({
         type: "POST",
         dataType:"json",
-        url: Routing.generate('piltasker_deleteDomain'),
+        url: Routing.generate('pilote_tasker_deleteDomain'),
         data: 'domainId=' + id,
         cache: false,
         success: function(){
@@ -86,6 +79,7 @@ function renameDomain(id) {
 	titleParag.replaceWith(
 		'<input id="renameDomainField-'+ id +'" type="text" class="renameDomainField" value="'+titleText+'"></input>');
 	$('#renameDomainField-'+ id ).focus();
+    selectText(titleBlock);
 	/* Lorsque le focus n'est plus sur le champ texte... : */
 	$('#renameDomainField-'+ id ).focusout(function(){
 		/* récupérer la nouvelle valeur */
@@ -94,7 +88,7 @@ function renameDomain(id) {
 	        /* requête AJAX */
 	        type: "POST",
 	        dataType:"json",
-	        url: Routing.generate('piltasker_renameDomain'),
+	        url: Routing.generate('pilote_tasker_renameDomain'),
 	        data: { 'domainId' : id, 'newTitle' : newTitleText },
 	        cache: false,
 	        success: function(data){

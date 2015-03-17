@@ -1,0 +1,155 @@
+<div class="modal-content">
+  	<div class="modal-header">
+  		{# Pour rajouter un bouton de fermeture de la fenêtre, en haut à droite #}
+    	{# <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> #}
+		<span class="glyphicon glyphicon-record"></span> 
+		<h4 class="modal-taskTitle" id="modalLabel">
+			<b title="Cliquer pour éditer" onClick="renameTask({{task.id}});">{{ task.name }} </b>
+		</h4>
+		<span class="modal-taskList"> dans la liste <b>{{ task.tList.step.name }}</b> : <b>{{ task.tList.name }}</b></span>
+  	</div>
+	{% set datesActivated = (task.endDate != null) %}
+	<div class="modal-body">
+		<article>
+
+			{# ZONE DES DATES DE DEBUT ET DE FIN #}
+			<div id="datepickersContainer" {% if not datesActivated %}style="display:none;"{% endif %}>
+				<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" 
+					title="Si seule la date de fin est renseignée, la tâche apparaîtra comme un jalon. {#Si les deux dates sont renseignées, elle apparaîtra normalement entre ces deux dates.#} Il n'est pas possible de ne renseigner que la date de début.">
+				</span>
+				<span class="startDateBlock {% if not datesActivated %}disabled{% endif %}">
+					<label for="startDate">Date de début :</label>
+					<input type="text" id="startDate" name="startDate" 
+						{% if task.startDate != null %}value="{{task.startDate | date('j/m/Y')}}"{% endif %}
+						{% if not datesActivated %}disabled{% endif %}>
+				</span>
+				<span class="endDateBlock">
+					<label for="endDate">Date de fin : </label>
+					<input type="text" id="endDate" name="endDate" 
+						{% if datesActivated %}value="{{task.endDate | date('j/m/Y')}}"{% endif %}>
+				</span>
+				<div class="h-separ"></div>
+			</div>
+			
+			{# ZONE DU CONTENU EDITABLE DE LA TACHE #}
+
+			<div class="modal-taskContent" onclick="setContentZoneEditable({{task.id}})">
+				<p class="modal-toolbar">
+					{% include "PiloteTaskerBundle:Main:taskEditorToolbar.html.twig" %}
+				</p>
+				<div id="editor">
+					{% if task.content %}
+						{{ task.content | raw }}
+					{% else %}
+						Cliquez ici pour ajouter du texte.
+					{% endif %}
+				</div>
+			</div>
+
+			{# ZONE DES CHECKLISTS #}
+
+			<div class="checklistContainer">
+            	{% for checkList in task.checkLists %} {# Pour chaque checkList #}
+					{% include 'PiloteTaskerBundle:Main:checkList.html.twig' 
+						with {'checkList': checkList} %}
+                {% endfor %} {# Fin "pour chaque checkList" #}
+			</div>
+			
+			{# ZONE DE LA BARRE DE PROGRESSION #}
+			
+			<div id="progressSliderContainer" {% if not task.progressActivated %}style="display:none;"{% endif %}>
+				<div class="h-separ"></div>
+				<h4>
+					Progression : 
+					<span id="progressValue">{{task.progress}}</span> %
+				</h4>
+				<div id="progressSlider"></div>
+			</div>
+			
+			{# ZONE DES COMMENTAIRES #}
+
+			<div class="h-separ"></div>
+
+			<h4>
+				<span class="glyphicon glyphicon-align-left"></span> 
+				Commentaires
+			</h4>
+
+			<div id="commentsContainer">                
+                <textarea id="commentArea" class="form-control" placeholder="Écrivez un commentaire" onblur="btndisappear()" onfocus="btnappear()" data-taskId="{{task.id}}"></textarea>
+                <br>
+                <div class="commentBtn">
+                    <input class="btn btn-default" type="button" value="Publier" onClick="addComment()"/>
+                </div>
+                <br>
+                <div class="comments">
+                	{% for comment in task.comments | reverse %} {# Pour chaque commentaire #}
+						{% include 'PiloteTaskerBundle:Main:comment.html.twig' 
+							with {'comment': comment, 'task': task} %}
+                    {% endfor %} {# Fin "pour chaque commentaire" #}
+                </div>
+			</div>
+
+		</article>
+
+		{# ZONE DE LA BARRE LATÉRALE DROITE AVEC LES DIVERS BOUTONS #}
+
+		<aside>
+
+			<h4>Actions</h4>
+
+			{# Labels Priorité #}
+			<button class="btn btn-default"><span class="glyphicon glyphicon-tags"> </span> Éditer les labels</button>
+
+			{# Assigner à un membre #}
+			<div id="assignBtn" class="dropdown">
+				<button class="btn btn-default dropdown-toggle" type="button" id="assignMenu" data-toggle="dropdown" aria-expanded="true">
+					<span class="glyphicon glyphicon-user"></span> 
+					<span id="assignBtnName">{% if task.creator %} {{ task.creator }} {% else %} Assigner à... {% endif %}</span>
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" role="menu" aria-labelledby="assignMenu">
+					<li><a onClick="assign({{task.id}}, null);" href="#">Ne pas assigner</a></li>
+					<li class="divider"></li>
+					{% for member in task.tList.step.domain.board.users %}
+					<li><a onClick="assign({{task.id}}, {{member.id}});" href="#">{{member}}</a></li>
+					{% endfor %}
+				</ul>
+			</div>
+
+			{# Cases à cocher #}
+			<button id="addChecklistBtn" class="btn btn-default" title="Ajouter une liste de cases à cocher" onclick="addChecklist({{task.id}});">
+				<span class="glyphicon glyphicon-list"></span> Ajouter Checklist
+			</button>
+
+			{# Dates de début et de fin #}
+			<button class="btn btn-default" id="toggleDatesBtn" data-datesActivated="{{datesActivated ? 1 : 0}}" onclick="toggleDates({{task.id}});">
+				<span class="glyphicon glyphicon-time"></span> Planifier...
+			</button>
+
+			{# Barre horizontale : pourcentage de réalisation #}
+			<button id="progressBtn" data-progress="{{task.progress}}" data-progressActivated="{{task.progressActivated ? 1 : 0}}"  class="btn btn-default" onclick="toggleProgress({{task.id}});"><b>%</b> Progression</button>
+
+			{# Fichier joint #}
+			<div id="fileUploadGroup" class="aside-btn-group">
+			{% include 'PiloteTaskerBundle:Main:documentThumbnail.html.twig' 
+							with {'document': task.document, 'form': form} %}
+			</div>
+
+			{#<button class="btn btn-default"><span class="glyphicon glyphicon-arrow-right"></span> Déplacer...</button>#}
+			{#<button class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span> Souscrire</button>#}
+			{#<button class="btn btn-default"><span class="glyphicon glyphicon-inbox"></span> Archiver</button>#}
+		</aside>
+	</div>
+
+	{# ZONE DU BAS : FOOTER DE LA FENETRE #}
+
+	<div class="modal-footer">
+    	<button id="deleteTaskBtn" type="button" class="btn btn-danger deleteTaskBtn" onclick="deleteTask({{task.id}});">
+    		Supprimer
+    	</button>
+    	<button type="button" class="btn btn-primary" data-dismiss="modal">
+    		Enregistrer
+    	</button>
+	</div>
+</div>

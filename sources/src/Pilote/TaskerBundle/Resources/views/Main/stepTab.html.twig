@@ -1,0 +1,16 @@
+<li {% if activeStep %} class="active" {% endif %}>
+	<a data-target="#tab-{{ step.id }}" data-toggle="tab">
+		<span class="stepTitle">{{ step }} </span>
+		<div class="stepMenu dropdown">
+			<a data-toggle="dropdown" class="caret"></a>
+			<ul class="dropdown-menu" role="menu">
+				<li id="renameStepBtn-{{ step.id }}" class="renameStepBtn">
+					<a><span class="glyphicon glyphicon-edit"></span> Renommer</a>
+				</li>
+				<li id="deleteStepBtn-{{ step.id }}" class="deleteStepBtn">
+					<a><span class="glyphicon glyphicon-minus"></span> Supprimer</a>
+				</li>
+			</ul>
+		</div>
+	</a>
+</li>

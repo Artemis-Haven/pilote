@@ -1,0 +1,98 @@
+{% extends 'PiloteMainBundle::base.html.twig' %}
+
+{# Ceci est le bloc qui remplace le titre de la page (normalement dans le <head>) #}
+{% block pageTitle %} {{ parent() }} - {{ board }}{% endblock %}
+
+{# Ceci est le bloc qui remplace le bloc identique de la vue dont cette vue hérite #}
+{% block boardTitle %} {{ board }} {% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ asset('css/board.css') }}"/>
+<link rel="stylesheet" href="{{ asset('css/fullcalendar.min.css') }}" class="css">
+<link rel="stylesheet" href="{{ asset('css/fullcalendar.print.css') }}" media='print' />
+<link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}" class="css">
+<link rel="stylesheet" href="{{ asset('css/jquery-ui.datepicker.min.css') }}" class="css">
+<style>
+	#calendarView {
+		max-width: 900px;
+		margin: 0 auto;
+		padding-top: 25px;
+	}
+	.task {
+		background-color: #3DB9D3;
+		border-color: #2898B0;
+	}
+	.milestone {
+		background-color: #5471A3;
+		border-color: #244173;
+	}
+	.milestone > .fc-resizer {
+		cursor: inherit !important;
+	}
+</style>
+{% endblock %}
+
+{% block pageType %}calendar{% endblock %}
+
+{% block body %}
+
+	<!-- Création du calendrier -->
+	<div id='calendarView'></div>
+
+
+    {# Cette section contient la fenêtre modale qui s'affichera
+    lors du clic sur une tâche. Elle est vide par défaut et le contenu
+    est inséré ou supprimé à l'ouverture ou la fermeture de la fenêtre. #}
+    <section class="taskDetailsSection">
+        <div class="modal fade" id="modalTask" tabindex="-1" 
+                role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block scripts %}
+	{{ parent() }}
+	<script src="{{ asset('js/jquery-ui-custom.min.js') }}"></script>
+	<script src="{{ asset('js/moment.min.js') }}"></script>
+	<script src="{{ asset('js/gantt/fullcalendar.min.js') }}"></script>
+	<script src="{{ asset('js/gantt/fullcalendar-fr.js') }}"></script>
+	<script src="{{ asset('js/gantt/customCalendar.js') }}"></script>
+	<script type="text/javascript">
+	$(document).ready(function () {
+		$('#calendarView').fullCalendar({
+			header: {
+				left: 'today',
+				center: 'title',
+				right: 'prev,next'
+			},
+			firstDay: 1,
+			allDayDefault: true,
+			editable: true,
+			eventLimit: true, // allow "more" link when too many events
+			lang: 'fr',
+			columnFormat: 'dddd',
+			events: {{tasks|raw}},
+			eventDrop: function (event, jsEvent, ui, view) {
+				moveEvent(event);
+			},
+			eventResize: function (event, jsEvent, ui, view) {
+				moveEvent(event);
+			},
+			eventClick: function(event, element) {
+		        getTaskDetails(event.id);
+            	$("#modalTask").modal("show");
+		    }
+		});
+	})
+    </script>
+    <script src="{{ asset('js/jquery.hotkeys.js') }}"></script>
+    <script src="{{ asset('js/jquery.form.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-wysiwyg.js') }}"></script>
+    <script src="{{ asset('js/board/manageTask.js') }}"></script>
+    <script src="{{ asset('js/board/manageChecklists.js') }}"></script>
+    <script src="{{ asset('js/board/taskDetails.js') }}"></script>
+{% endblock %}
+

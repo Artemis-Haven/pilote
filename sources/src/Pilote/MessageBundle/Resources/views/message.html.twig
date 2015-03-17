@@ -1,0 +1,21 @@
+    <div class="row msgContainer" data-message="{{message.id}}">
+        {% if not sameSender %}
+        <br>
+        {% endif %}
+        <div class="msgPhoto col-md-1">
+            {% if not sameSender %}
+                {% if message.sender.picture == null %}
+                <img src="{{ asset('img/img_profil_user.png') }}" alt="{{message.sender}}">
+                {% else %}
+                <img src="{{ asset(message.sender.picture.webPath) }}" alt="{{message.sender}}">
+                {% endif %}
+            {% endif %}
+        </div>
+        <div class="col-md-11">
+            {% if not sameSender %}
+                <div class="msgDate">{{message.createdAt|date("\\L\\e d/m/Y \à G\\hi") }}</div>
+                <a class="msgSender" href="{{path('pilote_profil_showAnotherProfile', {'id': message.sender.uuid})}}">{{message.sender}}</a>
+            {% endif %}
+            <div class="msgContent">{{message.body}}</div>
+        </div>
+    </div>

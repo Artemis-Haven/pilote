@@ -8,4 +8,6 @@
 /build/
 /bin/
 /vendor/
-/UPGRADE-*.md
+UPGRADE-*.md
+/web/uploads/profilePictures/*
+/web/uploads/documents/*

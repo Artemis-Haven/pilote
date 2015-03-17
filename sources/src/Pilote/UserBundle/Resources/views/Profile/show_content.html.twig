@@ -1,0 +1,46 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<div class="container" id="user_show">
+    <div class="row">
+        <aside class="col-md-3 sheet">
+            <h2>{{ user.username }}</h2>
+            <p class="photo">
+                {% if app.user.picture == null %}
+                <img src="{{ asset('img/img_profil_user.png') }}" 
+                alt="Photo de profil de {{user.username}}" class="img-thumbnail">
+                {% else %}
+                <img src="{{ asset(app.user.picture.webPath) }}" 
+                alt="Photo de profil de {{user.username}}" class="img-thumbnail">
+                {% endif %}
+            </p>
+            <div class="informations">
+                <p><b>Adresse e-mail :</b> {{user.email}}</p>
+                <p><b>Dernière connexion :</b> <br>{{user.lastLogin | date("\\L\\e d/m/Y \\à G\\hi")}}</p>
+                {% if current %}
+                <a href="{{ path('fos_user_profile_edit') }}" type="button" class="btn btn-info btn-block">Editer le profil</a>
+                {% endif %}
+            </div>
+        </aside>
+        <section class="col-md-9">
+            <div class="sheet">
+                {% if current %}
+                <h2>Tâches associées à votre profil</h2>
+                {% for board in user.boards if board.enabled %}
+                <div class="row">
+                    <h3 class="col-md-12">{{board.name}}</h3>
+                    {% for task in user.tasks if task.tList.step.domain.board == board %}
+                    <article class="col-md-3 col-sm-6">
+                        <a href="{{path('pilote_tasker_board', {boardId: board.id})}}">{{task.name}}</a>
+                        <br>
+                    </article>
+                    {% else %}
+                    <div class="col-md-12">Aucune tâche associée.</div>
+                    {% endfor %}
+                </div>
+                <div class="h-separ"></div>
+                {% endfor %}
+                {% endif %}
+            </div>
+        </section>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+checklist:
+    pattern:  /
+    defaults: { _controller: "PiloteTaskerBundle:CheckList:index" }
+
+checklist_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "PiloteTaskerBundle:CheckList:show" }
+
+checklist_new:
+    pattern:  /new
+    defaults: { _controller: "PiloteTaskerBundle:CheckList:new" }
+
+checklist_create:
+    pattern:  /create
+    defaults: { _controller: "PiloteTaskerBundle:CheckList:create" }
+    requirements: { _method: post }
+
+checklist_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "PiloteTaskerBundle:CheckList:edit" }
+
+checklist_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "PiloteTaskerBundle:CheckList:update" }
+    requirements: { _method: post|put }
+
+checklist_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "PiloteTaskerBundle:CheckList:delete" }
+    requirements: { _method: post|delete }

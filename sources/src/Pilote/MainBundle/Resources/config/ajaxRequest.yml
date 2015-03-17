@@ -1,0 +1,15 @@
+pilote_main_loadNextNotifications:
+    path: /loadNextNotifications
+    defaults: { _controller: PiloteMainBundle:Ajax:loadNextNotifications }
+
+pilote_main_removeAllNotifications:
+    path: /removeAllNotifications
+    defaults: { _controller: PiloteMainBundle:Ajax:removeAllNotifications }
+
+pilote_main_removeNotification:
+    path: /removeNotification
+    defaults: { _controller: PiloteMainBundle:Ajax:removeNotification }
+
+pilote_main_notificationsRead:
+    path: /notificationsRead
+    defaults: { _controller: PiloteMainBundle:Ajax:setAllNotificationsRead }

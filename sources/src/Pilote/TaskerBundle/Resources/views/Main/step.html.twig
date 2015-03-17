@@ -1,0 +1,11 @@
+<div class="tab-pane {%if activeStep %}active{% endif %}" id="tab-{{ step.id }}"
+	style="width: {{step.tLists|length * 265 + 265}}px;">
+  	{% for tList in step.tLists %} {# Pour chaque liste #}
+  		{% include 'PiloteTaskerBundle:Main:tList.html.twig' 
+			with {'tList': tList} %}
+	{% endfor %} {# Fin "pour chaque liste" #}
+	<div id="addListBtn-{{step.id}}" class="addListBtn panel"> 
+		<p>Ajouter une nouvelle liste</p> {# panel pour ajouter une nouvelle liste #}
+		<span class="glyphicon glyphicon-plus"></span>
+	</div>
+</div>

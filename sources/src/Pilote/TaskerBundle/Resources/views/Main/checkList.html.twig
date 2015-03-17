@@ -1,0 +1,15 @@
+<div data-checklistId="{{ checkList.id }}" class="checklist">
+	<div class="h-separ"></div>
+	<h4>
+		<span class="glyphicon glyphicon-list"></span> 
+		<span class="title" onClick="renameChecklist({{checkList.id}});">{{ checkList.name }}</span>
+		<span title="Supprimer la liste" class="glyphicon glyphicon-remove" onClick="deleteChecklist({{checkList.id}});"></span>
+	</h4>
+	<div class="checkListOptionContainer">
+		{% for option in checkList.checkListOptions %} {# Pour chaque option #}
+			{% include 'PiloteTaskerBundle:Main:checkListOption.html.twig' 
+				with {'option': option} %}
+	    {% endfor %} {# Fin "pour chaque checkList" #}
+    </div>
+	<p class="addChecklistOptionBtn" onClick="addChecklistOption({{checkList.id}});">Ajouter une ligne...</p>
+</div>

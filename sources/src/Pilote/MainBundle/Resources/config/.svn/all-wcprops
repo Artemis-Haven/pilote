@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/pilote/!svn/ver/10/sources/src/Pilote/MainBundle/Resources/config
+END
+ajaxRequest.yml
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/pilote/!svn/ver/70/sources/src/Pilote/MainBundle/Resources/config/ajaxRequest.yml
+END
+services.yml
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/pilote/!svn/ver/10/sources/src/Pilote/MainBundle/Resources/config/services.yml
+END
+routing.yml
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/pilote/!svn/ver/63/sources/src/Pilote/MainBundle/Resources/config/routing.yml
+END

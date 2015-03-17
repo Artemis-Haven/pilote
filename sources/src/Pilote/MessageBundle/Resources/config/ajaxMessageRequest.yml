@@ -1,0 +1,3 @@
+pilote_message_post:
+    pattern:  /post
+    defaults: { _controller: PiloteMessageBundle:Default:post }

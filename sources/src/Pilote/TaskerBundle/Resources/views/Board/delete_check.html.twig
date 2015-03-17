@@ -1,0 +1,16 @@
+{% extends 'PiloteMainBundle::base.html.twig' %}
+
+{% block body -%}
+	
+	<div class="container">
+		<div class="row">
+	    	<h1>Êtes-vous sûr de vouloir supprimer le projet "{{ board }}" ?</h1>
+		    {{ form(delete_form) }}
+
+		    <a class="btn btn-default" href="{{ path('pilote_projects') }}">
+		        Annuler
+		    </a>
+
+		</div>
+	</div>
+{% endblock %}

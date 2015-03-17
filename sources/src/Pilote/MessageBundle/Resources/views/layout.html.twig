@@ -1,0 +1,33 @@
+{% extends "PiloteMainBundle::base.html.twig" %}
+
+{% set simpleThread = constant('\\Pilote\\MessageBundle\\Entity\\Thread::SIMPLE_THREAD') %}
+{% set boardThread  = constant('\\Pilote\\MessageBundle\\Entity\\Thread::BOARD_THREAD')  %}
+{% set adminThread  = constant('\\Pilote\\MessageBundle\\Entity\\Thread::ADMIN_THREAD')  %}
+
+{% block body %}
+	<div class="container" id="messenger">
+		<div class="row">
+			<div class="col-md-8">
+				<h2>{% block message_title %}Messagerie{% endblock %}</h2>
+			</div>
+			<div class="col-md-4">
+				{% block message_menu %}{% endblock %}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-8 col-sm-12">
+				{% block message_content %}{% endblock %}
+			</div>
+			<div class="col-md-4 hidden-xs hidden-sm">
+				{% include 'PiloteMessageBundle::sidebar.html.twig' %}
+			</div>
+		</div>
+	</div>
+ {% endblock %}
+
+
+{% block scripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('js/jquery-ui-custom.min.js') }}"></script>
+    <script src="{{ asset('js/messages.js') }}"></script>
+{% endblock %}

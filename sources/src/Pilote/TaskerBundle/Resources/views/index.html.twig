@@ -1,0 +1,38 @@
+{% extends "PiloteMainBundle::base.html.twig" %}
+
+{% block body %}
+	<div class="container boardList">
+		<div class="row">
+			{% for board in app.user.boards if board.enabled %}
+				<div class="col-md-4">
+					<a href="{{ path('pilote_tasker_board', {'boardId': board.id}) }}" class="vignette sheet">
+						<span onClick="validArchivage('{{ path('pilote_tasker_board_delete', {'boardId': board.id}) }}'); return false;" 
+							title="Archiver" 
+							class="glyphicon glyphicon glyphicon-trash pull-right"></span> 
+						<span onClick="window.location.href='{{ path('pilote_tasker_board_settings', {'boardId': board.id}) }}'; return false;" title="Configurer" 
+							class="glyphicon glyphicon glyphicon-cog pull-right"></span> 
+						<h4>{{ board }}</h4>
+						<p>{{ board.description }}</p>
+					</a>
+				</div>
+			{% endfor %}
+			<div class="col-md-4">
+				<a href="{{ path("pilote_tasker_board_new") }}" class="vignette sheet nouvelle-vignette">
+					<h4>Créer un nouveau projet</h4>
+				</a>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block scripts %}
+{{ parent() }}
+<script type="text/javascript">
+	function validArchivage(path) {
+		if(confirm("Êtes-vous sûr de vouloir archiver ce projet ?\nVous n'y aurez plus accès ensuite.\nSeul un administrateur pourra le réactiver.")) {
+			window.location.href = path;
+		} 
+		return false;
+	}
+</script>
+{% endblock %}

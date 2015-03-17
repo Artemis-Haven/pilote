@@ -1,0 +1,19 @@
+<h4>Pièce jointe</h4>
+
+{% if document == null %}
+	<form class="btn btn-default" id="fileUpload" action="{{ path('pilote_tasker_fileUpload') }}" method="post" {{ form_enctype(form) }}>
+	<span class="glyphicon glyphicon-file"></span> Joindre un fichier
+	{{ form_widget(form.file) }}
+	{{ form_rest(form) }}
+	</form>
+{% else %}
+	{% if document.originalName|split('.')|last|lower in ["jpg", "jpeg", "png", "bmp", "svg", "gif"] %}
+		<img src="{{ asset(document.webPath) }}" alt="Pièce jointe : {{document.originalName}}" title="{{document.originalName}}" class="img-thumbnail">
+	{% else %}
+		<div>{{document.originalName}}</div>
+	{% endif %}
+	<a href="{{ asset(document.webPath) }}" target="_blank" class="btn btn-default" id="downloadFileBtn">
+		<span class="glyphicon glyphicon-download-alt"></span> Télécharger
+	</a>
+	<button class="btn btn-default" id="deleteFileBtn" onclick="deleteFile({{task.id}});"><span class="glyphicon glyphicon-trash"></span> Supprimer</button>
+{% endif %}

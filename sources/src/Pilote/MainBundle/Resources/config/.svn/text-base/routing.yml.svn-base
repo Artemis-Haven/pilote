@@ -1,0 +1,24 @@
+pilote_accueil:
+    path: /accueil
+    defaults: { _controller: PiloteMainBundle:Default:index }
+
+pilote_default:
+    path: /
+    defaults: { _controller: PiloteMainBundle:Default:index }
+
+pilote_apropos:
+    path: /apropos
+    defaults: { _controller: PiloteMainBundle:Default:apropos }
+
+pilote_contact:
+    path: /contact
+    defaults: { _controller: PiloteMainBundle:Default:contact }
+
+# Toutes les requêtes AJAX liées aux pages générales
+pilote_main_ajax_request:
+    resource: ajaxRequest.yml
+    prefix:   /mainRequest
+    options:
+        expose: true
+    requirements:
+        _method:  POST

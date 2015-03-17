@@ -1,0 +1,18 @@
+{% extends 'PiloteMainBundle::base.html.twig' %}
+
+{% block body -%}
+	<div class="container">
+		<div class="row">
+		    <div class="col-sm-6">
+		    	<h1>Renommer le projet "{{ entity }}" :</h1>
+			    {{ form(edit_form) }}
+
+			    <a class="btn btn-default" href="{{ path('pilote_projects') }}">
+			        Retour
+			    </a>
+		    </div>
+
+		</div>
+	</div>
+
+{% endblock %}

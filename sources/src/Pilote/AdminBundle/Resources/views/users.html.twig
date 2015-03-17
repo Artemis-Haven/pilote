@@ -1,0 +1,89 @@
+{% extends "PiloteAdminBundle::baseAdmin.html.twig" %}
+
+{% block title %}Gestion des utilisateurs{% endblock %}
+
+{% block content %}
+
+<div class="alert alert-info alert-dismissable">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    Vous pouvez accéder directement à un projet en cliquant sur son nom dans l'une des listes déroulantes. Les administrateurs sont affichés en rouge et les utilisateurs désactivés sont grisés. Le détail de chaque icône apparait lors du survol de la souris.
+</div>
+<div class="table-responsive sheet" id="usersList">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nom d'utilisateur</th>
+                <th>Identifiant</th>
+                <th>Adresse e-mail</th>
+                <th>Projets associés</th>
+                <th>Dernière connexion</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr {% if not user.enabled %}class="disabled"{% endif %}>
+                <td {% if user.granted('ROLE_ADMIN') %}style="color:red;"{% endif %}>
+                    {{user.username}}
+                    <a title="Aller à la page de profil" class="glyphicon glyphicon-user pull-right" href="{{path('pilote_profil_showAnotherProfile', {'id': user.uuid})}}"></a>
+                </td>
+                <td>{{user.uuid}}</td>
+                <td>
+                    <span title="{{user.email}}">{{user.email | truncate(30)}} </span>
+                    <a title="Envoyer un e-mail" class="glyphicon glyphicon-envelope pull-right" href="mailto:{{user.email}}"></a>
+                </td>
+                <td style="max-width: 300px;">
+                    <select class="form-control">
+                        <optgroup label="Projets actifs">
+                        {% for board in user.boards if board.enabled %}
+                            <option onclick="goToBoard('{{board.id}}');">{{board}}</option>
+                        {% else %}
+                            <option value="0">-</option>
+                        {% endfor %}
+                        </optgroup>
+                        <optgroup label="Projets inactifs">
+                        {% for board in user.boards if not board.enabled %}
+                            <option value="{{board.id}}">{{board}}</option>
+                        {% else %}
+                            <option value="0">-</option>
+                        {% endfor %}
+                        </optgroup>
+                    </select>
+                </td>
+                <td>{{user.lastLogin | date("d/m/Y")}}</td>
+                <td>
+                {% if user != app.user %}
+                    {% if user.granted('ROLE_ADMIN') %}
+                        <a class="glyphicon glyphicon-user" style="color:red;" title="Destituer en simple utilisateur" href="{{path('pilote_admin_user_demote', {'id': user.uuid})}}"></a>
+                    {% else %}
+                        <a class="glyphicon glyphicon-user" title="Promouvoir administrateur" href="{{path('pilote_admin_user_promote', {'id': user.uuid})}}"></a>
+                    {% endif %} &nbsp;
+                    {% if user.enabled %}
+                        <a href="{{path('pilote_admin_user_disable', {'id' : user.uuid})}}" class="glyphicon glyphicon-off" title="Désactiver l'utilisateur"></a>
+                    {% else %}
+                        <a href="{{path('pilote_admin_user_enable', {'id' : user.uuid})}}" class="glyphicon glyphicon-off" title="Activer l'utilisateur"></a>
+                    {% endif %} &nbsp;
+                    <a onclick="return confirmDelete();" class="glyphicon glyphicon-trash" title="Supprimer l'utilisateur" href="{{path('pilote_admin_user_remove', {'id': user.uuid})}}"></a>
+                {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
+
+
+{% block scripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+    function goToBoard (id) {
+        location.href= Routing.generate('pilote_tasker_board', { boardId: id});
+        return false;
+    }
+    function confirmDelete () {
+        return confirm("Êtes-vous certain de vouloir supprimer cet utilisateur ?");
+    }
+    </script>
+{% endblock %}

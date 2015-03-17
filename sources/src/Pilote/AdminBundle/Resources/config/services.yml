@@ -1,0 +1,4 @@
+services:
+#    pilote_admin.example:
+#        class: Pilote\AdminBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

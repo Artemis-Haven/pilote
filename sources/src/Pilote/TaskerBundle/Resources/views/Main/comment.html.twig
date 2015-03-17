@@ -1,0 +1,18 @@
+<div class="row" data-commentId="{{comment.id}}">
+	<div class="col-md-4">
+		<b>{{comment.user | capitalize}}</b>
+	    <p class="photo">
+	        {% if comment.user.picture == null %}
+	        <img src="{{ asset('img/img_profil_user.png') }}" alt="{{comment.user}}">
+	        {% else %}
+	        <img src="{{ asset(comment.user.picture.webPath) }}" alt="{{comment.user}}">
+	        {% endif %}
+	    </p>
+        <p class="commentDate">{{comment.date | localizeddate('medium', 'short') }}</p>
+	</div>
+    <div class="col-md-8">
+        <span class="glyphicon glyphicon-remove pull-right removeComment" onClick="deleteComment({{comment.id}})"
+             	title="Supprimer le commentaire"></span>
+        <div class="commentContent">{{comment}}</div>
+    </div>
+</div>

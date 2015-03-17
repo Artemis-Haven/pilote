@@ -1,0 +1,27 @@
+{% extends "PiloteMainBundle::base.html.twig" %}
+
+{% block pageTitle %}{{ parent() }}  - Administration{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ asset('css/admin.css') }}" type="text/css" />
+{% endblock %}
+
+{% block body %}
+  
+    <section id="admin" class="container">
+        <h1>Administration <small> <span class="glyphicon glyphicon-play"></span> {% block title %}Tableau de bord{% endblock %}</small></h1>
+        <nav >
+            <a class="btn btn-primary" href="{{path('pilote_admin_homepage')}}">Tableau de bord</a> 
+            <a class="btn btn-primary" href="{{path('pilote_admin_users')}}">Gestion des utilisateurs</a> 
+            <a class="btn btn-primary" href="{{path('pilote_admin_boards')}}">Gestion des projets</a>
+            <a class="btn btn-primary" href="{{path('pilote_admin_user_new')}}">Créer un nouvel utilisateur</a>
+            <a class="btn btn-success" href="{{path('pilote_projects')}}">Revenir à l'accueil du site</a>
+        </nav>
+        {% block content %}{% endblock %}
+    </section>
+
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+{% endblock %}

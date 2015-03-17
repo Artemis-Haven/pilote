@@ -1,0 +1,17 @@
+#################
+# PAGE DU GANTT #
+#################
+
+pilote_tasker_gantt_moveTask:
+    path: /moveTask
+    defaults: { _controller: PiloteTaskerBundle:Gantt:moveTask }
+
+pilote_tasker_gantt_addLink:
+    path: /addLink
+    defaults: { _controller: PiloteTaskerBundle:Gantt:addLink }
+
+
+pilote_tasker_gantt_deleteLink:
+    path: /deleteLink
+    defaults: { _controller: PiloteTaskerBundle:Gantt:deleteLink }
+

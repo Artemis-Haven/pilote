@@ -1,0 +1,184 @@
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#piloteNavbar">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand visible-xs" href="#">Pilote</a>
+		</div>
+
+		{# Zone centrale : Titre #}
+		{% if boardName == null %}
+			<a class="navbar-brand navbar-center hidden-xs navbar-button">Pilote</a>
+		{% endif %}
+
+		<div class="collapse navbar-collapse" id="piloteNavbar">
+			
+			{# Zone de gauche #}
+			<ul class="nav navbar-nav">
+
+				{# Projets #}
+				<li class="dropdown">
+					<a class="dropdown-toggle navbar-button" data-toggle="dropdown" href="#">
+						<span class="glyphicon glyphicon-list"></span> 
+						Mes projets
+					</a>
+					<ul class="dropdown-menu">
+						<li>
+							<a href="{{ path('pilote_projects') }}"><span class="glyphicon glyphicon-th"></span> Tous les projets</a>
+						</li>
+						<li class="divider hidden-xs"></li>
+				            {% for b in app.user.boards if b.enabled %}
+				            	<li>
+				            		<a href="{{ path('pilote_tasker_board', { 'boardId': b.id }) }}">
+				            			<span class="glyphicon glyphicon-none"></span>&nbsp;{{ b.name }}
+				            		</a>
+			            		</li>
+				            {% endfor %}
+				        <li class="divider hidden-xs"></li>
+				        <li>
+				        	<a href="{{ path("pilote_tasker_board_new") }}"><span class="glyphicon glyphicon-plus-sign"></span> Nouveau projet</a>
+				        </li>
+					</ul>
+				</li>
+
+				{# Menu du projet #}
+				{% if boardId != null and boardName != null %}
+					<li class="dropdown hidden-xs">
+						<a class="dropdown-toggle navbar-brand" data-toggle="dropdown" href="#" style="margin-left:0px;">
+							<b>Projet : </b>{{ boardName }}
+						</a>
+						<ul class="dropdown-menu">
+							<li>
+								<a href="{{ path('pilote_tasker_board', { 'boardId': boardId }) }}">
+									Vue générale
+								</a>
+							</li>
+							<li>
+								<a href="{{ path('pilote_tasker_gantt', { 'boardId': boardId }) }}">
+									Diagramme de Gantt
+								</a>
+							</li>
+							<li>
+								<a href="{{ path('pilote_tasker_calendar', { 'boardId': boardId }) }}">
+									Calendrier
+								</a>
+							</li>
+							<li class="divider hidden-xs"></li>
+							<li>
+								<a href="{{ path('pilote_tasker_board_settings', { 'boardId': boardId }) }}">
+									Configurer le projet
+								</a>
+							</li>
+						</ul>
+					</li>
+				{% endif %}
+
+			</ul>
+
+
+			{# Zone de droite #}
+			<ul class="nav navbar-nav navbar-right">
+
+				{# Messagerie #}
+				<li class="dropdown" id="messagesMenu">
+					<a  class="dropdown-toggle navbar-button {% if app.user.unreadThreadsNbr > 0  %} new {% endif %}" data-toggle="dropdown" href="#">
+						<span class="glyphicon glyphicon-envelope"></span>
+						<span class="visible-xs"> Messagerie 
+							<span class="badge">{{ app.user.unreadThreadsNbr }}</span>
+						</span>
+					</a>
+					<ul class="dropdown-menu">
+						<li>
+							<a href="{{path('pilote_message_index')}}"><span class="glyphicon glyphicon-inbox"></span> Messagerie <span class="badge">{{ app.user.unreadThreadsNbr }}</span></a>
+						</li>
+						<li class="divider"></li>
+						{% set boardThread = constant('\\Pilote\\MessageBundle\\Entity\\Thread::BOARD_THREAD') %}
+						{% for metadata in app.user.metadata if metadata.thread.type == boardThread %}
+							<li>
+								<a href="{{path('pilote_message_thread', {'id': metadata.thread.id})}}">
+									<span class="glyphicon glyphicon-record"></span> {{metadata.thread.board}}
+								</a>
+							</li>
+						{% endfor %}
+						{% set simpleThread = constant('\\Pilote\\MessageBundle\\Entity\\Thread::SIMPLE_THREAD') %}
+						{% for thread in app.user.threads if thread.type == simpleThread %}
+							<li>
+								<a href="{{path('pilote_message_thread', {'id': thread.id})}}">
+									<span class="glyphicon glyphicon-user"></span> {{ thread.participants|join(', ') }}
+								</a>
+							</li>
+						{% endfor %}
+						<li class="divider"></li>
+						<li>
+							<a href="#"><span class="glyphicon glyphicon-pencil"></span> Rédiger un message</a>
+						</li>
+						<li><a href="#"><span class="glyphicon glyphicon-ok"></span> Tout marquer comme lu</a></li>
+					</ul>
+				</li>
+
+				{# Notifications #}
+				<li id="notificationsDropdown" class="dropdown {% if app.user.unreadNotifsNbr > 0 %}unread{% endif %}">
+					<a class="dropdown-toggle navbar-button" data-toggle="dropdown" href="#">
+							<span class="glyphicon glyphicon-bell"></span>
+							<span class="visible-xs">Notifications</span>
+					</a>
+					<ul class="dropdown-menu" id="notificationsMenu">
+						{% if notifications|length > 0 %}
+							{% for notif in notifications %}
+								{% include 'PiloteUserBundle:Notifications:notification.html.twig' 
+									with {'notif': notif} %}
+							{% endfor %}
+							<li id="loadNextNotifications">
+								<a><span class="glyphicon glyphicon-plus"></span> Afficher plus de notifications</a>
+							</li>
+							<li id="removeAllNotifications">
+								<a><span class="glyphicon glyphicon-trash"></span> Tout effacer</a>
+							</li>
+						{% else %}
+							<li><a>Aucune notification.</a></li>
+						{% endif %}
+					</ul>
+				</li>
+
+				{# Utilisateur #}
+				<li class="dropdown">
+					<a  {% if is_granted('ROLE_ADMIN') %}
+							style="color:#CC2200;"
+						{% endif %}
+						class="dropdown-toggle navbar-button" data-toggle="dropdown" href="#">
+						<span class="glyphicon glyphicon-user"></span> 
+						{{app.user.username}}
+					</a>
+					<ul class="dropdown-menu">
+						{% if app.user.picture != null %}
+						<li>
+							<img src="{{ asset(app.user.picture.webPath) }}">
+						</li>
+						<li class="divider"></li>
+						{% endif %}
+						<li>
+							<a href="{{ path('pilote_profil_show') }}"><span class="glyphicon glyphicon-eye-open"></span> Profil</a>
+						</li>
+						<li>
+							<a href="#"><span class="glyphicon glyphicon-question-sign"></span> Aide</a>
+						</li>
+						<li class="divider"></li>
+	                    {% if is_granted('ROLE_ADMIN') %}
+	                    	<li>
+	                    		<a href="{{ path('pilote_admin_homepage') }}"><span class="glyphicon glyphicon-cog"></span> Administration</a>
+	                    	</li>
+					    {% endif %}
+						<li>
+							<a href="{{ path('fos_user_security_logout') }}"><span class="glyphicon glyphicon-off"></span> Déconnexion</a>
+						</li>
+					</ul>
+				</li>
+				
+			</ul>
+		</div>
+	</div>
+</nav>

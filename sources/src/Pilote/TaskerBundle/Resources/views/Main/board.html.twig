@@ -1,0 +1,72 @@
+{% extends 'PiloteMainBundle::base.html.twig' %}
+
+{# Ceci est le bloc qui remplace le titre de la page (normalement dans le <head>) #}
+{% block pageTitle %} {{ parent() }} - {{ board }}{% endblock %}
+
+{# Ceci est le bloc qui remplace le bloc identique de la vue dont cette vue hérite #}
+{% block boardTitle %} {{ board }} {% endblock %}
+
+{# Idem, on ajoute les feuilles CSS spécifiques à cette vue dans le block de style #}
+{% block styles %}
+	<link rel="stylesheet" href="{{ asset('css/board.css') }}" class="css">
+	<link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}" class="css">
+	<link rel="stylesheet" href="{{ asset('css/jquery-ui.datepicker.min.css') }}" class="css">
+	<style>
+		.boardSection {
+			background-color: {{board.color}};
+		}
+		.panel-body .nav-tabs > li.active > a {
+		    background-color: {{board.color}};
+		    border-bottom-color: {{board.color}};
+		}
+	</style>
+{% endblock %}
+
+{% block pageType %}board{% endblock %}
+
+{# Bloc principal #}
+{% block body %}
+
+<section id="board-{{ board.id }}" class="boardSection">
+		
+	{# Ce DIV est l'accordéon qui contient chaque Domaine #}
+	<div class="panel-group" id="accordion">
+
+		{% for domain in board.domains %} {# Pour chaque domaine #}
+		{% include 'PiloteTaskerBundle:Main:domain.html.twig' 
+			with {'domain': domain, 'activeDomain': loop.first} %}
+		{# Fin "pour chaque domaine" #}
+		{% endfor %}
+		
+	</div>	
+	
+</section>
+
+{# Cette section contient la fenêtre modale qui s'affichera
+lors du clic sur une tâche. Elle est vide par défaut et le contenu
+est inséré ou supprimé à l'ouverture ou la fermeture de la fenêtre. #}
+
+<section class="taskDetailsSection">
+	<div class="modal fade" id="modalTask" tabindex="-1" 
+			role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+		</div>
+	</div>
+</section>
+
+{% endblock %}
+
+{% block scripts %}
+	{{ parent() }}
+	<script src="{{ asset('js/jquery-ui-custom.min.js') }}"></script>
+	<script src="{{ asset('js/jquery.hotkeys.js') }}"></script>
+	<script src="{{ asset('js/jquery.form.js') }}"></script>
+	<script src="{{ asset('js/board/sortableTask.js') }}"></script>
+	<script src="{{ asset('js/bootstrap-wysiwyg.js') }}"></script>
+	<script src="{{ asset('js/board/manageDomain.js') }}"></script>
+	<script src="{{ asset('js/board/manageStep.js') }}"></script>
+	<script src="{{ asset('js/board/manageList.js') }}"></script>
+	<script src="{{ asset('js/board/manageTask.js') }}"></script>
+	<script src="{{ asset('js/board/manageChecklists.js') }}"></script>
+    <script src="{{ asset('js/board/taskDetails.js') }}"></script>
+{% endblock %}

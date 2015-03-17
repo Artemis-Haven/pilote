@@ -1,7 +1,0 @@
-parameters:
-#    pil_user.example.class: PIL\UserBundle\Example
-
-services:
-#    pil_user.example:
-#        class: %pil_user.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]

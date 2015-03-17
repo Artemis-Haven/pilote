@@ -1,0 +1,131 @@
+ {% extends 'PiloteMainBundle::base.html.twig' %}
+
+{# Ceci est le bloc qui remplace le titre de la page (normalement dans le <head>) #}
+{% block pageTitle %} {{ parent() }} - {{ board }}{% endblock %}
+
+{# Ceci est le bloc qui remplace le bloc identique de la vue dont cette vue hérite #}
+{% block boardTitle %} {{ board }} {% endblock %}
+
+{# Idem, on ajoute les feuilles CSS spécifiques à cette vue dans le block de style #}
+{% block styles %}
+<link rel="stylesheet" href="{{ asset('css/dhtmlxgantt.css') }}" class="css">
+<link rel="stylesheet" href="{{ asset('css/board.css') }}" class="css">
+<link rel="stylesheet" href="{{ asset('css/jquery-ui.datepicker.min.css') }}" class="css">
+<link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}" class="css">
+<style type="text/css">
+    html, body{ height:100%; padding:50px 0px 0px 0px; margin:0px; background-color: #F6F6F6;}
+
+    .myMilestone{
+        width: 5px !important;
+        background-color: #D33DAF !important;
+        border: 1px solid #61164F !important;
+        margin-left: -3px;
+    }
+    .myMilestone > .gantt_task_drag,
+    .myMilestone > .gantt_task_progress_drag{
+        display: none !important;
+    }
+    .gantt_dependent_task {
+        background-color: #5471A3;
+        border-color: #244173;
+    }
+    .gantt_dependent_task > .gantt_task_progress {
+        background-color: #345183;
+    }
+    .gantt_dependent_task > .gantt_link_control {
+        display: none;
+    }
+
+    .weekend {
+        background-color: #f6f6f6;
+    }
+
+    .ganttSettingsSection {
+        position:fixed;
+        top: 0px;
+        height: 50px;
+        padding: 60px 5px;
+    }
+
+    .ganttSettingsSection form > * {
+        margin-left: 30px;
+    }
+
+    .ganttSettingsSection form select {
+        padding: 2px 5px;
+        height: 30px;
+    }
+</style>
+{% endblock %}
+
+{% block pageType %}gantt{% endblock %}
+
+
+{# Bloc principal #}
+{% block body %}
+
+    <section class="ganttSettingsSection hidden-sm hidden-xs">
+        <form class="form-inline" method="GET" action="{{ path('pilote_tasker_gantt', {'boardId': board.id}) }}">
+            <b>Filtres :</b>
+            <div class="form-group">
+                Membre du groupe :
+                <select class="form-control" id="user-filter" name="uuid">
+                    <option value="">Tout le monde</option>
+                    {% for user in board.users %}
+                        <option value="{{user.uuid}}" {% if user.uuid == uuid %}selected{% endif %}>{{user}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                Juste les tâches en cours : 
+                <input type="checkbox" id="currentTasks-filter" value="true" name="currentTasks" {% if currentTasks %}checked{% endif %}>
+            </div>
+            <div class="form-group">
+                Échelle de temps : 
+                <select class="form-control" id="scale-filter" name="scale">
+                    <option value="day" {% if scale == "day" %}selected{% endif %}>Jour</option>
+                    <option value="week" {% if scale == "week" %}selected{% endif %}>Semaine</option>
+                    <option value="month" {% if scale == "month" %}selected{% endif %}>Mois</option>
+                </select>
+            </div>
+            <input type="submit" value="Valider" class="btn btn-link btn-primary">
+        </form>
+    </section>
+
+    <section id="gantt_here" style='width:100%; height:100%;'>
+    </section>
+
+    {# Cette section contient la fenêtre modale qui s'affichera
+    lors du clic sur une tâche. Elle est vide par défaut et le contenu
+    est inséré ou supprimé à l'ouverture ou la fermeture de la fenêtre. #}
+    <section class="taskDetailsSection">
+        <div class="modal fade" id="modalTask" tabindex="-1" 
+                role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+
+{% block scripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/jquery-ui-custom.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.hotkeys.js') }}"></script>
+    <script src="{{ asset('js/jquery.form.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-wysiwyg.js') }}"></script>
+    <script src="{{ asset('js/gantt/dhtmlxgantt.min.js') }}"></script>
+    <script src="{{ asset('js/gantt/dhtmlxgantt_locale_fr.js') }}" charset="utf-8"></script>
+    <script src="{{ asset('js/gantt/customGantt.js') }}"></script>
+    <script src="{{ asset('js/board/manageTask.js') }}"></script>
+    <script src="{{ asset('js/board/manageChecklists.js') }}"></script>
+    <script src="{{ asset('js/board/taskDetails.js') }}"></script>
+    <script type="text/javascript">
+        $(function () {
+            gantt.config.scale_unit = "{{scale | default('week') }}"; 
+            gantt.init("gantt_here");
+            gantt.parse({{ganttData|raw}});
+        })
+    </script>  
+{% endblock %}

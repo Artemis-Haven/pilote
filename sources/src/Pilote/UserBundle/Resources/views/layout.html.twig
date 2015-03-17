@@ -1,0 +1,17 @@
+{# On étend notre layout #}
+{% extends "PiloteMainBundle::base.html.twig" %}
+
+{% block styles %}
+	<style>
+		body > .sheet {	max-width: 400px;}
+		body > .sheet, body > .container {	margin: 30px auto;}
+		form input {margin-bottom: 20px;}
+	</style>
+{% endblock %}
+
+{% block body %}
+	<div class="sheet">
+	    {% block fos_user_content %}
+	    {% endblock fos_user_content %}
+	</div>
+{% endblock %}

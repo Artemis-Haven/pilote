@@ -1,0 +1,18 @@
+{% extends 'PiloteMessageBundle::layout.html.twig' %}
+
+{% block message_title %}
+    Messagerie
+{% endblock %}
+
+{% block message_content %}
+<div class="sheet">
+    <div id="messagesList">
+        {% for metadata in app.user.metadata if not metadata.read %}
+            <div><a href="{{path('pilote_message_thread', {'id': metadata.thread.id})}}">->{{metadata.thread.title}}</a></div>
+        {% else %}
+            <div class="emptyList">Aucun message non lu. <br><br>Sélectionnez une conversation dans la colonne de droite.</div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

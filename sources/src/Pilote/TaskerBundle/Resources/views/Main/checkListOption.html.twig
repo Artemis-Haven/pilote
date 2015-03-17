@@ -1,0 +1,8 @@
+<span data-checklistOption="{{ option.id }}" class="checkbox">
+	<input id="checklistOption-{{option.id}}" {% if option.checked %} checked="true" {% endif %} type="checkbox"
+		onclick="toggleChecklistOption({{option.id}});">
+	<span class="optionText">{{ option.optionText }}</span>
+	<span class="editChkLstOptBtn glyphicon glyphicon-pencil" onClick="renameChecklistOption({{option.id}});"></span>
+	<span class="editChkLstOptBtn glyphicon glyphicon-remove" onClick="deleteChecklistOption({{option.id}});"></span>
+	<br>
+</span>

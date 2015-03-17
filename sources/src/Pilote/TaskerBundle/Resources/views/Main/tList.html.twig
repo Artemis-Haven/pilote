@@ -1,0 +1,26 @@
+<div id="tList-{{ tList.id }}" class="taskList sheet"> {# Début de la liste de taches #}
+	<div class="tList-heading">
+		<p>{{ tList }}</p>
+		<div class="listMenu dropdown">
+			<a data-toggle="dropdown" href="#" class="caret"></a>
+			<ul class="dropdown-menu" role="menu">
+				<li id="renameListBtn-{{ tList.id }}" class="renameListBtn">
+					<a><span class="glyphicon glyphicon-edit"></span> Renommer</a>
+				</li>
+				<li id="deleteListBtn-{{ tList.id }}" class="deleteListBtn">
+					<a><span class="glyphicon glyphicon-minus"></span> Supprimer</a>
+				</li>
+			</ul>
+		</div>
+	</div> {# Titre de la liste #}
+	<article class="sortableTasksContainer">
+		<div class="blankTask"></div>
+		{% for task in tList.tasks %} {# Pour chaque tache #}
+			{% include 'PiloteTaskerBundle:Main:taskThumbnail.html.twig' 
+				with {'task': task} %}
+		{% endfor %} {# Fin "pour chaque tache" #}
+		<div id="addTaskBtn-{{ tList.id }}" class="addTaskBtn sheet" onclick="addTask({{tList.id}});">
+			Ajouter une tâche...
+		</div>
+	</article>
+</div> {# Fin de la liste de taches #}

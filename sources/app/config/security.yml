@@ -1,7 +1,7 @@
 security:
     encoders:
         Symfony\Component\Security\Core\User\User: plaintext
-        PIL\UserBundle\Entity\User: sha512
+        Pilote\UserBundle\Entity\User: sha512
 
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER
@@ -24,10 +24,10 @@ security:
                 check_path: fos_user_security_check
                 #redirection pour que l'on aille sur /index après la connexion
                 always_use_default_target_path : true
-                default_target_path: /index
+                default_target_path: /projets
             logout:
                 path: fos_user_security_logout
-                target: /accueil
+                target: /
             remember_me:
                 key: %secret%
 
@@ -49,7 +49,8 @@ security:
 
 
     access_control:
-        - { path: /index, roles: [ROLE_ADMIN, ROLE_USER] }
-        - { path: /board/*, roles: [ROLE_ADMIN, ROLE_USER] }
-        - { path: /admin/*, roles: ROLE_ADMIN }
+        - { path: ^/projets, roles: [ROLE_ADMIN, ROLE_USER] }
+        - { path: ^/profile/*, roles: [ROLE_ADMIN, ROLE_USER] }
+        - { path: ^/board/*, roles: [ROLE_ADMIN, ROLE_USER] }
+        - { path: ^/admin/*, roles: ROLE_ADMIN }
         #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }

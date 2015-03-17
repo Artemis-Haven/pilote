@@ -1,0 +1,32 @@
+<div class="sheet">
+    {% if app.user.picture == null %}  
+	    <p class="photo">
+	    	<img src="{{ asset('img/img_profil_user.png') }}" alt="Photo de profil de {{app.user}}" title="Photo de profil" class="img-thumbnail">
+	    </p>
+		<br>
+		<form class="btn btn-primary btn-block" id="newPicture" action="{{ path('pilote_profil_picture_new') }}" method="post" {{ form_enctype(editForm) }}>
+			<span class="glyphicon glyphicon-file"></span> Choisir une photo
+			{{ form_widget(editForm.file, {'attr': {'onChange': "submitOnClick('newPicture')"}}) }}
+			{{ form_rest(editForm) }}
+		</form>
+	{% else %}  
+	    <p class="photo">
+	    	<img src="{{ asset(app.user.picture.webPath) }}" alt="Photo de profil de {{app.user}}" title="Photo de profil" class="img-thumbnail">
+	    </p>
+		<br>
+		<form class="btn btn-primary btn-block" id="editPicture" action="{{ path('pilote_profil_picture_checkEdit') }}" method="post" {{ form_enctype(editForm) }}>
+			<span class="glyphicon glyphicon-file"></span> Modifier la photo
+			{{ form_widget(editForm.file, {'attr': {'onChange': "submitOnClick('editPicture')"}}) }}
+			{{ form_rest(editForm) }}
+		</form>
+	    <br><br>
+	    <a href="{{ path('pilote_profil_picture_delete') }}" class="btn btn-warning btn-block">
+	    	<span class="glyphicon glyphicon-trash"></span> Supprimer la photo
+	    </a>
+	{% endif %}
+</div>
+<script type="text/javascript">
+   	function submitOnClick(elt){ 
+		document.getElementById(elt).submit(); 
+   	};
+</script>

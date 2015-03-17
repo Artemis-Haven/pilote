@@ -1,0 +1,127 @@
+# Page listant les projets de l'utilisateur courant
+pilote_projects:
+    path: /projets
+    defaults: { _controller: PiloteTaskerBundle:Tasker:index }
+
+#########
+# BOARD #
+#########
+
+# Page principale d'un board
+pilote_tasker_board:
+    path: /board/{boardId}
+    defaults: { _controller: PiloteTaskerBundle:Tasker:board }
+    requirements:
+        boardId: \d+
+    options:
+        expose: true
+
+# Page de création d'un nouveau board
+pilote_tasker_board_new:
+    path: /board/new
+    defaults: { _controller: PiloteTaskerBundle:Tasker:newBoard }
+
+# Page de suppression d'un board
+pilote_tasker_board_delete:
+    path: /board/delete/{boardId}
+    defaults: { _controller: PiloteTaskerBundle:Tasker:deleteBoard }
+    requirements:
+        boardId: \d+
+
+#########
+# GANTT #
+#########
+
+# Page du diagramme de Gantt d'un board
+pilote_tasker_gantt:
+    path: /board/{boardId}/gantt
+    defaults: { _controller: PiloteTaskerBundle:Gantt:index }
+    requirements:
+        boardId: \d+
+
+
+
+##############
+# CALENDRIER #
+##############
+
+# Page du calendrier d'un board
+pilote_tasker_calendar:
+    path:   /board/{boardId}/calendar
+    defaults: { _controller: PiloteTaskerBundle:Gantt:calendar }
+    requirements:
+        boardId: \d+
+
+############
+# Settings #
+############
+
+# Page de réglages d'un board
+pilote_tasker_board_settings:
+    path: /board/{boardId}/settings
+    defaults: {_controller: PiloteTaskerBundle:Tasker:settings }
+    requirements:
+        boardId: \d+
+
+# Page d'ajout d'un utilisateur à un board
+pilote_tasker_board_addUser:
+    path: /board/{boardId}/addUser
+    defaults: {_controller: PiloteTaskerBundle:Ajax:addUser }
+    requirements:
+        boardId: \d+
+        _method: POST
+
+# JSON : recherche des utilisateurs potentiels pour le board
+pilote_tasker_board_searchUser:
+    path: /board/{boardId}/searchUser
+    defaults: { _controller: PiloteTaskerBundle:Tasker:searchUser }
+    requirements:
+        boardId: \d+
+
+
+pilote_tasker_crud_board:
+    resource: "@PiloteTaskerBundle/Resources/config/routing/board.yml"
+    prefix:   /crud/board
+
+pilote_tasker_crud_domain:
+    resource: "@PiloteTaskerBundle/Resources/config/routing/domain.yml"
+    prefix:   /crud/domain
+
+pilote_tasker_crud_step:
+    resource: "@PiloteTaskerBundle/Resources/config/routing/step.yml"
+    prefix:   /crud/step
+
+pilote_tasker_crud_tlist:
+    resource: "@PiloteTaskerBundle/Resources/config/routing/tlist.yml"
+    prefix:   /crud/tlist
+
+pilote_tasker_crud_task:
+    resource: "@PiloteTaskerBundle/Resources/config/routing/task.yml"
+    prefix:   /crud/task
+
+pilote_tasker_crud_checklist:
+    resource: "@PiloteTaskerBundle/Resources/config/routing/checklist.yml"
+    prefix:   /crud/checklist
+
+pilote_tasker_crud_checklistoption:
+    resource: "@PiloteTaskerBundle/Resources/config/routing/checklistoption.yml"
+    prefix:   /crud/checklistoption
+
+# Toutes les requêtes AJAX liées aux pages des boards
+pilote_tasker_ajax_board_request:
+    resource: "@PiloteTaskerBundle/Resources/config/routing/ajaxBoardRequest.yml"
+    prefix:   /boardRequest
+    options:
+        expose: true
+    requirements:
+        _method:  POST
+
+
+# Toutes les requêtes AJAX liées au Gantt
+pilote_tasker_ajax_gantt_request:
+    resource: routing/ajaxGanttRequest.yml
+    prefix:   /ganttRequest
+    options:
+        expose: true
+    requirements:
+        _method:  POST

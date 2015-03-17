@@ -1,0 +1,92 @@
+{% extends 'PiloteMessageBundle::layout.html.twig' %}
+
+
+{% block message_title %}
+    {% if thread.type == boardThread %}
+        {{ thread.board }}
+        <small>{{ thread.participants|join(', ') }}</small>
+    {% elseif thread.type == adminThread %}
+        {% if is_granted('ROLE_ADMIN') %}
+        Demande d'aide
+        <small>{{thread.creator}}</small>
+        {% else %}
+        Discussion avec les administrateurs
+        {% endif %}
+        <small></small>
+    {% else %}
+        Discussion
+        <small>{{ thread.participants|join(', ') }}</small>
+    {% endif %}
+{% endblock %}
+
+
+{% block message_menu %}
+{% if thread.type != boardThread %}
+    <br>
+    <div class="dropdown pull-right hidden-sm hidden-xs">
+        <button id="dLabel" class="btn sheet" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="glyphicon glyphicon-cog"></span> Actions
+        <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+            <li><a href="" data-toggle="modal" data-target="#addParticipantModal">Inviter dans la discussion</a></li>
+            {% if thread.type == adminThread %}
+                <li><a href="{{path('pilote_message_thread_close', {'id': thread.id})}}">Clore la discussion</a></li>
+            {% else %}
+                <li><a href="{{path('pilote_message_thread_leave', {'id': thread.id})}}">Quitter la discussion</a></li>
+            {% endif %}
+        </ul>
+    </div>
+{% endif %}
+{% endblock %}
+
+
+{% block message_content %}
+<div class="sheet">
+    <div id="messagesList" data-thread="{{thread.id}}">
+        {% set previousSender = null %}
+        {% for message in thread.messages %}
+            {% include 'PiloteMessageBundle::message.html.twig' 
+                with {'message': message, 'sameSender': (message.sender == previousSender)} %}
+            {% set previousSender = message.sender %}
+        {% else %}
+            <div class="emptyList">Aucun message.</div>
+        {% endfor %}
+    </div>
+
+    <form id="messageForm" class="row">
+        <div class="col-md-10 col-sm-12">
+            <textarea class="form-control"></textarea>
+        </div>
+        <div class="col-md-2 col-sm-12">
+            <button type="button" class="btn btn-success btn-lg btn-block">Valider</button>
+        </div>
+    </form>
+
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="addParticipantModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Inviter quelqu'un dans la discussion</h4>
+            </div>
+            <form id="addParticipant" action="{{ path('pilote_message_addParticipant', {'id': thread.id}) }}" role="form" method="POST">
+                <div class="modal-body">
+                    <input id="autocompAddParticipant" name="addParticipant" type="text" class="form-control" placeholder="Rechercher">
+                    <input type="hidden" name="addParticipantUserId" id="addParticipantUserId">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                    <button type="submit" class="btn btn-primary" disabled="true">Valider</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

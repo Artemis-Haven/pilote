@@ -25,7 +25,7 @@ function setSortableTask() {
             $.ajax({
                 type: "POST",
                 dataType:"json",
-                url: Routing.generate('piltasker_moveTask'),
+                url: Routing.generate('pilote_tasker_moveTask'),
                 data: { 'movedTaskId' : taskId, 'upperTaskId' : upperTaskId, 'newListId' : newListId },
                 cache: false
             });
@@ -35,7 +35,7 @@ function setSortableTask() {
 
     $( ".tab-pane" ).sortable({
         items: ".taskList",
-        handle: ".panel-heading",
+        handle: ".tList-heading",
         revert:true,
         update: function(event, ui) {
             tListId = ui.item.attr('id').replace('tList-', '');
@@ -48,7 +48,7 @@ function setSortableTask() {
             $.ajax({
                 type: "POST",
                 dataType:"json",
-                url: Routing.generate('piltasker_moveList'),
+                url: Routing.generate('pilote_tasker_moveList'),
                 data: { 'movedListId' : tListId, 'leftListId' : leftListId },
                 cache: false
             });

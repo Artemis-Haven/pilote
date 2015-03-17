@@ -17,12 +17,14 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new FOS\UserBundle\FOSUserBundle(),
-            new PIL\UserBundle\PILUserBundle(),
-            new PIL\AdminBundle\PILAdminBundle(),
-            new PIL\TaskerBundle\PILTaskerBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
-            new FOS\MessageBundle\FOSMessageBundle(),
-            new PIL\MessageBundle\PILMessageBundle(),
+            //new FOS\MessageBundle\FOSMessageBundle(),
+            new Pilote\TaskerBundle\PiloteTaskerBundle(),
+            new Pilote\AdminBundle\PiloteAdminBundle(),
+            new Pilote\MessageBundle\PiloteMessageBundle(),
+            new Pilote\UserBundle\PiloteUserBundle(),
+            new Pilote\MainBundle\PiloteMainBundle(),
+            new Nc\Bundle\ElephantIOBundle\NcElephantIOBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

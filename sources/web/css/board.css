@@ -1,197 +1,174 @@
-/* Zone qui contient les listes de tâches */
-.domain .tab-content {
-    overflow-x: scroll;
-    padding-bottom: 10px;
+body { background-color: #FFF; }
+
+/* Board */
+.boardSection {
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    background-color: #F6F6F6;
 }
 
-/* ------------------ */
-/* Titre des domaines */
-/* ------------------ */
+.caret { color: #666; }
 
-/* Icones ajouter, renommer et supprimer des domaines */
-.panel-title .glyphicon {
-    opacity: 0.3;
-    text-align: right;
-    display: inline-block;
+/* Pour tous les champs éditables du board */
+.stepTitle[contenteditable="true"],
+.tList-heading p[contenteditable="true"],
+.modal-taskTitle > b[contenteditable="true"],
+.checklist > h4 > .title[contenteditable="true"],
+.checkbox .optionText[contenteditable="true"] {
+    background-color: #FFF;
+    padding: 3px;
+    min-height: 15px;
+    border: 1px solid #CCC;
+}
+
+
+/**********************************/
+/* Style des Domaines (accordéon) */
+/**********************************/
+
+/* Domaine */
+.domain { background-color: transparent; }
+
+/* Chaque élément masquable de l'accordéon : liste des onglets (step) et panneau des listes de taches */
+.panel-collapse > * {
+    padding-left: 0;
+    padding-right: 0;
+    border-top: none !important;
+}
+
+/* Icones sur chaque domaine : sur le haut de l'accordéon, à droite */
+.panel-title > .glyphicon {
     float: right;
+    opacity: 0.5;
     margin-left: 10px;
-}
-
-/* idem */
-.panel-title .glyphicon:hover {
-    opacity: 0.6;
-}
-
-/* ---------------- */
-/* Titre des étapes */
-/* ---------------- */
-
-/* Titre des onglets */
-.domain .nav>li>a {
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-right: 15px;
     cursor: pointer;
 }
+.panel-title > .glyphicon:hover {
+    opacity: 0.8;
+    text-decoration: none;
+}
 
-/* Flèche pour le menu déroulant */
-.domain .stepMenu {
+/******************************/
+/* Style des Etapes (onglets) */
+/******************************/
+
+/* Contenu des onglets (step) : contient les listes de taches */
+.tab-content {
+    padding-bottom: 20px;
+    margin: 0;
+}
+
+.panel-body .nav-tabs  { padding: 0 10px; }
+
+.panel-body { padding: 0; }
+
+.stepMenu {
+    margin-top: -27px;
+    margin-right: 9px;
     float: right;
-    margin-top: -25px;
-    margin-right: 7px;
 }
 
-/* idem */
-.domain .stepMenu .caret {
-    opacity: 0.5;
+
+.panel-body .nav-tabs > li { margin-right: 10px; }
+
+
+/* Les onglets */
+.panel-body .nav-tabs > li > a {
+    padding: 5px 20px 5px 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid #DDD;
+    color: #666;
 }
 
-/* idem */
-.domain .stepMenu .caret:hover {
-    opacity: 1;
+/* Survol d'un onglet */
+.panel-body .nav-tabs > li > a:hover {
+    background-color: rgba(255, 255, 255, 1);
+    color: #333;
 }
 
-/* --------------------------------------- */
-/* Menu déroulant sur les listes de tâches */
-/* --------------------------------------- */
+/* Onglet actif */
+.panel-body .nav-tabs > li.active > a {
+    background-color: #F6F6F6;
+    border-bottom-color: #F6F6F6;
+}
 
-.taskList .panel-heading > * {
+/* Onglet d'ajout d'étape*/
+.addStepBtn { padding-right: 10px !important; }
+
+
+/******************************/
+/* Style des Listes de tâches */
+/******************************/
+
+.taskList, .addListBtn {
+    width: 250px;
+    display: inline-block;
+    vertical-align: top;
+    background-color: rgba(221, 221, 221, 0.5);
+    margin: 10px 5px;
+    border: 1px solid #CCC;
+    padding: 0;
+}
+
+/* Bouton d'ajout de liste */
+.addListBtn {
+    cursor: pointer;
+    text-align: center;
+    opacity: 0.8;
+    color: #333;
+    padding: 10px;
+}
+
+.addListBtn:hover { opacity: 1; }
+
+.addListBtn .glyphicon { font-size: 300%; }
+
+/* En-tête des listes */
+.taskList .tList-heading {
+    width: auto;
+    text-align: center;
+    padding-top: 10px;
+    font-weight: bold;
+    cursor: grab;
+}
+
+.taskList.ui-sortable-helper .tList-heading {
+    cursor: move;
+}
+
+.taskList > .tList-heading > p {
+    padding-left: 3px;
+    padding-right: 3px;
+    min-width: 10px;
+    overflow: hidden;
     display: inline;
 }
 
-/* idem */
-.taskList .panel-heading .caret {
-    color: #FFFFFF;
-    margin-top: 8px;
+.taskList .tList-heading .listMenu {
     float: right;
-    opacity: 0.5;
-    padding: 1px;
+    margin-right: 15px;
+    display: inline;
 }
 
-/* idem */
-.taskList .panel-heading .caret:hover {
-    opacity: 1;
+/* Zone des tâches */
+.taskList .sortableTasksContainer {
+    padding: 0 10px 15px 10px;
 }
 
-/* idem */
-.taskList .panel-heading .listMenu {
-    float: right;
-}
 
-/* idem */
-.taskList .panel-heading .listMenu ul {
-    margin-left: -140px;
-    margin-top: 5px;
-}
+/********************/
+/* Style des Tâches */
+/********************/
 
-/* idem */
-.taskList .panel-heading ul li {
-    text-align: left;
-}
+.task, .addTaskBtn { margin: 10px 0px; }
 
-/* -------------------------- */
-/* Zones de texte : Renommage */
-/* -------------------------- */
+.task { cursor: pointer; }
 
-/* Zones de texte quand on renomme une étape ou une liste */
-input.renameListField, input.renameStepField {
-    margin: -4px;
-    text-align: center;
-    background-color: transparent;
-}
-
-/* Zones de texte quand on renomme un domaine */
-input.renameDomainField {
-    margin: -5px;
-    background-color: transparent;
-}
-
-/* ---------------- */
-/* Listes de tâches */
-/* ---------------- */
-
-/* Style spécifique à LA liste
-   qui est en train d'être déplacée */
-.taskList.ui-sortable-helper{
-    cursor: move;
-    -webkit-transition: box-shadow 300ms ease-out;
-    -moz-transition: box-shadow 300ms ease-out;
-    -ms-transition: box-shadow 300ms ease-out;
-    -o-transition: box-shadow 300ms ease-out;
-    transition: box-shadow 300ms ease-out;
-    -webkit-box-shadow: 20px 1px 10px 0 rgba(40,40,40,0.3);
-    box-shadow: 20px 20px 10px 0 rgba(40,40,40,0.3);
-}
-
-/* Listes de tâches ET le bouton "ajouter une liste" */
-.taskList, .addListBtn {
-    width: 250px;
-    float: left;
-    padding-bottom: 10px;
-    margin: 5px;
-    background-color: #DBDBDB;
-}
-
-/* Gros bouton "ajouter une liste" */
-.addListBtn {
-    padding: 20px;
-    text-align: center;
-    color: #AAAAAA;
-    background-color: #F0F0F0;
-    border-color: #DBDBDB;
+.addTaskBtn {
+    background-color: rgba(255, 255, 255, 0.4);
     cursor: pointer;
 }
-
-/* idem */
-.addListBtn:hover {
-    background-color: #E8E8E8;
-    color: #888888;
-}
-
-/* Le gros + sur ce bouton */
-.addListBtn .glyphicon {
-    font-size: 300%;
-}
-
-/* titre de la liste de tâches */
-.taskList>.panel-heading {
-    text-align: center;
-    margin-bottom: 5px;
-}
-
-/* Zone qui contient toutes les tâches.
-   Ce bloc est créé pour que l'on ne puisse
-   pas placer une tâche avant le titre de la
-   liste par exemple.
-   Le min-height permet de placer une tâche
-   dans la liste ci celle-ci est vide. */
-.sortableTasksContainer {
-    min-height: 40px;
-    max-height: 300px;
-}
-
-
-/* ----- */
-/* Tâche */
-/* ----- */
-
-.task {
-    margin-bottom: 5px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 2px;
-    width: 230px;
-    cursor: pointer;
-    background-color: #ffffff;
-    -webkit-box-shadow: 1px 1px 0px 0 rgba(40,40,40,0.3);
-    box-shadow: 1px 1px 0px 0 rgba(40,40,40,0.3);
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
-    -webkit-transition: transform 300ms ease-in;
-    -moz-transition: transform 300ms ease-in;
-    -ms-transition: transform 300ms ease-in;
-    -o-transition: transform 300ms ease-in;
-    transition: transform 300ms ease-in;
+.addTaskBtn:hover {
+    background-color: rgba(255, 255, 255, 0.7);
 }
 
 /* Style spécifique à LA tâche
@@ -211,409 +188,267 @@ input.renameDomainField {
 /* Espace vide qui apparait à l'endroit où 
    l'on veut déposer la tâche que l'on tient */
 .task-placeholder {
-    -webkit-box-shadow: 1px 1px 2px 0 #808080 inset;
-    box-shadow: 1px 1px 2px 0 #808080 inset;
-    -webkit-border-radius: 3px;
+    background-color: rgba(200, 200, 200, 0.8);
     border-radius: 3px;
-    background-color: #C0C0C0;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15) inset;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 5px;
-    height: 40px;
+    height: 60px;
     width: 230px;
     cursor: move;
 }
 
-/* bouton "ajouter une tâche" */
-.addTaskBtn {
-    cursor: pointer;
-    color: #909090;
-    margin-left: auto;
-    margin-right: auto;
-    width: 220px;
-}
 
-/* idem */
-.addTaskBtn:hover {
-    color: #606060;
-    text-decoration: none;
-}
-
-
-/* ---------------------------- */
-/* Fenêtre du détail des tâches */
-/* ---------------------------- */
+/**************************************/
+/* Fenêtre modale : Détail des tâches */
+/**************************************/
 
 .modal-dialog {
-    width: 700px;
+    width: 750px;
 }
 
 .modal-content {
-    background-color: #EEEEEE;
+    border-radius: 3px;
 }
 
 .modal-header {
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding: 5px 15px;
 }
 
-.modal-header>* {
+.modal-header > * {
     display: inline-block;
 }
 
 .modal-header .modal-taskList {
-    color: #666666;
+    color: #999;
 }
 
-.modal-body>* {
+.modal-body > * {
     display: inline-block;
     vertical-align: top;
 }
 
 .modal-body article {
     width: 500px;
-}
-
-.modal-body article>p {
-    margin-left: 20px;
+    padding-right: 20px;
 }
 
 .modal-summaryIcons>span {
     display: inline-block;
-    background-color: #DDDDDD;
+    background-color: #EEE;
     border-radius: 3px;
-    padding: 2px 5px 2px 5px;
-}
-
-.modal-summaryIcons .glyphicon {
-    color: #666666;
-}
-
-.modal-taskContent {
-    cursor: pointer;
-    border-radius: 5px;
-    padding: 5px;
-}
-
-.modal-body aside {
-    width: 150px;
-}
-
-.modal-body aside button {
-    width: 150px;
-    margin-bottom: 5px;
-    text-align: left;
-}
-
-
-/* ------------------------- */
-/* Zone d'édition des tâches */
-/* ------------------------- */
-
-#editor[contenteditable="true"] {
-    overflow:scroll;
-    background-color: #DDDDDD;
-    cursor: text;
-    padding: 5px;
-    -webkit-box-shadow:inset 0 0 5px 5px rgba(0,0,0,0.1);
-    box-shadow:inset 0 0 5px 5px rgba(0,0,0,0.1);
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
-}
-
-.dropdown-menu .input-group {
-    margin-left: 5px;
+    padding: 2px 10px;
     margin-right: 5px;
 }
 
-.dropdown-menu input {
-    min-width: 200px;
+.modal-body aside {
+    width: 200px;
+}
+
+.modal-body aside button, .modal-body aside .btn {
+    font-weight: normal;
+    width: 200px;
+    text-align: left;
+}
+
+.modal-body aside > *, .modal-body aside > .aside-btn-group > * {
+    margin-bottom: 10px;
+}
+
+
+
+/******************************************/
+/* Fenêtre modale : Slider de progression */
+/******************************************/
+
+/* Fond de la barre */
+#progressSliderContainer .ui-slider {
+    position: relative;
+    height: 15px;
+    background-color: #EEE;
+    -webkit-box-shadow:inset 0 1px 2px 0 rgba(0,0,0,0.5);
+    box-shadow:inset 0 1px 2px 0 rgba(0,0,0,0.5);
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+/* Curseur */
+#progressSliderContainer .ui-slider .ui-slider-handle {
+    position: absolute;
+    z-index: 2;
+    width: 1.2em;
+    height: 1.2em;
+    -ms-touch-action: none;
+    touch-action: none;
+    margin: -1px 0 0 -0.6em;
+    cursor: grab;
+    background-color: white;
+    -webkit-box-shadow: 0 1px 2px 0 rgba(0,0,0,0.8);
+    box-shadow: 0 0px 2px 0 rgba(0,0,0,0.8);
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+/* Zone pleine de la barre */
+#progressSliderContainer .ui-slider .ui-slider-range {
+    position: absolute;
+    z-index: 1;
+    font-size: .7em;
+    display: block;
+    border: 0;
+    background-position: 0 0;
+    top: 0;
+    height: 100%;
+
+    background-color: #345183;
+    -webkit-box-shadow:inset 0 1px 2px 0 rgba(0,0,0,0.5);
+    box-shadow:inset 0 1px 2px 0 rgba(0,0,0,0.5);
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+/* support: IE8 */
+#progressSliderContainer .ui-slider.ui-state-disabled .ui-slider-handle,
+#progressSliderContainer .ui-slider.ui-state-disabled .ui-slider-range { filter: inherit; }
+#progressSliderContainer .ui-slider .ui-slider-range-min { left: 0; }
+#progressSliderContainer .ui-slider .ui-slider-range-max { right: 0; }
+
+
+
+
+/***************************************/
+/* Fenêtre modale : Upload de fichiers */
+/***************************************/
+
+/* CSS Trick pour customiser le bouton d'upload */
+#fileUpload {
+    position: relative;
+    overflow: hidden;
+}
+#fileUpload input[type="file"] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+/**********************************************/
+/* Fenêtre modale : Zone d'édition des tâches */
+/**********************************************/
+
+#editor {
+    min-height: 100px;
+    cursor: pointer;
+}
+
+#editor:hover {
+    background-color: #F0F0F0;
+}
+
+#editor[contenteditable="true"] {
+    overflow:scroll;
+    background-color: #F0F0F0;
+    cursor: text;
+    padding: 5px;
+    -webkit-box-shadow:inset 0 0 3px 3px rgba(0,0,0,0.1);
+    box-shadow:inset 0 0 3px 3px rgba(0,0,0,0.1);
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
 }
 
 .modal-taskContent hr {
     border-color: #333333;
 }
 
-/* ------------------------- */
-/* Zone de titre d'une tâche */
-/* ------------------------- */
+.modal-taskContent .btn {
+    font-size: 14px;
+    padding: 4px 12px;
+}
 
-.modal-taskTitle b {
+/******************************************/
+/* Fenêtre modale : Zone des commentaires */
+/******************************************/
+
+#commentsContainer .photo img {
+    width: 50px;
+    height: 50px;
+}
+
+#commentsContainer .commentDate {
+    font-style: italic;
+    color: #999;
+}
+
+#commentsContainer .comments > .row > div:last-child:hover {
+    background-color: #F0F0F0;
+}
+
+#commentsContainer .comments > * {
+    border-top: 1px dashed #BBB;
+    padding-top: 10px;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+#commentsContainer .removeComment {
+    color: #CCC;
+    margin-top: 5px;
+}
+
+#commentsContainer .removeComment:hover {
+    color: #666;
     cursor: pointer;
-    padding-left: 3px;
-    padding-right: 3px;
-    min-width: 10px;
 }
 
-.modal-taskTitle b[contenteditable="true"] {
-    cursor: text;
-    background-color: #DDDDDD;
+/******************************************/
+/* Fenêtre modale : Zone des Dates D et F */
+/******************************************/
+
+#startDate, #endDate {
+    width: 100px;
 }
 
-/* ------------------------- */
-/* Zone de titre d'un onglet */
-/* ------------------------- */
-
-.domain .nav>li>a .stepTitle {
-    padding-left: 3px;
-    padding-right: 3px;
-    min-width: 10px;
-}
-
-.domain .nav>li>a .stepTitle[contenteditable="true"] {
-    cursor: text;
-    background-color: #EEEEEE;
-}
-
-/* ------------------------- */
-/* Zone de titre d'une liste */
-/* ------------------------- */
-
-.taskList > .panel-heading > p {
-    padding-left: 3px;
-    padding-right: 3px;
-    min-width: 10px;
-    overflow: hidden;
-}
-
-.taskList > .panel-heading > p[contenteditable="true"] {
-    cursor: text;
-    background-color: rgba(46, 119, 182, 1);
-}
-
-/* ----------------------------     */
-/*  Détail des tâches : Commentaire */
-/* ----------------------------     */
-
-.modal-body article .comment-contenu{
-    float:right;
-    width:470px;  
-}
-.modal-body article #saisieComment{ 
-    width:460px; 
-}
-
-.modal-body article .postBt{ 
-    width:100px; 
-}
-
-.modal-body .nouvelComment{
-    clear:right;
-}
-
-.modal-body .newComment{ 
-    float:right;
-    width:460px;
-    word-break:keep-all;
-}
-.modal-body .newComment-Data{ 
-    width:470px;
-    text-align:left;
-}
-
-/* ----------------------------- */
-/* Zone de titre d'une checklist */
-/* ----------------------------- */
-
-.checklist .title {
+#datepickersContainer .glyphicon-info-sign {
+    margin-right: 20px;
     cursor: pointer;
-    padding-left: 3px;
-    padding-right: 3px;
-    min-width: 10px;
-    overflow: hidden;
 }
 
-.checklist .title[contenteditable="true"] {
-    cursor: text;
-    background-color: #DDDDDD;
+.startDateBlock.disabled,
+.startDateBlock.disabled > input[type="text"] {
+    color: #999;
 }
 
-/* -------------------------------------- */
-/* Zone de titre d'une option dechecklist */
-/* -------------------------------------- */
 
-.checklist .checkbox input {
+/********************************************/
+/* Fenêtre modale : Zone des cases à cocher */
+/********************************************/
+
+.checkListOptionContainer, .addChecklistOptionBtn {
+    margin-left: 22px;
+}
+
+.addChecklistOptionBtn {
+    color: #999;
+    font-style: italic;
+}
+
+.addChecklistOptionBtn:hover {
+    color: #666;
     cursor: pointer;
-    padding-left: 3px;
-    padding-right: 3px;
-    min-width: 10px;
-    overflow: hidden;
 }
 
-.checklist .checkbox input[contenteditable="true"] {
-    cursor: text;
-    background-color: #DDDDDD;
+.checklistContainer .glyphicon-pencil, 
+.checklistContainer .glyphicon-remove {
+    color: #CCC;
+    font-size: 80%;
+    margin-left: 2px;
 }
 
-.checklist .glyphicon-pencil {
-    opacity: 0.4;
-}
-
-.checklist .glyphicon-pencil:hover {
-    opacity: 0.8;
-}
-
-/* ------------------------- */
-/* Test de design, youhou !! */
-/* ------------------------- */
-
-html {
-    height: 100%;
-}
-
-body {
-    /*background-color: #A081FC;*/
-    background: rgb(120,62,196); /* Old browsers */
-    background: -moz-linear-gradient(45deg,  rgba(120,62,196,1) 0%, rgba(48,73,211,1) 50%, rgba(48,72,229,1) 52%, rgba(125,185,232,1) 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,rgba(120,62,196,1)), color-stop(50%,rgba(48,73,211,1)), color-stop(52%,rgba(48,72,229,1)), color-stop(100%,rgba(125,185,232,1))); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(45deg,  rgba(120,62,196,1) 0%,rgba(48,73,211,1) 50%,rgba(48,72,229,1) 52%,rgba(125,185,232,1) 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(45deg,  rgba(120,62,196,1) 0%,rgba(48,73,211,1) 50%,rgba(48,72,229,1) 52%,rgba(125,185,232,1) 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(45deg,  rgba(120,62,196,1) 0%,rgba(48,73,211,1) 50%,rgba(48,72,229,1) 52%,rgba(125,185,232,1) 100%); /* IE10+ */
-    background: linear-gradient(45deg,  rgba(120,62,196,1) 0%,rgba(48,73,211,1) 50%,rgba(48,72,229,1) 52%,rgba(125,185,232,1) 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#783ec4', endColorstr='#7db9e8',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-    
-    background: rgb(191,110,78); /* Old browsers */
-    background: -moz-linear-gradient(45deg,  rgba(191,110,78,1) 0%, rgba(117,34,1,1) 49%, rgba(140,51,16,1) 50%, rgba(240,183,161,1) 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,rgba(191,110,78,1)), color-stop(49%,rgba(117,34,1,1)), color-stop(50%,rgba(140,51,16,1)), color-stop(100%,rgba(240,183,161,1))); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(45deg,  rgba(191,110,78,1) 0%,rgba(117,34,1,1) 49%,rgba(140,51,16,1) 50%,rgba(240,183,161,1) 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(45deg,  rgba(191,110,78,1) 0%,rgba(117,34,1,1) 49%,rgba(140,51,16,1) 50%,rgba(240,183,161,1) 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(45deg,  rgba(191,110,78,1) 0%,rgba(117,34,1,1) 49%,rgba(140,51,16,1) 50%,rgba(240,183,161,1) 100%); /* IE10+ */
-    background: linear-gradient(45deg,  rgba(191,110,78,1) 0%,rgba(117,34,1,1) 49%,rgba(140,51,16,1) 50%,rgba(240,183,161,1) 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bf6e4e', endColorstr='#f0b7a1',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-
-    background: rgb(245,246,246); /* Old browsers */
-    background: -moz-linear-gradient(45deg,  rgba(245,246,246,1) 0%, rgba(219,220,226,1) 21%, rgba(184,186,198,1) 49%, rgba(221,223,227,1) 80%, rgba(245,246,246,1) 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,rgba(245,246,246,1)), color-stop(21%,rgba(219,220,226,1)), color-stop(49%,rgba(184,186,198,1)), color-stop(80%,rgba(221,223,227,1)), color-stop(100%,rgba(245,246,246,1))); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(45deg,  rgba(245,246,246,1) 0%,rgba(219,220,226,1) 21%,rgba(184,186,198,1) 49%,rgba(221,223,227,1) 80%,rgba(245,246,246,1) 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(45deg,  rgba(245,246,246,1) 0%,rgba(219,220,226,1) 21%,rgba(184,186,198,1) 49%,rgba(221,223,227,1) 80%,rgba(245,246,246,1) 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(45deg,  rgba(245,246,246,1) 0%,rgba(219,220,226,1) 21%,rgba(184,186,198,1) 49%,rgba(221,223,227,1) 80%,rgba(245,246,246,1) 100%); /* IE10+ */
-    background: linear-gradient(45deg,  rgba(245,246,246,1) 0%,rgba(219,220,226,1) 21%,rgba(184,186,198,1) 49%,rgba(221,223,227,1) 80%,rgba(245,246,246,1) 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5f6f6', endColorstr='#f5f6f6',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-
-    background: rgb(96,108,136); /* Old browsers */
-    background: -moz-linear-gradient(45deg,  rgba(96,108,136,1) 0%, rgba(63,76,107,1) 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,rgba(96,108,136,1)), color-stop(100%,rgba(63,76,107,1))); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(45deg,  rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(45deg,  rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(45deg,  rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%); /* IE10+ */
-    background: linear-gradient(45deg,  rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#606c88', endColorstr='#3f4c6b',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-
-
-}
-
-.panel.domain {
-    background-color: rgba(0,0,0,0);
-    -webkit-border-radius: 0px;
-    border-radius: 0px;
-}
-
-.domain>.panel-heading {
-    background-color: rgba(255, 255, 255, 0.5);
-    -webkit-border-radius: 0px;
-    border-radius: 0px;
-}
-
-.domain>.panel-heading .panel-title a {
-    font-weight: bold;
-}
-
-.stepTitle {
-    font-weight: 600;
-}
-
-.domain > .panel-collapse > .panel-body {
-    padding: 0px;
-    width: 100%;
-}
-
-.panel-body>.nav-tabs {
-    background-color: rgba(251, 251, 251, 0.5);
-    padding: 0px 10px 0px 10px;
-    border-bottom-color: rgba(251, 251, 251, 0.5);
-}
-
-.panel-body>.nav-tabs>li {
-    margin: 0px 5px 0px 5px;
-}
-/*
-.panel-body>.nav-tabs>li a {
-    padding-left: 10px;
-    padding-right: 20px;
-}
-*/
-
-.panel-group .panel-heading + .panel-collapse .panel-body {
-    border: 0px hidden #FFFFFF;
-}
-
-.panel-body>.nav-tabs>li a {
-    background-color: rgba(251, 251, 251, 0.5);
-}
-
-.panel-body>.nav-tabs>li a:hover {
-    background-color: rgba(251, 251, 251, 0.9);
-}
-
-.panel-body>.nav-tabs>li.active a {
-    background-color: rgba(251, 251, 251, 0.9);
-}
-
-.taskList, .addListBtn {
-    background-color: rgba(219, 219, 219, 0.8);
-    border-width: 0px;
-}
-
-.addListBtn {
-    background-color: rgba(219, 219, 219, 0.5);
-    color: #666666;
-}
-
-.addListBtn:hover {
-    background-color: rgba(219, 219, 219, 0.8);
-    color: #444444;
-}
-
-.taskList .panel-heading p {
-    font-weight: bold;
-}
-
-.taskList > .panel-heading > p[contenteditable="true"] {
-    cursor: text;
-    background-color: rgba(255, 255, 255, 1);
-}
-
-/* -------------------------------------- */
-/* Pour avoir des scrollbars moins moches */
-/* -------------------------------------- */
-
-.sortableTasksContainer { overflow-y: scroll; }
-.sortableTasksContainer::-webkit-scrollbar-track-piece { background: none; }
-.sortableTasksContainer::-webkit-scrollbar-corner { background: none; }
-.sortableTasksContainer::-webkit-scrollbar-thumb { background: none; margin-left: -5px; }
-.sortableTasksContainer::-webkit-scrollbar { width: 6px; }
-.task { margin-left: 10px; }
-.sortableTasksContainer::-webkit-scrollbar-thumb {
-    outline:none;
-    border: none;
-    background-color: rgba(0, 0, 0, 0.3);
-}
-
-.domain .tab-content::-webkit-scrollbar-track-piece { background: none; }
-.domain .tab-content::-webkit-scrollbar-corner { background: none; }
-.domain .tab-content::-webkit-scrollbar-thumb { background: none; }
-.domain .tab-content::-webkit-scrollbar { height: 6px; }
-.domain .tab-content::-webkit-scrollbar-thumb {
-    outline:none;
-    border: none;
-    background-color: rgba(0, 0, 0, 0.3);
-}
-
-.modal-taskContent #editor {
-    padding: 5px;
-    border-radius: 5px;
-}
-
-.modal-taskContent #editor:hover {
-    background-color: #DDD;
+.checklistContainer .glyphicon-pencil:hover, 
+.checklistContainer .glyphicon-remove:hover {
+    color: #666;
+    cursor: pointer;
 }

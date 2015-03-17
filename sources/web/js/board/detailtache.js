@@ -12,16 +12,12 @@ function ajouterComment(id) {
     $.ajax({
         type: "POST",
         dataType:"json",
-        url: Routing.generate('piltasker_createComment'),
+        url: Routing.generate('pilote_tasker_createComment'),
         data: { 'taskId': id, 'content': dataComment },
         cache: false,
         success: function(data){
         	/* ajouter le commentaire à la tache */
-		$('<div class="nouvelComment" >' + 
-                        '<div class="newComment-User glyphicon glyphicon-user" title="'+data.commentUser+'" ></div>' +
-                            '<div class="newComment"><div class="newComment-Data">'+data.commentContent+'</div>'+
-                            '<p class="newComment-Time">'+getTime()+'</p></div></div>')
-				.prependTo( $(".comment") );
+		$(data.comment).prependTo( $(".comment") );
                         
                 $("#saisieComment").val("");	
         }

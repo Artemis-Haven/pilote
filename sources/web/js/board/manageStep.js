@@ -10,29 +10,14 @@ function addStep(id) {
     $.ajax({
         type: "POST",
         dataType:"json",
-        url: Routing.generate('piltasker_createStep'),
+        url: Routing.generate('pilote_tasker_createStep'),
         data: 'domainId=' + id,
         cache: false,
         success: function(data){
         	/* insérer l'onglet de l'étape */
-			$('<li><a data-target="#tab-'+data.stepId+'" data-toggle="tab">' +
-					'<span class="stepTitle">'+data.stepName+'</span>' +
-					'<div class="stepMenu dropdown">' +
-						'<a data-toggle="dropdown" class="caret"></a>' +
-						'<ul class="dropdown-menu" role="menu">' +
-							'<li id="renameStepBtn-'+data.stepId+'" class="renameStepBtn">' +
-							'<a><span class="glyphicon glyphicon-edit"></span> Renommer</a></li>' +
-							'<li id="deleteStepBtn-'+data.stepId+'" class="deleteStepBtn">' +
-							'<a><span class="glyphicon glyphicon-minus"></span> Supprimer</a></li>' +
-			'</ul></div></a></li>')
-				.insertBefore( $("li>a#addStepBtn-" + id).parent() );
+			$(data.stepTab).insertBefore( $("li>a#addStepBtn-" + id).parent() );
 			/* insérer l'étape vide */
-			$('#domain-'+id+' .tab-content').append(
-				'<div class="tab-pane" id="tab-'+data.stepId + '" style="width:260px;">' +
-					'<div id="addListBtn-'+data.stepId+'" class="addListBtn panel">' +
-						'<p>Ajouter une nouvelle liste</p> ' +
-						'<span class="glyphicon glyphicon-plus"></span>' +
-					'</div></div>');
+			$('#domain-'+id+' .tab-content').append(data.stepContent);
 			/* activer les boutons pour supprimer l'étape, renommer l'étape et ajouter une liste */
 			$("#deleteStepBtn-"+data.stepId).click(function(){
 				deleteStep(data.stepId);
@@ -43,6 +28,10 @@ function addStep(id) {
 			$("#addListBtn-"+data.stepId).click(function(){
 				addList(data.stepId);
 			});
+			$('*[data-target="#tab-'+data.stepId+'"] > .stepTitle').focusout(function(e) {
+			        setStepTitle(data.stepId);
+			});
+            preventEnterKey($('*[data-target="#tab-'+data.stepId+'"] > .stepTitle'));
 			/* activer la nouvelle étape*/
 			setActiveStep(data.stepId);
 			setSortableTask();
@@ -57,11 +46,12 @@ function addStep(id) {
  * @param {number} id L'identifiant de l'étape concernée
  */
 function deleteStep(id) {
+    if (!confirm("Êtes-vous sûrs de vouloir supprimer cette étape ?")) return false;
 	/* requête AJAX */
     $.ajax({
         type: "POST",
         dataType:"json",
-        url: Routing.generate('piltasker_deleteStep'),
+        url: Routing.generate('pilote_tasker_deleteStep'),
         data: 'stepId=' + id,
         cache: false,
         success: function(data){
@@ -92,31 +82,31 @@ function renameStep(id) {
 	/* on le rend éditable */
     titleParag.attr("contenteditable", "true");
     /* on sauvegarde l'ancien titre au cas où */
-    oldTitleText = titleParag.text();
+    titleParag.data('oldTitleText', titleParag.text());
     titleParag.focus();
-    preventEnterKey(titleParag);
-	/* Lorsque le focus n'est plus sur le champ texte... : */
-	titleParag.focusout(function(){
+    selectText(titleParag);
+};
+
+function setStepTitle(id){
+	/* titleBlock sera l'élément contenant le titre */
+	titleParag = $('*[data-target="#tab-'+id+'"] > .stepTitle');
+	if (titleParag.attr('contenteditable')=="true") {
 		/* récupérer la nouvelle valeur */
 		newTitleText = titleParag.text();
 		$.ajax({
 			/* requête AJAX */
 	        type: "POST",
 	        dataType:"json",
-	        url: Routing.generate('piltasker_renameStep'),
+	        url: Routing.generate('pilote_tasker_renameStep'),
 	        data: { 'stepId' : id, 'newTitle' : newTitleText },
 	        cache: false,
-	        success: function(data){
-                /* transformer le champ texte en paragraphe */
-                titleParag.attr("contenteditable", "false");
-	        },
 	        error: function(data){
-                titleParag.attr("contenteditable", "false");
-                titleParag.text(oldTitleText);
+	            titleParag.text(titleParag.data('oldTitleText'));
 	        }
 	    });
-	});
-};
+	    titleParag.attr("contenteditable", "false");
+	}
+}
 
 /**
  * Désactiver l'étape actuellement active (dans le domaine concerné)
@@ -157,3 +147,7 @@ $(".renameStepBtn").click(function(){
 	renameStep($( this ).attr('id').replace('renameStepBtn-', ''))
 });
 
+/* Changer le titre de l'étape lorsque l'on clique en dehors de l'onglet */
+$(".stepTitle").focusout(function(e) {
+        setStepTitle($(this).parent().data('target').replace('#tab-', ''));
+});

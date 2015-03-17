@@ -10,24 +10,18 @@ function addChecklist(id) {
     $.ajax({
         type: "POST",
         dataType:"json",
-        url: Routing.generate('piltasker_createChecklist'),
+        url: Routing.generate('pilote_tasker_createChecklist'),
         data: 'taskId=' + id,
         cache: false,
         success: function(data){
         	/* insérer la checklist vide */
-        	$('<div id="checklist-'+data.id+'">'+
-				'<h4><span class="glyphicon glyphicon-list"></span> '+data.name+'</h4>'+
-				'<p id="addChecklistOptionBtn-'+data.id+'">Ajouter une ligne...</p></p>'+
-			'</div>').appendTo('.checklistContainer');
-
-			/* activer les boutons pour ajouter une option */
-			$("#addChecklistOptionBtn-"+data.id).click(function(){
-				addChecklistOption(data.id);
-			});
-
-            /* Lors du clic sur le titre de la checklist, elle devient éditable */
-            $("#checklist-"+data.id+" .title").click(function(){
-                renameChecklist(id);
+        	$('.checklistContainer').append(data['checkList']);
+            var checklistTitle = $('.checklist[data-checklistid="'+data['id']+'"] .title');
+            preventEnterKey(checklistTitle);
+            checklistTitle.focusout(function(e) {
+                if ($(this).attr('contenteditable')=="true") {
+                    setChecklistTitle(data['id']);
+                }
             });
         }
     }); 
@@ -36,33 +30,46 @@ function addChecklist(id) {
 
 function renameChecklist(id) {
     /* titleBlock sera l'élément contenant le titre */
-    titleBlock = $("#checklist-"+id+" .title");
+    titleBlock = $(".checklist[data-checklistid="+id+"] .title");
     /* on le rend éditable */
     titleBlock.attr("contenteditable", "true");
     /* on sauvegarde l'ancien titre au cas où */
-    oldTitleText = titleBlock.text();
+    titleBlock.data('oldTitleText', titleBlock.text());
     titleBlock.focus();
-    preventEnterKey(titleBlock);
-    /* Lorsque le focus n'est plus sur le titre... : */
-    titleBlock.focusout(function(){
-        /* récupérer la nouvelle valeur */
-        newTitleText = titleBlock.text();
-        $.ajax({
-        /* requête AJAX */
-            type: "POST",
-            dataType:"json",
-            url: Routing.generate('piltasker_renameChecklist'),
-            data: { 'checklistId' : id, 'newName' : newTitleText },
-            cache: false,
-            success: function(data){
-                /* transformer le champ texte en paragraphe */
-                titleBlock.attr("contenteditable", "false");
-            },
-            error: function(data){
-                titleBlock.attr("contenteditable", "false");
-                titleBlock.text(oldTitleText);
-            }
-        });
+    selectText(titleBlock);
+};
+
+function setChecklistTitle(id){
+    /* titleBlock sera l'élément contenant le titre */
+    titleBlock = $(".checklist[data-checklistid="+id+"] .title");
+    /* récupérer la nouvelle valeur */
+    newTitleText = titleBlock.text();
+    $.ajax({
+    /* requête AJAX */
+        type: "POST",
+        dataType:"json",
+        url: Routing.generate('pilote_tasker_renameChecklist'),
+        data: { 'checklistId' : id, 'newName' : newTitleText },
+        cache: false,
+        error: function(data){
+            titleBlock.text(titleBlock.data('oldTitleText'));
+        }
+    });
+    titleBlock.attr("contenteditable", "false");
+}
+
+function deleteChecklist(id) {
+    if (!confirm("Êtes-vous sûrs de vouloir supprimer cette liste ?")) return false;
+    $.ajax({
+    /* requête AJAX */
+        type: "POST",
+        dataType:"json",
+        url: Routing.generate('pilote_tasker_deleteChecklist'),
+        data: { 'checklistId' : id },
+        cache: false,
+        success: function(data){
+            $(".checklist[data-checklistid="+id+"]").remove();
+        }
     });
 };
 
@@ -78,47 +85,83 @@ function addChecklistOption(id) {
     $.ajax({
         type: "POST",
         dataType:"json",
-        url: Routing.generate('piltasker_createChecklistOption'),
+        url: Routing.generate('pilote_tasker_createChecklistOption'),
         data: 'checklistId=' + id,
         cache: false,
         success: function(data){
+            var optionsContainer = $('.checklist[data-checkListId='+id+'] .checkListOptionContainer');
         	/* insérer l'option */
-        	$('<p id="checklistOption-'+data.id+'" class="checkbox">'+
-					'<label><input type="checkbox">'+data.optionText+'</label>'+
-				'</p>').insertBefore('#addChecklistOptionBtn-'+id);
+            optionsContainer.append(data['checkListOption']);
+            var optionText = $('.checkbox[data-checklistOption="'+data['id']+'"] .optionText', optionsContainer);
+            preventEnterKey(optionText);
+            optionText.focusout(function(e) {
+                if ($(this).attr('contenteditable')=="true") {
+                    setChecklistOptionText(data['id']);
+                }
+            });
         }
     }); 
 };
 
-/*
+
 function renameChecklistOption(id) {
-    /* titleBlock sera l'élément contenant le titre */
-    /*titleBlock = $("#checklistOption-"+id+" input");
+    /* textBlock sera l'élément contenant le titre */
+    textBlock = $(".checkbox[data-checklistoption="+id+"] .optionText");
     /* on le rend éditable */
-    /*titleBlock.attr("contenteditable", "true");
+    textBlock.attr("contenteditable", "true");
     /* on sauvegarde l'ancien titre au cas où */
-    /*oldTitleText = titleBlock.text();
-    titleBlock.focus();
-    preventEnterKey(titleBlock);
-    /* Lorsque le focus n'est plus sur le titre... : */
-    /*titleBlock.focusout(function(){
-        /* récupérer la nouvelle valeur */
-        /*newTitleText = titleBlock.text();
-        $.ajax({
-        /* requête AJAX */
-            /*type: "POST",
-            dataType:"json",
-            url: Routing.generate('piltasker_renameChecklistOption'),
-            data: { 'checklistOptionId' : id, 'newName' : newTitleText },
-            cache: false,
-            success: function(data){
-                /* transformer le champ texte en paragraphe */
-                /*titleBlock.attr("contenteditable", "false");
-            },
-            error: function(data){
-                titleBlock.attr("contenteditable", "false");
-                titleBlock.text(oldTitleText);
-            }
-        });
+    textBlock.data('oldText', textBlock.text());
+    textBlock.focus();
+    selectText(textBlock);
+};
+
+function setChecklistOptionText(id){
+    /* textBlock sera l'élément contenant le titre */
+    textBlock = $(".checkbox[data-checklistoption="+id+"] .optionText");
+    /* récupérer la nouvelle valeur */
+    newText = textBlock.text();
+    $.ajax({
+    /* requête AJAX */
+        type: "POST",
+        dataType:"json",
+        url: Routing.generate('pilote_tasker_renameChecklistOption'),
+        data: { 'checklistOptionId' : id, 'newName' : newText },
+        cache: false,
+        error: function(data){
+            textBlock.text(textBlock.data('oldText'));
+        }
     });
-};*/
+    textBlock.attr("contenteditable", "false");
+}
+
+
+function toggleChecklistOption(id) {
+    var checkbox = $(".checkbox[data-checklistoption="+id+"] input[type=checkbox]");
+    var value = checkbox.is(':checked');
+    $.ajax({
+    /* requête AJAX */
+        type: "POST",
+        dataType:"json",
+        url: Routing.generate('pilote_tasker_toggleChecklistOption'),
+        data: { 'checklistOptionId' : id, 'value' : value },
+        cache: false,
+        error: function(data){
+            checkbox.prop( "checked", !value );
+        }
+    });
+};
+
+
+function deleteChecklistOption(id) {
+    $.ajax({
+    /* requête AJAX */
+        type: "POST",
+        dataType:"json",
+        url: Routing.generate('pilote_tasker_deleteChecklistOption'),
+        data: { 'optionId' : id },
+        cache: false,
+        success: function(data){
+            $(".checkbox[data-checklistoption="+id+"]").remove();
+        }
+    });
+};

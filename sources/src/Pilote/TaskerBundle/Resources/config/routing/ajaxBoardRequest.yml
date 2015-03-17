@@ -1,0 +1,155 @@
+#################
+# PAGE DU BOARD #
+#################
+
+# Tâches
+
+pilote_tasker_createTask:
+    path: /createTask
+    defaults: { _controller: PiloteTaskerBundle:Ajax:createTask }
+
+pilote_tasker_deleteTask:
+    path: /deleteTask
+    defaults: { _controller: PiloteTaskerBundle:Ajax:deleteTask }
+
+pilote_tasker_renameTask:
+    path: /renameTask
+    defaults: { _controller: PiloteTaskerBundle:Ajax:renameTask }
+
+pilote_tasker_getTaskDetails:
+    path: /getTaskDetails
+    defaults: { _controller: PiloteTaskerBundle:Ajax:getTaskDetails }
+
+pilote_tasker_updateTaskContent:
+    path: /updateTaskContent
+    defaults: { _controller: PiloteTaskerBundle:Ajax:updateTaskContent }
+
+# Listes de tâches
+
+pilote_tasker_createTList:
+    path: /createTList
+    defaults: { _controller: PiloteTaskerBundle:Ajax:createTList }
+
+pilote_tasker_deleteTList:
+    path: /deleteTList
+    defaults: { _controller: PiloteTaskerBundle:Ajax:deleteTList }
+
+pilote_tasker_renameTList:
+    path: /renameTList
+    defaults: { _controller: PiloteTaskerBundle:Ajax:renameTList }
+
+# Etapes
+
+pilote_tasker_createStep:
+    path: /createStep
+    defaults: { _controller: PiloteTaskerBundle:Ajax:createStep }
+
+pilote_tasker_deleteStep:
+    path: /deleteStep
+    defaults: { _controller: PiloteTaskerBundle:Ajax:deleteStep }
+
+pilote_tasker_renameStep:
+    path: /renameStep
+    defaults: { _controller: PiloteTaskerBundle:Ajax:renameStep }
+
+# Domaine
+
+pilote_tasker_createDomain:
+    path: /createDomain
+    defaults: { _controller: PiloteTaskerBundle:Ajax:createDomain }
+
+pilote_tasker_deleteDomain:
+    path: /deleteDomain
+    defaults: { _controller: PiloteTaskerBundle:Ajax:deleteDomain }
+
+pilote_tasker_renameDomain:
+    path: /renameDomain
+    defaults: { _controller: PiloteTaskerBundle:Ajax:renameDomain }
+
+# Checklists
+
+pilote_tasker_createChecklist:
+    path: /createChecklist
+    defaults: { _controller: PiloteTaskerBundle:Ajax:createChecklist }
+
+pilote_tasker_renameChecklist:
+    path: /renameChecklist
+    defaults: { _controller: PiloteTaskerBundle:Ajax:renameChecklist }
+
+pilote_tasker_deleteChecklist:
+    path: /deleteChecklist
+    defaults: { _controller: PiloteTaskerBundle:Ajax:deleteChecklist }
+
+pilote_tasker_createChecklistOption:
+    path: /createChecklistOption
+    defaults: { _controller: PiloteTaskerBundle:Ajax:createChecklistOption }
+
+pilote_tasker_renameChecklistOption:
+    path: /renameChecklistOption
+    defaults: { _controller: PiloteTaskerBundle:Ajax:renameChecklistOption }
+
+pilote_tasker_deleteChecklistOption:
+    path: /deleteChecklistOption
+    defaults: { _controller: PiloteTaskerBundle:Ajax:deleteChecklistOption }
+
+pilote_tasker_toggleChecklistOption:
+    path: /toggleChecklistOption
+    defaults: { _controller: PiloteTaskerBundle:Ajax:toggleChecklistOption }
+
+# Commentaires
+
+pilote_tasker_createComment:
+    path: /createComment
+    defaults: { _controller: PiloteTaskerBundle:Ajax:createComment }
+
+pilote_tasker_deleteComment:
+    path: /deleteComment
+    defaults: { _controller: PiloteTaskerBundle:Ajax:deleteComment }
+
+# Déplacement des tâches et des listes
+
+pilote_tasker_moveTask:
+    path: /moveTask
+    defaults: { _controller: PiloteTaskerBundle:Position:moveTask }
+
+pilote_tasker_moveList:
+    path: /moveList
+    defaults: { _controller: PiloteTaskerBundle:Position:moveList }
+
+# Assignation d'un User à une tâche
+
+pilote_tasker_assign:
+    path: /assign
+    defaults: { _controller: PiloteTaskerBundle:Ajax:assign }
+
+# Progression de la tâche
+
+pilote_tasker_progress_activate:
+    path: /activateProgress
+    defaults: { _controller: PiloteTaskerBundle:Ajax:activateProgress }
+
+pilote_tasker_progress_update:
+    path: /updateProgress
+    defaults: { _controller: PiloteTaskerBundle:Ajax:updateProgress }
+
+# Upload de pièces jointes
+
+pilote_tasker_fileUpload:
+    path: /fileUpload
+    defaults: { _controller: PiloteTaskerBundle:Ajax:fileUpload }
+
+pilote_tasker_fileUpload_delete:
+    path: /deleteFile
+    defaults: { _controller: PiloteTaskerBundle:Ajax:deleteFile }
+
+# Dates de début et de fin de la tâche
+
+pilote_tasker_setDates:
+    path: /setDates
+    defaults: { _controller: PiloteTaskerBundle:Ajax:setDates }
+
+# Page des réglages du Board
+
+pilote_tasker_settings_removeUser:
+    path: /removeUser
+    defaults: { _controller: PiloteTaskerBundle:Ajax:removeUser }

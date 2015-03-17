@@ -1,0 +1,57 @@
+pilote_message_index:
+    pattern:  /
+    defaults: { _controller: PiloteMessageBundle:Default:index }
+
+pilote_message_thread:
+    pattern:  /thread/{id}
+    defaults: { _controller: PiloteMessageBundle:Default:thread }
+    requirements:
+        id: \d+
+
+pilote_message_thread_leave:
+    pattern:  /thread/{id}/leave
+    defaults: { _controller: PiloteMessageBundle:Default:leaveThread }
+    requirements:
+        id: \d+
+
+pilote_message_thread_close:
+    pattern:  /thread/{id}/close
+    defaults: { _controller: PiloteMessageBundle:Default:closeThread }
+    requirements:
+        id: \d+
+
+pilote_message_adminThread:
+    pattern:  /admin
+    defaults: { _controller: PiloteMessageBundle:Default:adminThread }
+
+pilote_message_newThread:
+    pattern:  /newThread
+    defaults: { _controller: PiloteMessageBundle:Default:newThread }
+
+pilote_message_addParticipant:
+    pattern:  /thread/{id}/addParticipant
+    defaults: { _controller: PiloteMessageBundle:Default:addParticipant }
+    requirements:
+        id: \d+
+
+pilote_message_ajax_message_request:
+    resource: "ajaxMessageRequest.yml"
+    prefix:   /messageRequest
+    options:
+        expose: true
+    requirements:
+        _method:  POST
+
+pilote_message_newThread_searchUser:
+    pattern:  /newThreadSearchUser
+    defaults: { _controller: PiloteMessageBundle:Default:newThreadSearchUser }
+    options:
+        expose: true
+
+pilote_message_addParticipant_searchUser:
+    pattern:  /addParticipantSearchUser/{threadId}
+    defaults: { _controller: PiloteMessageBundle:Default:addParticipantSearchUser }
+    options:
+        expose: true
+    requirements:
+        threadId: \d+

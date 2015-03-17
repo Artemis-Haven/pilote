@@ -1,0 +1,17 @@
+{% extends 'PiloteMainBundle::base.html.twig' %}
+
+{# Ceci est le bloc qui remplace le titre de la page (normalement dans le <head>) #}
+{% block pageTitle %} {{ parent() }} - Nouveau projet{% endblock %}
+
+{# Bloc principal #}
+{% block body %}
+
+<section class=" container newBoardSection">
+
+<div class="col-md-4 col-md-offset-4">
+	{{ form(form) }}
+</div>
+
+</section>
+
+{% endblock %}

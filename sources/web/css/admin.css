@@ -1,0 +1,44 @@
+.bigText {
+	font-size: 200%;
+}
+
+#admin > nav a {
+	margin: 5px 10px 20px 0;
+}
+
+#admin #dashboard .panel {
+	font-size: 120%;
+	font-weight: 600;
+	text-align: center;
+}
+
+#admin .table, #admin .table th {
+	background-color: #fff;
+	text-align: center;
+}
+
+#admin #boardsList td:first-child,
+#admin #usersList td:nth-child(1),
+#admin #usersList td:nth-child(2),
+#admin #usersList td:nth-child(3) {
+	text-align: left;
+}
+
+#admin .table td {
+	vertical-align: middle;
+}
+
+#admin .table tr.disabled td {
+	background-color: #EEE;
+	color: #888;
+}
+
+#admin .table a.glyphicon {
+	color: inherit;
+	opacity: 0.8;
+}
+
+#admin .table a.glyphicon:hover {
+	text-decoration: none;
+	opacity: 1;
+}

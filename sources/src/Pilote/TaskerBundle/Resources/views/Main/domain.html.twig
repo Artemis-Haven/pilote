@@ -1,0 +1,40 @@
+<div id="domain-{{ domain.id }}" class="panel domain">
+	<div class="panel-heading"> {# Titre des domaines #}
+		<h4 class="panel-title">
+	        <a data-toggle="collapse" data-parent="#accordion" href="#domainPanel-{{ domain.id }}">{{ domain }}</a>
+	        <span title='Supprimer "{{ domain.name }}"' id="deleteDomainBtn-{{ domain.id }}" class="deleteDomainBtn glyphicon glyphicon-minus"></span> 
+	        <span title='Renommer "{{ domain.name }}"' id="renameDomainBtn-{{ domain.id }}" class="renameDomainBtn glyphicon glyphicon-edit"></span> 
+	        <span title="Ajouter un corps de métier" id="addDomainBtn-{{ board.id }}" class="addDomainBtn glyphicon glyphicon-plus"></span> 
+                        
+	    </h4>
+	</div> {# Fin "titre des domaines" #}
+
+	{# Début du domaine #}
+	<div id="domainPanel-{{ domain.id }}" class="panel-collapse collapse {%if activeDomain %}in{% endif %}">
+		<div class="panel-body">
+
+		{# Barre d'onglets qui contient les étapes #}
+		<ul id="stepList-{{domain.id}}" class="nav nav-tabs">
+			{% for step in domain.steps %} {# Pour chaque étape #}
+				{% include 'PiloteTaskerBundle:Main:stepTab.html.twig' 
+					with {'step': step, 'activeStep': loop.first} %}
+			{% endfor %} {# Fin "pour chaque étape" #}
+			<li> {# Bouton + pour ajouter une nouvelle étape #}
+				<a id="addStepBtn-{{domain.id}}" title="Ajouter une étape" href="#" class="addStepBtn">
+					<span class="glyphicon glyphicon-plus"></span>
+				</a>
+			</li>
+		</ul>{# Fin de la barre d'onglets avec les étapes #}
+
+		<div class="tab-content">
+		{% for step in domain.steps %} {# Pour chaque étape, on crée un panel #}
+			{% include 'PiloteTaskerBundle:Main:step.html.twig' 
+				with {'step': step, 'activeStep': loop.first} %}
+
+		 {% endfor %} {# Fin "pour chaque étape" #}
+		  
+		</div>
+
+		</div>
+	</div> {# Fin du domaine #}
+</div>

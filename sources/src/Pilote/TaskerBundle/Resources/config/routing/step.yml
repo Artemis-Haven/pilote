@@ -1,0 +1,30 @@
+crud_step:
+    pattern:  /
+    defaults: { _controller: "PiloteTaskerBundle:Step:index" }
+
+crud_step_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "PiloteTaskerBundle:Step:show" }
+
+crud_step_new:
+    pattern:  /new
+    defaults: { _controller: "PiloteTaskerBundle:Step:new" }
+
+crud_step_create:
+    pattern:  /create
+    defaults: { _controller: "PiloteTaskerBundle:Step:create" }
+    requirements: { _method: post }
+
+crud_step_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "PiloteTaskerBundle:Step:edit" }
+
+crud_step_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "PiloteTaskerBundle:Step:update" }
+    requirements: { _method: post|put }
+
+crud_step_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "PiloteTaskerBundle:Step:delete" }
+    requirements: { _method: post|delete }

@@ -1,0 +1,59 @@
+{% extends "PiloteAdminBundle::baseAdmin.html.twig" %}
+
+{% block content %}
+
+<div class="row" id="dashboard">
+    <div class="col-md-3">
+        <div class="panel panel-info">
+            <div class="panel-heading sheet">
+                <p class="bigText">{{messagesNb}}</p> Messages envoyés
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="panel panel-warning">
+            <div class="panel-heading sheet">
+                <p class="bigText">{{boardsNb}}</p> Projets en cours
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="panel panel-danger">
+            <div class="panel-heading sheet">
+                <p class="bigText">{{usersNb}}</p> Utilisateurs
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="panel panel-success">
+            <div class="panel-heading sheet">
+                <p class="bigText">{{tasksNb}}</p> Tâches créées
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="panel">
+            <div class="panel-heading sheet">
+                Etat du serveur NodeJS : <span class="text-muted" id="nodejsState">Inactif</span>
+                <br>
+                Adresse IP du serveur : <code>{{ pilote.notification_connexion }}</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="panel">
+            <div class="panel-heading sheet">
+                Inscriptions sur le site : 
+                {% if pilote.disable_registration %}
+                    <strong class="text-danger">Refusées</strong>
+                {% else %}
+                    <strong class="text-success">Acceptées</strong>
+                {% endif %}
+            </div>
+        </div>
+    </div></div>
+
+
+{% endblock %}

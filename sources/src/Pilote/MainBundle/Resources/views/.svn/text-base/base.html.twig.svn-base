@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Manage easily your tasks and your projects">
+        <meta name="keywords" content="Projects, Tasks, Scrum, Management, Team">
+        <meta name="author" content="Rémi Patrizio">
+
+        <title>{% block pageTitle %}Pilote{% endblock %}</title>
+
+        <link rel="icon" type="image/png" href="{{ asset('img/favicon.png') }}" />
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" type="text/css" />       
+        <link rel="stylesheet" href="{{ asset('css/mainStyle.css') }}" type="text/css" />
+        {% block styles %}{% endblock %}
+    
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <script type="text/javascript"> var page = "{% block pageType %}standard{% endblock %}"; </script>
+    </head>
+
+    <body>
+
+        {% if board is defined %}
+            {% render(controller("PiloteMainBundle:Default:navbar", {'boardId': board.id, 'boardName': board.name}) ) %}
+        {% else %}
+            {% render(controller("PiloteMainBundle:Default:navbar") ) %}
+        {% endif %}
+
+        {% block body %}
+        {% endblock %}
+
+        {% block footer %}
+        {% endblock %}
+        
+        <section id="notificationsContainer"></section>
+
+        {% block scripts %}
+
+            <!-- JavaScript -->
+            <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
+            <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+            <script src="{{ asset('js/fos_js_routes.js') }}"></script>
+            {% if app.user %}
+            <script type="text/javascript" src="{{ asset('js/notifications/socket.io.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('js/notifications/notifs.js') }}"></script>
+            <script type="text/javascript">
+                notifServerConnection("{{ app.user.uuid }}", "{{ pilote.notification_connexion }}", page, {{board is defined ? board.id : 'null'}});
+            </script>
+            {% endif %}
+        {% endblock %}
+        
+    </body>
+</html>

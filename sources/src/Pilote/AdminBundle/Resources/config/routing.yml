@@ -1,0 +1,57 @@
+pilote_admin_homepage:
+    pattern:  /
+    defaults: { _controller: PiloteAdminBundle:Default:index }
+
+pilote_admin_users:
+    pattern:  /users
+    defaults: { _controller: PiloteAdminBundle:Default:users }
+
+pilote_admin_boards:
+    pattern:  /boards
+    defaults: { _controller: PiloteAdminBundle:Default:boards }
+
+
+
+pilote_admin_user_promote:
+    pattern:  /user-promote/{id}
+    defaults: { _controller: PiloteAdminBundle:Default:promoteUser }
+
+pilote_admin_user_demote:
+    pattern:  /user-demote/{id}
+    defaults: { _controller: PiloteAdminBundle:Default:demoteUser }
+
+pilote_admin_user_enable:
+    pattern:  /user-enable/{id}
+    defaults: { _controller: PiloteAdminBundle:Default:enableUser }
+
+pilote_admin_user_disable:
+    pattern:  /user-disable/{id}
+    defaults: { _controller: PiloteAdminBundle:Default:disableUser }
+
+pilote_admin_user_remove:
+    pattern:  /user-remove/{id}
+    defaults: { _controller: PiloteAdminBundle:Default:removeUser }
+
+pilote_admin_user_new:
+    pattern:  /user-new
+    defaults: { _controller: PiloteAdminBundle:Default:newUser }
+
+
+
+pilote_admin_board_enable:
+    pattern:  /board-enable/{id}
+    defaults: { _controller: PiloteAdminBundle:Default:enableBoard }
+    requirements:
+        id: \d+
+
+pilote_admin_board_disable:
+    pattern:  /board-disable/{id}
+    defaults: { _controller: PiloteAdminBundle:Default:disableBoard }
+    requirements:
+        id: \d+
+
+pilote_admin_board_remove:
+    pattern:  /board-remove/{id}
+    defaults: { _controller: PiloteAdminBundle:Default:removeBoard }
+    requirements:
+        id: \d+

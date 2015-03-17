@@ -1,0 +1,73 @@
+{% extends "PiloteAdminBundle::baseAdmin.html.twig" %}
+
+{% block title %}Gestion des projets{% endblock %}
+
+{% block content %}
+
+<div class="alert alert-success alert-dismissable">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    Vous pouvez accéder directement à un utilisateur en cliquant sur son nom dans l'une des listes déroulantes. Les projets archivés sont grisés. Le détail de chaque icône apparait lors du survol de la souris.
+</div>
+<div class="table-responsive sheet" id="boardsList">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nom du projet</th>
+                <th>Accès rapide</th>
+                <th>Date de création</th>
+                <th>Utilisateurs associés</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for board in boards %}
+            <tr {% if not board.enabled %}class="disabled"{% endif %}>
+                <td>
+                    {{board}}
+                    <span title="Description : {{board.description}}" class="glyphicon glyphicon-info-sign"></span>
+                </td>
+                <td>
+                    <a title="Aller au projet" class="glyphicon glyphicon-tasks" href="{{path('pilote_tasker_board', {'boardId': board.id})}}"></a> &nbsp;
+                    <a title="Aller à la page de configuration" class="glyphicon glyphicon-cog" href="{{path('pilote_tasker_board_settings', {'boardId': board.id})}}"></a>
+                </td>
+                <td>{{board.creationDate | date("d/m/Y")}}</td>
+                <td style="max-width: 300px;">
+                    <select class="form-control">
+                    {% for user in board.users %}
+                        <option onclick="goToProfile('{{user.uuid}}');">{{user}}</option>
+                    {% else %}
+                        <option value="0">-</option>
+                    {% endfor %}
+                    </select>
+                </td>
+                <td>
+                    {% if board.enabled %}
+                    <a class="glyphicon glyphicon-off" title="Archiver le projet" href="{{path('pilote_admin_board_disable', {'id': board.id})}}"></a>
+                    {% else %}
+                    <a class="glyphicon glyphicon-off" title="Désarchiver le projet" href="{{path('pilote_admin_board_enable', {'id': board.id})}}"></a>
+                    {% endif %} &nbsp;
+                    <a onclick="return confirmDelete();" class="glyphicon glyphicon-trash" title="Supprimer définitivement le projet" href="{{path('pilote_admin_board_remove', {'id': board.id})}}"></a>
+                </td>
+            </tr>
+            {% else %}
+            <tr>Aucun projet trouvé.</tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+    function goToProfile (uuid) {
+        location.href= Routing.generate('pilote_profil_showAnotherProfile', { id: uuid});
+        return false;
+    }
+    function confirmDelete () {
+        return confirm("Êtes-vous certain de vouloir supprimer ce projet ?");
+    }
+    </script>
+{% endblock %}

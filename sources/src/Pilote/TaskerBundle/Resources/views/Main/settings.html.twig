@@ -1,0 +1,150 @@
+{% extends 'PiloteMainBundle::base.html.twig' %}
+
+{# Ceci est le bloc qui remplace le titre de la page (normalement dans le <head>) #}
+{% block pageTitle %} {{ parent() }} - {{ board }}{% endblock %}
+
+{# Bloc principal #}
+{% block body %}
+
+<section class="boardSettingsSection container">
+<br>
+<div class="row">
+
+	{{ form_start(form, {'attr': {'class': ' col-md-6'}}) }}
+		{{ form_errors(form) }}
+
+		{{ form_row(form.name) }}
+		<br>
+		{{ form_row(form.description) }}
+		<br>
+		<div>
+			{{ form_label(form.color) }}
+			{{ form_widget(form.color) }}
+			<div id="colorSelector">
+				<div style="background-color: #F6F6F6;" data-color="#F6F6F6"></div>
+				<div style="background-color: #7496D2;" data-color="#7496D2"></div>
+				<div style="background-color: #CCEDF6;" data-color="#CCEDF6"></div>
+				<div style="background-color: #F2E2A0;" data-color="#F2E2A0"></div>
+				<div style="background-color: #64B34C;" data-color="#64B34C"></div>
+				<div style="background-color: #874AB1;" data-color="#874AB1"></div>
+				<div style="background-color: #B33A3A;" data-color="#B33A3A"></div>
+			</div>
+		</div>
+		<br>
+		{{ form_row(form.submit) }}
+
+	{{ form_end(form) }}
+
+	<div class="col-md-6 sheet">
+		<table class="table">
+			<thead><tr>
+				<th>Liste des membres :</th>
+				<th>Supprimer du projet</th>
+			</tr></thead>
+			<tbody>
+			{% for user in board.users %}
+				<tr class="user" id="user-{{user.id}}">
+					<td>{{ user }}</td>
+					<td>
+						<button type="button" class="btn btn-danger btn-block" id="addUser-{{user.id}}">Supprimer</button>
+					</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+			<tfoot>
+				<tr>
+					<form id="addUser" action="{{ path('pilote_tasker_board_addUser', {'boardId': board.id}) }}" role="form" method="POST">
+						<td>
+							<input id="autocompUser" name="newUser" type="text" class="form-control" placeholder="Ajouter un membre">
+							<input type="hidden" name="userId" id="userId">
+						</td>
+						<td>
+							<button type="submit" class="btn btn-success btn-block" disabled="true">Ajouter</button>
+						</td>
+					</form>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+
+</div>
+
+<br>
+
+<div class="row">
+	<div class="col-md-12">
+		<form id="deleteBoard" action="{{ path('pilote_tasker_board_delete', {'boardId': board.id}) }}" role="form" method="POST">
+			<b>Le projet est terminé ?</b>
+			<br>
+			<button class="btn btn-warning" type="submit">Archiver</button>
+		</form>
+	</div>
+</div>
+
+</section>
+
+{% endblock %}
+
+{% block scripts %}
+{{ parent() }}
+
+<script type="text/javascript" src="{{ asset('js/jquery-ui-custom.min.js') }}"></script>
+
+<script type="text/javascript">
+	$(".user button").click(function() {
+		var userId = $( this ).attr('id').replace('addUser-', '');
+		$.ajax({
+	        type: "POST",
+	        dataType:"json",
+	        url: "{{ path('pilote_tasker_settings_removeUser') }}",
+	        data: { 'boardId' : {{board.id}}, 'userId' : userId },
+	        cache: false
+	    }).done(function() {
+	    	$("#user-"+userId).remove();
+	    }).fail(function() {
+	    	alert('Impossible de supprimer cet utilisateur');
+	    }); 
+	});
+
+	function setNewValues(event, ui) {
+		event.preventDefault();
+		$("#autocompUser").val(ui.item.label);
+		$("#userId").val(ui.item.value);
+		$(".btn-success").prop('disabled', false);
+	};
+
+	$(function () {
+		$( "#autocompUser" ).autocomplete({
+			source: "{{ path('pilote_tasker_board_searchUser', {'boardId': board.id}) }}",
+			minLength: 2,
+			select: setNewValues,
+			focus: setNewValues,
+			change: function (e, ui) {
+				if(ui.item==null) {
+					$("#userId").val(null);
+					$(".btn-success").prop('disabled', true);
+				}
+			},
+			create: function (e, ui) {
+				$(".ui-menu").addClass("dropdown-menu");
+			}
+		});
+
+		$("#deleteBoard").submit(function (event) {
+			if(!confirm("Êtes-vous sûr de vouloir archiver ce projet ? " +
+				"Vous n'y aurez plus accès ensuite. " +
+				"Seul un administrateur pourra le réactiver."))
+				event.preventDefault();
+		});
+
+		$('#colorSelector > div[data-color="{{board.color}}"]').addClass('selected');
+
+		$('#colorSelector > div').click(function (argument) {
+			$('#pilote_taskerbundle_board_color').val($(this).data('color'));
+			$('#colorSelector > div.selected').removeClass('selected');
+			$(this).addClass('selected');
+		})
+	});
+
+</script>
+{% endblock %}

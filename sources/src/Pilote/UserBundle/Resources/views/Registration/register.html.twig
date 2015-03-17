@@ -1,0 +1,10 @@
+{% extends "PiloteUserBundle::layout.html.twig" %}
+
+    
+{% block fos_user_content %}
+	{% if not pilote.disable_registration %}
+		{% include "FOSUserBundle:Registration:register_content.html.twig" %}
+	{% else %}
+		<p class="text-danger" ><strong>Accès refusé !</strong> Impossible d'enregistrer de nouveaux utilisateurs. Veuillez contacter l'administrateur.</p>
+	{% endif %}
+{% endblock fos_user_content %}

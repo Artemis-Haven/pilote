@@ -1,0 +1,4 @@
+services:
+#    pilote_message.example:
+#        class: Pilote\MessageBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
