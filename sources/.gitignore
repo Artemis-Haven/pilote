@@ -11,3 +11,6 @@
 UPGRADE-*.md
 /web/uploads/profilePictures/*
 /web/uploads/documents/*
+/web/js/notifications/node_modules
+/web/js/fos_js_routes.js
+composer.lock
