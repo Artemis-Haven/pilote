@@ -1,24 +1,29 @@
 # This file is a "template" of what your parameters.yml file should look like
 parameters:
-    database_driver:   pdo_mysql
-    database_host:     127.0.0.1
-    database_port:     ~
-    database_name:     symfony
-    database_user:     root
+    database_driver: pdo_mysql
+    database_host: 127.0.0.1
+    database_port: ~
+    database_name: pilote
+    database_user: root
     database_password: ~
-    # You should uncomment this if you want use pdo_sqlite
-    # database_path: "%kernel.root_dir%/data.db3"
-
-    mailer_transport:  smtp
-    mailer_host:       127.0.0.1
-    mailer_user:       ~
-    mailer_password:   ~
-
-    locale:            en
-
-    # A secret key that's used to generate certain security-related tokens
-    secret:            ThisTokenIsNotSoSecretChangeIt
-
-    debug_toolbar:          true
-    debug_redirects:        false
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: ~
+    mailer_password: ~
+    locale: fr
+    secret: ThisTokenIsNotSoSecretChangeIt
+    debug_toolbar: true
+    debug_redirects: false
     use_assetic_controller: true
+
+    # Laisser vide si l'on accède au site via une url du type "www.monsite.com/accueil".
+    # Si l'on y accède via "www.monsite.com/dossiers/sous-dossiers/accueil" par exemple, 
+    # cette variable doit valoir "/dossiers/sous-dossiers"
+    # 
+    # Ex : "http://localhost/pilote/sources/web/app_dev.php/accueil"
+    #  > "/pilote/sources/web/app_dev.php"
+    router.request_context.base_url: 
+    # URL du serveur NodeJS
+    notification_connexion: 'http://127.0.0.1:8010' 
+    # TRUE pour permettre aux utilisateurs de s'inscrire au site, FALSE pour l'empêcher
+    disable_registration: false 
