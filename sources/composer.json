@@ -21,7 +21,8 @@
         "friendsofsymfony/user-bundle": "dev-master",
         "friendsofsymfony/jsrouting-bundle": "@stable",
         "friendsofsymfony/message-bundle": "1.2.*@dev",
-        "nc/elephantio-bundle": "v2.0.0"
+        "nc/elephantio-bundle": "v2.0.0",
+        "fr3d/ldap-bundle": "~2.0@dev"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

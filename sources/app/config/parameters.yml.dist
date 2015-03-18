@@ -27,3 +27,10 @@ parameters:
     notification_connexion: 'http://127.0.0.1:8010' 
     # TRUE pour permettre aux utilisateurs de s'inscrire au site, FALSE pour l'empêcher
     disable_registration: false 
+
+    # Configuration pour la connexion à un serveur LDAP
+    ldap_host:     ~
+    ldap_port:     ~
+    ldap_username: ~
+    ldap_password: ~
+    ldap_baseDn:   ~

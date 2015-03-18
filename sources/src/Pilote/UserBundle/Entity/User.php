@@ -58,6 +58,11 @@ class User extends BaseUser
     private $notifications;
 
     /**
+     * @ORM\Column(type="string")
+     */
+    protected $dn;
+
+    /**
      * @ORM\OneToMany(
      *     targetEntity="Pilote\MessageBundle\Entity\ThreadMetadata", 
      *     mappedBy="participant", 
@@ -71,6 +76,9 @@ class User extends BaseUser
     {
         parent::__construct();
         $this->setUuid(uniqid());
+        if (empty($this->roles)) {
+            $this->roles[] = 'ROLE_USER';
+        }
     }
 
     /**
@@ -249,6 +257,14 @@ class User extends BaseUser
             $result[] = $metadata->getThread();
         }
         return $result;
+    }
+
+    public function setDn($dn) {
+        $this->dn = $dn;
+    }
+
+    public function getDn() {
+        return $this->dn;
     }
     
     public function isGranted($role)
