@@ -24,7 +24,8 @@ class AppKernel extends Kernel
             new Pilote\MessageBundle\PiloteMessageBundle(),
             new Pilote\UserBundle\PiloteUserBundle(),
             new Pilote\MainBundle\PiloteMainBundle(),
-            new Nc\Bundle\ElephantIOBundle\NcElephantIOBundle()
+            new Nc\Bundle\ElephantIOBundle\NcElephantIOBundle(),
+            new FR3D\LdapBundle\FR3DLdapBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

@@ -112,3 +112,18 @@ nc_elephant_io:
             connection: %notification_connexion%
             # specify version 0.x for 0.* version and 1.x for 1.0 version
             version: 1.x
+
+fr3d_ldap:
+    driver:
+       host:     %ldap_host%
+       port:     %ldap_port%
+       username: %ldap_username%
+       password: %ldap_password%
+       useSsl:   false
+    user:
+        baseDn: %ldap_baseDn%
+        attributes:
+           - { ldap_attr: samaccountname,  user_method: setUsername } # champ login
+           - { ldap_attr: DN, user_method: setDn }
+           - { ldap_attr: displayname, user_method: setDisplayName }
+           - { ldap_attr: mail, user_method: setEmail } # setter dans BaseUser
