@@ -883,6 +883,26 @@ class AjaxController extends Controller
         }
     }
 
+    
+    public function labelAction() {
+        $request = $this->container->get('request');
+
+        if($request->isXmlHttpRequest())
+        {
+            $em = $this->getDoctrine()->getManager();
+
+            $task = $this->findOr404($em, 'PiloteTaskerBundle', 'Task', $request->request->get('taskId'));
+            
+            $task->setLabel($request->request->get('label'));
+
+            $em->flush();
+
+            return new Response(json_encode(""));
+        } else {
+            return new Response("");
+        }
+    }
+
     public function activateProgressAction()
     {
         $request = $this->container->get('request');

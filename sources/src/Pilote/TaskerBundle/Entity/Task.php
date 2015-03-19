@@ -12,6 +12,18 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Task
 {
+
+    protected static $labelsList = array( 
+        1 => array('color' => "#FF0000", 'text' => 'Très haute priorité'),
+        2 => array('color' => "#FF8000", 'text' => 'Haute priorité'),
+        3 => array('color' => "#FFF000", 'text' => 'Priorité moyenne'),
+        4 => array('color' => "#00FFFF", 'text' => 'Basse priorité'),
+        5 => array('color' => "#0040FF", 'text' => 'Très basse priorité'),
+        6 => array('color' => "#01DF01", 'text' => 'Fait'),
+        7 => array('color' => "#BF00FF", 'text' => 'En retard'),
+        8 => array('color' => "#333333", 'text' => 'Priorité indéfinie')
+    );
+
     /**
      * @var integer
      *
@@ -62,6 +74,13 @@ class Task
      * @ORM\Column(name="progressActivated", type="boolean")
      */
     private $progressActivated;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="label", type="integer")
+     */
+    private $label = 8;
     
     /**
      * @ORM\ManyToOne(targetEntity="Pilote\TaskerBundle\Entity\TList", inversedBy="tasks")
@@ -271,6 +290,26 @@ class Task
     {
         return $this->progressActivated;
     }
+
+
+    public function setLabel($label)
+    {        
+        if ($label > 0 && $label <= count(self::$labelsList)) {
+            $this->label = $label;
+        }
+        return $this;
+    }
+
+    public function getLabel()
+    {
+        return self::$labelsList[$this->label];
+    }
+
+    public function getLabelsList()
+    {
+        return self::$labelsList;
+    }
+
 
     /**
      * Set document
