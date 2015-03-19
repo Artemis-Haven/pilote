@@ -99,7 +99,21 @@
 			<h4>Actions</h4>
 
 			{# Labels Priorité #}
-			<button class="btn btn-default"><span class="glyphicon glyphicon-tags"> </span> Éditer les labels</button>
+			<div id="labelBtn" class="dropdown">
+				<button class="btn btn-default dropdown-toggle" type="button" id="labelMenu" data-toggle="dropdown" aria-expanded="true">
+					<span class="glyphicon glyphicon-tags" style="color: {{task.label.color}}"></span> 
+					<span id="labelBtnName">{{ task.label.text }}</span>
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" role="menu" aria-labelledby="labelMenu">
+					{% for key, label in task.labelsList %}
+						{% if loop.index == 6 %}<li class="divider"></li>{% endif %}
+					<li><a onClick="setLabel({{task.id}}, '{{ key }}', '{{ label.color }}', '{{ label.text }}');" href="#"> 
+						<div class="labelColor" style="background-color: {{ label.color }}"></div>{{label.text}}
+					</a></li>
+					{% endfor %}
+				</ul>
+			</div>
 
 			{# Assigner à un membre #}
 			<div id="assignBtn" class="dropdown">

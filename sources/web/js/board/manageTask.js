@@ -477,3 +477,16 @@ function setStartEndDates (taskId, startDate, endDate) {
     });
 }
 
+function setLabel (taskId, key, color, text) {
+    $.ajax({
+        type: "POST",
+        dataType:"json",
+        url: Routing.generate('pilote_tasker_label'),
+        data: { 'taskId' : taskId, 'label' : key},
+        cache: false,
+        success: function(data){
+            $('#labelBtn .glyphicon').css('color', color);
+            $('#labelBtnName').text(text);
+        }
+    });
+}

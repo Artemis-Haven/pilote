@@ -116,6 +116,12 @@ pilote_tasker_moveList:
     path: /moveList
     defaults: { _controller: PiloteTaskerBundle:Position:moveList }
 
+# Label d'une tâche
+
+pilote_tasker_label:
+    path: /label
+    defaults: { _controller: PiloteTaskerBundle:Ajax:label }
+
 # Assignation d'un User à une tâche
 
 pilote_tasker_assign:

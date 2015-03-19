@@ -452,3 +452,17 @@ body { background-color: #FFF; }
     color: #666;
     cursor: pointer;
 }
+
+
+/************************************/
+/* Fenêtre modale : Zone des labels */
+/************************************/
+
+.labelColor {
+    height: 15px;
+    width: 15px;
+    border-radius: 20px;
+    display: inline-block;
+    margin: 0 5px -2px 0;
+    border: 1px solid #808080;
+}
