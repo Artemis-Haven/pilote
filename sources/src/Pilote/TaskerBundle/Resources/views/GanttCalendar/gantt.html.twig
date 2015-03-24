@@ -129,6 +129,7 @@
     <script type="text/javascript">
         $(function () {
             gantt.config.scale_unit = "{{scale | default('week') }}"; 
+            gantt.config.root_id = "root";
             gantt.init("gantt_here");
             gantt.parse({{ganttData|raw}});
         })

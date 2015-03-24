@@ -14,6 +14,7 @@ class GanttController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $board = $this->findOr404($em, 'PiloteTaskerBundle', 'Board', $boardId);
         $currentTasks = $this->getRequest()->query->get('currentTasks');
+        $uuid = $this->getRequest()->query->get('uuid');
         $scale = $this->getRequest()->query->get('scale');
 
          /* Structure avec deux tableaux  */
@@ -37,7 +38,6 @@ class GanttController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         $currentTasks = $this->getRequest()->query->get('currentTasks');
-        $uuid = $this->getRequest()->query->get('uuid');
         $scale = $this->getRequest()->query->get('scale');
 
          /* Structure avec deux tableaux  */
@@ -45,7 +45,7 @@ class GanttController extends Controller {
             'data' => array(), 
             'links' => array() );
         foreach ($this->getUser()->getBoards() as $board) {
-            $ganttData = $this->getDataForBoard($board, $ganttData, $currentTasks, $uuid, true);
+            $ganttData = $this->getDataForBoard($board, $ganttData, $currentTasks, "", true);
             $ganttData['data'][] = array (
                 "id" => "b".$board->getId(),
                 "text" => $board->getName(),
