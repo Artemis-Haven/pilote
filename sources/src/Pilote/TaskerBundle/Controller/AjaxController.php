@@ -864,7 +864,10 @@ class AjaxController extends Controller
             }
             if ($memberId=='') {
                 $em->flush();
-                return new Response(json_encode(" Assigner à... "));
+                return new Response(json_encode(array(
+                    'name' => " Assigner à... ", 
+                    'infos' => $this->renderView('PiloteTaskerBundle:Main:taskInfos.html.twig', array('task' => $task))
+                )));
 
             } else {
                 $user = $this->findOr404($em, 'PiloteUserBundle', 'User', $memberId);
@@ -875,7 +878,10 @@ class AjaxController extends Controller
                 // Notifications
                 $this->sendNotificationForTaskUpdate($task, $this->getUser(), "vous a assigné à la tâche");
 
-                return new Response(json_encode($user->getUsername()));
+                return new Response(json_encode(array(
+                    'name' => $user->getUsername(), 
+                    'infos' => $this->renderView('PiloteTaskerBundle:Main:taskInfos.html.twig', array('task' => $task))
+                )));
             }
 
         } else {
@@ -924,7 +930,9 @@ class AjaxController extends Controller
 
             $em->flush();
 
-            return new Response(json_encode($activate));
+            return new Response(json_encode(array(
+                'infos' => $this->renderView('PiloteTaskerBundle:Main:taskInfos.html.twig', array('task' => $task))
+            )));
 
         } else {
             return new Response("");
@@ -950,7 +958,11 @@ class AjaxController extends Controller
 
                 // Notifications
                 $this->sendNotificationForTaskUpdate($task, $this->getUser());
-                return new Response(json_encode($value));
+
+                return new Response(json_encode(array(
+                    'infos' => $this->renderView('PiloteTaskerBundle:Main:taskInfos.html.twig', array('task' => $task))
+                )));
+
             } else {
                 return new Response("");
             }
@@ -990,7 +1002,8 @@ class AjaxController extends Controller
                         array('document' => $document, 
                             'form' => $form->createView(),
                             'task' => $task)
-                    )
+                    ),
+                    'infos' => $this->renderView('PiloteTaskerBundle:Main:taskInfos.html.twig', array('task' => $task))
                 )));
             }
 
@@ -1026,7 +1039,8 @@ class AjaxController extends Controller
             return new Response(json_encode(array(
                 'documentThumbnail' => $this->renderView('PiloteTaskerBundle:Main:documentThumbnail.html.twig', 
                     array('document' => $doc, 'form' => $form->createView())
-                )
+                ),
+                'infos' => $this->renderView('PiloteTaskerBundle:Main:taskInfos.html.twig', array('task' => $task))
             )));
 
         } else {
@@ -1064,7 +1078,9 @@ class AjaxController extends Controller
             // Notifications
             $this->sendNotificationForTaskUpdate($task, $this->getUser(), "a modifié les dates de la tâche");
 
-            return new Response(json_encode(null));
+            return new Response(json_encode(array(
+                'infos' => $this->renderView('PiloteTaskerBundle:Main:taskInfos.html.twig', array('task' => $task))
+            )));
 
         } else {
             return new Response("");

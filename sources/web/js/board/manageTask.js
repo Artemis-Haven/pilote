@@ -267,7 +267,8 @@ function assign(taskId, memberId) {
         data: { 'taskId' : taskId, 'memberId' : memberId },
         cache: false,
         success: function(data){
-            $('#assignBtnName').html(data);
+            $('#assignBtnName').html(data.name);
+            $('#task-'+taskId+' .taskInfos').html(data.infos);
         }
     }); 
 };
@@ -285,7 +286,7 @@ function toggleProgress (taskId) {
         url: Routing.generate('pilote_tasker_progress_activate'),
         data: { 'taskId' : taskId, 'activate' : activate },
         cache: false,
-        success: function(){
+        success: function(data){
             if (activate) {
                 $('#progressSliderContainer').show();
                 $('#progressBtn').data('progressactivated', "1");
@@ -302,6 +303,7 @@ function toggleProgress (taskId) {
                     gantt.refreshTask("t"+taskId);
                 }
             }
+            $('#task-'+taskId+' .taskInfos').html(data.infos);
         }
     });
 
@@ -317,12 +319,13 @@ function setProgress (taskId, value) {
         url: Routing.generate('pilote_tasker_progress_update'),
         data: { 'taskId' : taskId, 'value' : value },
         cache: false,
-        success: function () {
+        success: function (data) {
             // A faire juste sur la page du Gantt
             if (typeof gantt != 'undefined') {
                 gantt.getTask("t"+taskId).progress = value/100;
                 gantt.refreshTask("t"+taskId);
             }
+            $('#task-'+taskId+' .taskInfos').html(data.infos);
         }
     });
 }
@@ -342,6 +345,7 @@ function uploadFile (taskId) {
         dataType: 'json',
         success: function(data){
             $("#fileUploadGroup").html(data.documentThumbnail);
+            $('#task-'+taskId+' .taskInfos').html(data.infos);
         }
     });
 }
@@ -360,6 +364,7 @@ function deleteFile (taskId) {
             success: function(data){
                 $("#fileUploadGroup").html(data.documentThumbnail);
                 uploadFile(taskId);
+                $('#task-'+taskId+' .taskInfos').html(data.infos);
             }
         });
     };
@@ -443,7 +448,7 @@ function setStartEndDates (taskId, startDate, endDate) {
         url: Routing.generate('pilote_tasker_setDates'),
         data: { 'taskId' : taskId, 'startDate': startDate, 'endDate': endDate},
         cache: false,
-        success: function () {
+        success: function (data) {
             // A faire juste sur la page du Gantt
             if (typeof gantt != 'undefined') {
                 var ganttTask = gantt.getTask("t"+taskId);
@@ -469,6 +474,7 @@ function setStartEndDates (taskId, startDate, endDate) {
                 ganttTask.end_date = ganttEndDate;
                 gantt.refreshTask("t"+taskId);
             }
+            $('#task-'+taskId+' .taskInfos').html(data.infos);
         },
         error: function() {
             if (startDate != null) $( "#startDate" ).val('');
@@ -486,6 +492,12 @@ function setLabel (taskId, key, color, text) {
         cache: false,
         success: function(data){
             $('#labelBtn .glyphicon').css('color', color);
+            if (color == "#333333") {
+                $('#task-'+taskId+' .infoLabel').hide();
+            } else {
+                $('#task-'+taskId+' .infoLabel').show();
+            }
+            $('#task-'+taskId+' .infoLabel').css('background-color', color);
             $('#labelBtnName').text(text);
         }
     });

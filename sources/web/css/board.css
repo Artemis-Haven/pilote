@@ -161,7 +161,10 @@ body { background-color: #FFF; }
 
 .task, .addTaskBtn { margin: 10px 0px; }
 
-.task { cursor: pointer; }
+.task { 
+    cursor: pointer; 
+    padding: 10px;
+}
 
 .addTaskBtn {
     background-color: rgba(255, 255, 255, 0.4);
@@ -169,6 +172,19 @@ body { background-color: #FFF; }
 }
 .addTaskBtn:hover {
     background-color: rgba(255, 255, 255, 0.7);
+}
+
+.task .task-header {
+    margin-bottom: 0;
+}
+
+.taskInfos > * {
+    color: #444;
+    display: inline-block;
+    padding: 1px 5px;
+    margin: 5px 5px 0 0;
+    background-color: #ddd;
+    border-radius: 2px;
 }
 
 /* Style spécifique à LA tâche
@@ -458,11 +474,22 @@ body { background-color: #FFF; }
 /* Fenêtre modale : Zone des labels */
 /************************************/
 
-.labelColor {
+.labelColor, .task .infoLabel {
     height: 15px;
     width: 15px;
     border-radius: 20px;
     display: inline-block;
-    margin: 0 5px -2px 0;
     border: 1px solid #808080;
+}
+
+.labelColor {
+    margin: 0 5px -2px 0;
+}
+
+.task .infoLabel {
+    margin-left: 5px;
+}
+
+.task .infoLabel[data-color='#333333'] {
+    display: none;
 }
