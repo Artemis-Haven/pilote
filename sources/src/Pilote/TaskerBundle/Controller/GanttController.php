@@ -45,7 +45,7 @@ class GanttController extends Controller {
             'data' => array(), 
             'links' => array() );
         foreach ($this->getUser()->getBoards() as $board) {
-            $ganttData = $this->getDataForBoard($board, $ganttData, $currentTasks, this->getUser()->getUuid(), true);
+            $ganttData = $this->getDataForBoard($board, $ganttData, $currentTasks, $this->getUser()->getUuid(), true);
             $ganttData['data'][] = array (
                 "id" => "b".$board->getId(),
                 "text" => $board->getName(),
