@@ -9,6 +9,7 @@ body { background-color: #FFF; }
 .caret { color: #666; }
 
 /* Pour tous les champs éditables du board */
+.panel-title > a[contenteditable="true"],
 .stepTitle[contenteditable="true"],
 .tList-heading p[contenteditable="true"],
 .modal-taskTitle > b[contenteditable="true"],
