@@ -173,7 +173,7 @@ class DefaultController extends Controller
 
         $response = array();
         foreach ($users as $user) {
-            $response[] = array('label' => $user->getUsername(), 'value' => $user->getId());
+            $response[] = array('label' => $user->getDisplayName(), 'value' => $user->getId());
         }
         return new Response(json_encode($response));
 	}
@@ -215,7 +215,7 @@ class DefaultController extends Controller
 
         $response = array();
         foreach ($users as $user) {
-            $response[] = array('label' => $user->getUsername(), 'value' => $user->getId());
+            $response[] = array('label' => $user->getDisplayName(), 'value' => $user->getId());
         }
         return new Response(json_encode($response));
 	}

@@ -24,7 +24,7 @@ class UserRepository extends EntityRepository
         $query = $this->createQueryBuilder('u')
         	->select('u')
         	->where('u.id NOT IN(:members)')
-        	->andWhere('u.username LIKE :username')
+        	->andWhere('u.displayName LIKE :username')
 	        ->orderBy('u.username', 'ASC')
 	        ->setParameter('members', array_values($nots))
 	        ->setParameter('username', '%'.$username.'%');
@@ -43,7 +43,7 @@ class UserRepository extends EntityRepository
         $query = $this->createQueryBuilder('u')
         	->select('u')
         	->where('u.id NOT IN(:members)')
-        	->andWhere('u.username LIKE :username')
+        	->andWhere('u.displayName LIKE :username')
 	        ->orderBy('u.username', 'ASC')
 	        ->setParameter('members', array_values($nots))
 	        ->setParameter('username', '%'.$username.'%');
@@ -92,7 +92,7 @@ class UserRepository extends EntityRepository
 	        ->orderBy('u.username', 'ASC')
 	        ->setParameter('userid', $userId);
 	    if ($filter != null) {
-        $query->andWhere('u.username LIKE :filter')
+        $query->andWhere('u.displayName LIKE :filter')
 	        ->setParameter('filter', '%'.$filter.'%');
 	    }
         return $query->getQuery()->getResult();
