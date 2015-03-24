@@ -1,10 +1,10 @@
  {% extends 'PiloteMainBundle::base.html.twig' %}
 
 {# Ceci est le bloc qui remplace le titre de la page (normalement dans le <head>) #}
-{% block pageTitle %} {{ parent() }} - {{ board }}{% endblock %}
+{% block pageTitle %} {{ parent() }} - {{ board is defined ? board : app.user }}{% endblock %}
 
 {# Ceci est le bloc qui remplace le bloc identique de la vue dont cette vue hérite #}
-{% block boardTitle %} {{ board }} {% endblock %}
+{% block boardTitle %} {{ board is defined ? board : app.user }} {% endblock %}
 
 {# Idem, on ajoute les feuilles CSS spécifiques à cette vue dans le block de style #}
 {% block styles %}
@@ -63,10 +63,14 @@
 
 {# Bloc principal #}
 {% block body %}
-
     <section class="ganttSettingsSection hidden-sm hidden-xs">
+        {% if board is defined %}
         <form class="form-inline" method="GET" action="{{ path('pilote_tasker_gantt', {'boardId': board.id}) }}">
+        {% else %}
+        <form class="form-inline" method="GET" action="{{ path('pilote_tasker_gantt_user') }}">
+        {% endif %}
             <b>Filtres :</b>
+            {% if board is defined %}
             <div class="form-group">
                 Membre du groupe :
                 <select class="form-control" id="user-filter" name="uuid">
@@ -76,6 +80,7 @@
                     {% endfor %}
                 </select>
             </div>
+            {% endif %}
             <div class="form-group">
                 Juste les tâches en cours : 
                 <input type="checkbox" id="currentTasks-filter" value="true" name="currentTasks" {% if currentTasks %}checked{% endif %}>

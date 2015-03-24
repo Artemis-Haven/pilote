@@ -14,13 +14,60 @@ class GanttController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $board = $this->findOr404($em, 'PiloteTaskerBundle', 'Board', $boardId);
         $currentTasks = $this->getRequest()->query->get('currentTasks');
+        $scale = $this->getRequest()->query->get('scale');
+
+         /* Structure avec deux tableaux  */
+        $ganttData = array(
+            'data' => array(), 
+            'links' => array() );
+
+        $ganttData = $this->getDataForBoard($board, $ganttData, $currentTasks, $uuid);
+        
+        return $this->render('PiloteTaskerBundle:GanttCalendar:gantt.html.twig', array(
+            'board' => $board,
+            'ganttData' => json_encode($ganttData),
+            'currentTasks' => $currentTasks,
+            'uuid' => $uuid,
+            'scale' => $scale
+        ));
+    }
+
+    public function userGanttAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $currentTasks = $this->getRequest()->query->get('currentTasks');
         $uuid = $this->getRequest()->query->get('uuid');
         $scale = $this->getRequest()->query->get('scale');
 
-        /* Tableau pour stocker les infos des tâches */
-        $data = array();
-        $links = array();
+         /* Structure avec deux tableaux  */
+        $ganttData = array(
+            'data' => array(), 
+            'links' => array() );
+        foreach ($this->getUser()->getBoards() as $board) {
+            $ganttData = $this->getDataForBoard($board, $ganttData, $currentTasks, $uuid, true);
+            $ganttData['data'][] = array (
+                "id" => "b".$board->getId(),
+                "text" => $board->getName(),
+                "type" => "project",
+                "open" => true,
+            );
+        }
+
         
+        
+        return $this->render('PiloteTaskerBundle:GanttCalendar:gantt.html.twig', array(
+            'ganttData' => json_encode($ganttData),
+            'currentTasks' => $currentTasks,
+            'scale' => $scale
+        ));
+    }
+
+
+    private function getDataForBoard($board, $ganttData, $currentTasks, $uuid, $userGantt = false)
+    {
+        $em = $this->getDoctrine()->getManager();
+
         foreach ($board->getDomains() as $domain) {
             $stepCount = 0;
             foreach ($domain->getSteps() as $step) {
@@ -39,7 +86,7 @@ class GanttController extends Controller {
                             );
                             /* Test pour savoir si la tâche est filtrée ou non */
                             if ( !$this->isFiltered($currentTasks, $uuid, $task) ) {
-                                $data[] = $t;
+                                $ganttData['data'][] = $t;
                                 $taskCount++;
                             }
                         } else if ($task->getEndDate() != null) {
@@ -53,14 +100,14 @@ class GanttController extends Controller {
                             );
                             /* Test pour savoir si la tâche est filtrée ou non */
                             if ( !$this->isFiltered($currentTasks, $uuid, $task) ) {
-                                $data[] = $t;
+                                $ganttData['data'][] = $t;
                                 $taskCount++;
                             }
                         }
 
                         $linkForTask = $em->getRepository('PiloteTaskerBundle:DependencyLink')->findBySource($task);
                         foreach ($linkForTask as $link) {
-                            $links[] = array (
+                            $ganttData['links'][] = array (
                                 "id" => $link->getId(),
                                 "source" => "t".$link->getSource()->getId(),
                                 "target" => "t".$link->getTarget()->getId(),
@@ -70,7 +117,7 @@ class GanttController extends Controller {
                     }    /* Fin pour chaque Task */
                 }    /* Fin pour chaque List */
                 if ($taskCount != 0) {
-                    $data[] = array (
+                    $ganttData['data'][] = array (
                         "id" => "s".$step->getId(),
                         "text" => $step->getName(),
                         "parent" => "d".$domain->getId(),
@@ -82,32 +129,18 @@ class GanttController extends Controller {
                 }
             }    /* Fin pour chaque step */
             if ($stepCount != 0) {
-                $data[] = array (
+                $ganttData['data'][] = array (
                     "id" => "d".$domain->getId(),
                     "text" => $domain->getName(),
                     "type" => "project",
                     "open" => true,
+                    "parent" => ($userGantt ? 'b'.$board->getId() : 'root')
                 );
                 $stepCount = 0;
             }
-            
         }    /* Fin pour chaque domaine */
-
-
-         /* Structure avec deux tableaux  */
-        $ganttData = array(
-            'data' => $data, 
-            'links' => $links );
-        
-        return $this->render('PiloteTaskerBundle:GanttCalendar:gantt.html.twig', array(
-            'board' => $board,
-            'ganttData' => json_encode($ganttData),
-            'currentTasks' => $currentTasks,
-            'uuid' => $uuid,
-            'scale' => $scale
-        ));
+        return $ganttData;
     }
-
 
     public function moveTaskAction()
     {
