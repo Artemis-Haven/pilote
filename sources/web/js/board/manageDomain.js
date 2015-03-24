@@ -72,36 +72,33 @@ function deleteDomain(id) {
  * @param {number} id L'identifiant du domaine concerné
  */
 function renameDomain(id) {
-	/* récupérer le nom */
-	titleParag = $('a[href="#domainPanel-'+id+'"]');
-	titleText = titleParag.text();
-	/* transformer le lien en champ texte */
-	titleParag.replaceWith(
-		'<input id="renameDomainField-'+ id +'" type="text" class="renameDomainField" value="'+titleText+'"></input>');
-	$('#renameDomainField-'+ id ).focus();
-    selectText(titleBlock);
+    /* titleBlock sera l'élément contenant le titre */
+    titleParag = $('a[href="#domainPanel-'+id+'"]');
+    /* on le rend éditable */
+    titleParag.attr("contenteditable", "true");
+    /* on sauvegarde l'ancien titre au cas où */
+    oldTitleText = titleParag.text();
+    titleParag.focus();
+    selectText(titleParag);
+
 	/* Lorsque le focus n'est plus sur le champ texte... : */
-	$('#renameDomainField-'+ id ).focusout(function(){
+	titleParag.focusout(function(){
 		/* récupérer la nouvelle valeur */
-		newTitleText = $('#renameDomainField-'+ id ).val();
+		newTitleText = titleParag.text();
 		$.ajax({
-	        /* requête AJAX */
+		/* requête AJAX */
 	        type: "POST",
 	        dataType:"json",
 	        url: Routing.generate('pilote_tasker_renameDomain'),
 	        data: { 'domainId' : id, 'newTitle' : newTitleText },
 	        cache: false,
 	        success: function(data){
-				/* transformer le champ texte en lien */
-				$('#renameDomainField-'+ id ).replaceWith('<a data-toggle="collapse" data-parent="#accordion" ' +
-					'href="#domainPanel-'+id+'">' + newTitleText + '</a>');
-				/* changer les infobulles au passage de la souris sur les boutons */
-				$('#renameDomainBtn-'+id).prop('title', 'Renommer "'+newTitleText+'"');
-				$('#deleteDomainBtn-'+id).prop('title', 'Supprimer "'+newTitleText+'"');
+                /* transformer le champ texte en paragraphe */
+                titleParag.attr("contenteditable", "false");
 	        },
 	        error: function(data){
-				$('#renameDomainField-'+ id ).replaceWith('<a data-toggle="collapse" data-parent="#accordion" ' +
-					'href="#domainPanel-'+id+'">' + titleText + '</a>');
+                titleParag.attr("contenteditable", "false");
+                titleParag.text(oldTitleText);
 	        }
 	    });
 	});
