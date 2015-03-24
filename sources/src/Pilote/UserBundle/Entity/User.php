@@ -277,4 +277,9 @@ class User extends BaseUser
         }
         return $result;
     }
+
+    public function __toString()
+    {
+        return $this->username;
+    }
 }

@@ -1,6 +1,7 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
+    - { resource: params.php }
 
 framework:
     #esi:             ~
@@ -30,7 +31,7 @@ twig:
     strict_variables: "%kernel.debug%"
     globals:
         pilote:
-            notification_connexion: "%notification_connexion%"
+            notification_connexion_port: "%notification_connexion_port%"
             disable_registration: "%disable_registration%"
 
 # Assetic Configuration
@@ -109,6 +110,6 @@ services:
 nc_elephant_io:
     clients:
         default:
-            connection: %notification_connexion%
+            connection: %SERVER_NAME%:%notification_connexion_port%
             # specify version 0.x for 0.* version and 1.x for 1.0 version
             version: 1.x
