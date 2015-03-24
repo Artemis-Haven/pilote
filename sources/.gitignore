@@ -3,6 +3,7 @@
 /app/cache/*
 /app/config/parameters.yml
 /app/logs/*
+/app/sessions/*
 !app/cache/.gitkeep
 !app/logs/.gitkeep
 /build/
@@ -14,3 +15,4 @@ UPGRADE-*.md
 /web/js/notifications/node_modules
 /web/js/fos_js_routes.js
 composer.lock
+fos_js_routes.js
