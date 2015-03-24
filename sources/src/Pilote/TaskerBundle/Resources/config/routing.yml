@@ -39,6 +39,11 @@ pilote_tasker_gantt:
     requirements:
         boardId: \d+
 
+# Page du diagramme de Gantt d'un utilisateur
+pilote_tasker_gantt_user:
+    path: /board/user/gantt
+    defaults: { _controller: PiloteTaskerBundle:Gantt:userGantt }
+
 
 
 ##############

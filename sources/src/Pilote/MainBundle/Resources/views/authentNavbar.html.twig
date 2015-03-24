@@ -164,9 +164,14 @@
 							<a href="{{ path('pilote_profil_show') }}"><span class="glyphicon glyphicon-eye-open"></span> Profil</a>
 						</li>
 						<li>
-							<a href="#"><span class="glyphicon glyphicon-question-sign"></span> Aide</a>
+							<a href="{{ path('pilote_tasker_gantt_user') }}">
+								<span class="glyphicon glyphicon-tasks"></span> Diagramme de Gantt
+							</a>
 						</li>
 						<li class="divider"></li>
+						<li>
+							<a href="#"><span class="glyphicon glyphicon-question-sign"></span> Aide</a>
+						</li>
 	                    {% if is_granted('ROLE_ADMIN') %}
 	                    	<li>
 	                    		<a href="{{ path('pilote_admin_homepage') }}"><span class="glyphicon glyphicon-cog"></span> Administration</a>
