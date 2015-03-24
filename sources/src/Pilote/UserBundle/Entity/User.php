@@ -7,13 +7,14 @@ use FOS\UserBundle\Model\User as BaseUser;
 use FOS\TaskerBundle\Entity\HasCommented;
 use Pilote\MessageBundle\Entity\ThreadMetadata as Metadata;
 use Pilote\MessageBundle\Entity\Thread;
+use FR3D\LdapBundle\Model\LdapUserInterface as LdapUserInterface;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="pilote_user")
  * @ORM\Entity(repositoryClass="Pilote\UserBundle\Entity\UserRepository")
  */
-class User extends BaseUser
+class User extends BaseUser implements LdapUserInterface
 {
     /**
      * @ORM\Id
@@ -58,9 +59,14 @@ class User extends BaseUser
     private $notifications;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)    
      */
     protected $dn;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $displayName;
 
     /**
      * @ORM\OneToMany(
@@ -266,6 +272,14 @@ class User extends BaseUser
     public function getDn() {
         return $this->dn;
     }
+
+    public function setDisplayName($displayName) {
+        $this->displayName = $displayName;
+    }
+
+    public function getDisplayName() {
+        return $this->displayName;
+    }
     
     public function isGranted($role)
     {
@@ -296,6 +310,9 @@ class User extends BaseUser
 
     public function __toString()
     {
-        return $this->username;
+        if ($this->displayName != null)
+            return $this->displayName;
+        else
+            return $this->username;
     }
 }
