@@ -37,7 +37,7 @@
             <div class="panel-heading sheet">
                 Etat du serveur NodeJS : <span class="text-muted" id="nodejsState">Inactif</span>
                 <br>
-                Adresse IP du serveur : <code>{{ pilote.notification_connexion }}</code>
+                Adresse IP du serveur : <code>{{ app.request.server.get('SERVER_NAME') ~ ":" ~ pilote.notification_connexion_port }}</code>
             </div>
         </div>
     </div>

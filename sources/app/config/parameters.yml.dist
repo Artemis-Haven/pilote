@@ -24,7 +24,7 @@ parameters:
     #  > "/pilote/sources/web/app_dev.php"
     router.request_context.base_url: 
     # URL du serveur NodeJS
-    notification_connexion: 'http://127.0.0.1:8010' 
+    notification_connexion_port: '8010'
     # TRUE pour permettre aux utilisateurs de s'inscrire au site, FALSE pour l'empêcher
     disable_registration: false 
 
