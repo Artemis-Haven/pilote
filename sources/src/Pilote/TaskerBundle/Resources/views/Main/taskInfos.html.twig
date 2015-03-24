@@ -1,0 +1,31 @@
+{# Progression #}
+{% if task.progressActivated %}
+	<div class="infoProgress" title="Progression : {{task.progress}} %">
+		{{ task.progress }}%
+	</div>
+{% endif %}
+
+{# Dates de début et de fin #}
+{% if task.endDate != null %}
+	<div class="infoDates">
+		{% set startDate = "Jalon : " %}
+		{% if task.startDate != null %}
+			{% set startDate = task.startDate | date("d/m/Y") ~ " - " %}
+		{% endif %}
+		<span class="glyphicon glyphicon-time" title="{{startDate ~ task.endDate | date("d/m/Y") }}"></span>
+	</div>
+{% endif %}
+
+{# Assignation #}
+{% if task.creator != null %}
+	<div class="infoAssign" title="Cette tâche est assignée à {{task.creator}}.">
+		{{ task.creator | truncate(20) }}
+	</div>
+{% endif %}
+
+{# Pièce jointe #}
+{% if task.document != null %}
+	<div class="infoDocument">
+		<span class="glyphicon glyphicon-file" title="Fichier joint : {{task.document.originalName}}"></span>
+	</div>
+{% endif %}

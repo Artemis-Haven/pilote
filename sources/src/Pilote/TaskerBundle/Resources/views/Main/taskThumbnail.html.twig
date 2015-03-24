@@ -1,3 +1,10 @@
 <div id="task-{{ task.id }}" class="task sheet" data-toggle="modal" data-target="#modalTask" onclick="getTaskDetails({{task.id}});">
+	<div class="infoLabel pull-right" style="background-color: {{ task.label.color }};{% if task.label.color == "#333333" %}display:none;{% endif %}" title="{{ task.label.text }}"></div>
 	<p class="task-header">{{ task }}</p>
+
+	{# TaskInfos contient toutes les informations résumant le contenu de la tâche, en dessous du titre #}
+	<div class="taskInfos">
+		{% include 'PiloteTaskerBundle:Main:taskInfos.html.twig' 
+			with {'task': task} %}
+	</div>
 </div>
