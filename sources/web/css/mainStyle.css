@@ -67,6 +67,7 @@ button::-moz-focus-inner {
 	max-height: 300px;
 	min-height: 200px;
 	margin: 10px auto;
+	text-align: center;
 }
 
 #user_show h2 {
@@ -151,6 +152,10 @@ button::-moz-focus-inner {
 	margin: 5px 10px;
 	max-height: 150px;
 	max-width: 150px;
+}
+
+.navbar .dropdown-menu .userProfilePicture {
+	text-align: center;
 }
 
 .sheet {
