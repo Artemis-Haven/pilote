@@ -53,9 +53,9 @@ class Board
     /**
      * @var string
      *
-     * @ORM\Column(name="color", type="string", length=255, nullable=true)
+     * @ORM\Column(name="theme", type="string", length=255, nullable=true)
      */
-    private $color;
+    private $theme;
 
     /**
      * @ORM\OneToMany(targetEntity="Pilote\TaskerBundle\Entity\Domain", mappedBy="board", cascade={"persist", "remove"})
@@ -203,26 +203,26 @@ class Board
     }
 
     /**
-     * Set color
+     * Set theme
      *
-     * @param string $color
+     * @param string $theme
      * @return Board
      */
-    public function setColor($color)
+    public function setTheme($theme)
     {
-        $this->color = $color;
+        $this->theme = $theme;
 
         return $this;
     }
 
     /**
-     * Get color
+     * Get theme
      *
      * @return string 
      */
-    public function getColor()
+    public function getTheme()
     {
-        return $this->color;
+        return $this->theme;
     }
 
     public function __toString() {
