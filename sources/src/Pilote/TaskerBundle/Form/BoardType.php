@@ -26,8 +26,8 @@ class BoardType extends AbstractType
                 'attr' => array(
                     'class' => 'form-control' 
                     )))
-            ->add('color', 'hidden', array(
-                'label' => 'Couleur de fond', 
+            ->add('theme', 'hidden', array(
+                'label' => 'Thème', 
                 'attr' => array(
                     'class' => 'form-control' 
                     )));

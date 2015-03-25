@@ -18,16 +18,16 @@
 		{{ form_row(form.description) }}
 		<br>
 		<div>
-			{{ form_label(form.color) }}
-			{{ form_widget(form.color) }}
-			<div id="colorSelector">
-				<div style="background-color: #F6F6F6;" data-color="#F6F6F6"></div>
-				<div style="background-color: #7496D2;" data-color="#7496D2"></div>
-				<div style="background-color: #CCEDF6;" data-color="#CCEDF6"></div>
-				<div style="background-color: #F2E2A0;" data-color="#F2E2A0"></div>
-				<div style="background-color: #64B34C;" data-color="#64B34C"></div>
-				<div style="background-color: #874AB1;" data-color="#874AB1"></div>
-				<div style="background-color: #B33A3A;" data-color="#B33A3A"></div>
+			{{ form_label(form.theme) }}
+			{{ form_widget(form.theme) }}
+			<div id="themeSelector">
+				<div style="background-color: #F6F6F6;" data-theme="theme-white" title="Blanc"></div>
+				{#<div style="background-color: #7496D2;" data-theme="theme-electricBlue" title="Bleu électrique"></div>
+				<div style="background-color: #CCEDF6;" data-theme="theme-skyBlue" title="Bleu ciel"></div>
+				<div style="background-color: #F2E2A0;" data-theme="theme-sand" title="Sable"></div>#}
+				<div style="background-color: #64B34C;" data-theme="theme-mintGreen" title="Vert menthe"></div>
+				<div style="background-color: #874AB1;" data-theme="theme-polytechPurple" title="Violet Polytech"></div>
+				<div style="background-color: #B33A3A;" data-theme="theme-carmineRed" title="Rouge carmin"></div>
 			</div>
 		</div>
 		<br>
@@ -137,11 +137,11 @@
 				event.preventDefault();
 		});
 
-		$('#colorSelector > div[data-color="{{board.color}}"]').addClass('selected');
+		$('#themeSelector > div[data-theme="{{board.theme}}"]').addClass('selected');
 
-		$('#colorSelector > div').click(function (argument) {
-			$('#pilote_taskerbundle_board_color').val($(this).data('color'));
-			$('#colorSelector > div.selected').removeClass('selected');
+		$('#themeSelector > div').click(function (argument) {
+			$('#pilote_taskerbundle_board_theme').val($(this).data('theme'));
+			$('#themeSelector > div.selected').removeClass('selected');
 			$(this).addClass('selected');
 		})
 	});

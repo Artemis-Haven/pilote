@@ -11,15 +11,7 @@
 	<link rel="stylesheet" href="{{ asset('css/board.css') }}" class="css">
 	<link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}" class="css">
 	<link rel="stylesheet" href="{{ asset('css/jquery-ui.datepicker.min.css') }}" class="css">
-	<style>
-		.boardSection {
-			background-color: {{board.color}};
-		}
-		.panel-body .nav-tabs > li.active > a {
-		    background-color: {{board.color}};
-		    border-bottom-color: {{board.color}};
-		}
-	</style>
+	<link rel="stylesheet" href="{{ asset('css/board-themes.css') }}" class="css">
 {% endblock %}
 
 {% block pageType %}board{% endblock %}
@@ -27,7 +19,7 @@
 {# Bloc principal #}
 {% block body %}
 
-<section id="board-{{ board.id }}" class="boardSection">
+<section id="board-{{ board.id }}" class="boardSection {{board.theme}}">
 		
 	{# Ce DIV est l'accordéon qui contient chaque Domaine #}
 	<div class="panel-group" id="accordion">

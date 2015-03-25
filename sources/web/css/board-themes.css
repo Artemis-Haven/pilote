@@ -1,0 +1,123 @@
+/*******************/
+/* Polytech Purple */
+/*******************/
+
+/* Couleur de fond */
+.theme-polytechPurple {
+	background-color: #A76AD1;
+}
+/* Couleur de fond des domaines et des onglets */
+.theme-polytechPurple .domain .panel-heading,
+.theme-polytechPurple .nav-tabs {
+	background-color: #874AB1;
+}
+/* Couleur du texte des domaines */
+.theme-polytechPurple .domain .panel-heading {
+	color: #fff;
+}
+/* Séparation onglets / listes de tâches */
+.theme-polytechPurple .nav-tabs {
+	border-bottom: 1px solid #C19DD1;
+}
+/* Onglets inactifs */
+.theme-polytechPurple .nav-tabs > li > a {
+    background-color: #D7BAF1;
+	border: 1px solid #D7BAF1;
+}
+/* Onglets inactifs au survol */
+.theme-polytechPurple .nav-tabs > li > a:hover {
+	background-color: #E7DAF1;
+	border: 1px solid #E7DAF1;
+}
+/* Onglet actif */
+.theme-polytechPurple .nav-tabs > li.active > a {
+    background-color: #A76AD1;
+	border: 1px solid #C19DD1;
+    border-bottom-color: #A76AD1;
+	color: #fff;
+}
+/* Fond des listes de tâches */
+.theme-polytechPurple .taskList, .theme-polytechPurple .addListBtn  {
+	background-color: rgba(221, 221, 221, 0.7);
+}
+
+
+/**************/
+/* Mint Green */
+/**************/
+
+.theme-mintGreen {
+	background-color: #84D36C;
+}
+.theme-mintGreen .domain .panel-heading,
+.theme-mintGreen .nav-tabs {
+	background-color: #64B34C;
+}
+.theme-mintGreen .domain .panel-heading {
+	color: #fff;
+}
+.theme-mintGreen .nav-tabs {
+	border-bottom: 1px solid #94E37C;
+}
+.theme-mintGreen .nav-tabs > li > a {
+    background-color: #C4EFAC;
+	border: 1px solid #C4EFAC;
+	color: #333;
+}
+.theme-mintGreen .nav-tabs > li > a:hover {
+	background-color: #E4FFDC;
+	border: 1px solid #E4FFDC;
+}
+.theme-mintGreen .nav-tabs > li.active > a {
+    background-color: #84D36C;
+	border: 1px solid #94E37C;
+    border-bottom-color: #84D36C;
+}
+.theme-mintGreen .taskList, .theme-mintGreen .addListBtn  {
+	background-color: rgba(221, 221, 221, 0.7);
+}
+
+
+/***************/
+/* Carmine Red */
+/***************/
+
+/* Couleur de fond */
+.theme-carmineRed {
+	background-color: #C35A5A;
+}
+/* Couleur de fond des domaines et des onglets */
+.theme-carmineRed .domain .panel-heading,
+.theme-carmineRed .nav-tabs {
+	background-color: #B33A3A;
+}
+/* Couleur du texte des domaines */
+.theme-carmineRed .domain .panel-heading {
+	color: #fff;
+}
+/* Séparation onglets / listes de tâches */
+.theme-carmineRed .nav-tabs {
+	border-bottom: 1px solid #C37A7A;
+}
+/* Onglets inactifs */
+.theme-carmineRed .nav-tabs > li > a {
+    background-color: #EFBAAA;
+	border: 1px solid #EFBAAA;
+	color: #333;
+}
+/* Onglets inactifs au survol */
+.theme-carmineRed .nav-tabs > li > a:hover {
+	background-color: #EFCACA;
+	border: 1px solid #EFCACA;
+}
+/* Onglet actif */
+.theme-carmineRed .nav-tabs > li.active > a {
+    background-color: #C35A5A;
+	border: 1px solid #C37A7A;
+    border-bottom-color: #C35A5A;
+	color: #fff;
+}
+/* Fond des listes de tâches */
+.theme-carmineRed .taskList, .theme-carmineRed .addListBtn  {
+	background-color: rgba(221, 221, 221, 0.7);
+}

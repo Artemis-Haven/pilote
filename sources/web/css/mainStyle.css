@@ -107,7 +107,7 @@ button::-moz-focus-inner {
 	width: 180px;
 }
 
-#colorSelector > div {
+#themeSelector > div {
 	height: 20px;
 	width: 30px;
 	display: inline-block;
@@ -116,8 +116,8 @@ button::-moz-focus-inner {
 	border-radius: 3px;
 }
 
-#colorSelector > div:hover, 
-#colorSelector > div.selected {
+#themeSelector > div:hover, 
+#themeSelector > div.selected {
 	border-color: #000;
 }
 
