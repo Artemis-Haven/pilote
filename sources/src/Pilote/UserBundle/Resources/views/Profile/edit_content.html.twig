@@ -8,6 +8,7 @@
         </aside>
         <section class="col-md-9">
             <div class="sheet">
+		{% if app.user.displayName is null %}
                 <form class="form-horizontal" action="{{ path('pilote_profil_edit') }}"  {{ form_enctype(form) }} method="POST">
                     <div class="form-group">
                         <div class="col-sm-3">{{ form_label(form.username) }}</div>
@@ -31,6 +32,22 @@
                     </div>
                     {{ form_rest(form) }} {# pour le jeton CSRF en hidden #}
                 </form>
+		{% else %}
+		<div class="form-horizontal">
+		    <div class="form-group">
+                        <div class="col-sm-3">{{ form_label(form.username) }}</div>
+                        <div class="col-sm-9">{{ app.user.username }}</div>
+		    </div>
+		    <div class="form-group">
+                        <div class="col-sm-3"><label for="">Nom affiché :</label></div>
+                        <div class="col-sm-9">{{ app.user.displayName }}</div>
+		    </div>
+		    <div class="form-group">
+                        <div class="col-sm-3">{{ form_label(form.email) }}</div>
+                        <div class="col-sm-9">{{ app.user.email }}</div>
+		    </div>
+		</div>
+		{% endif %}
             </div>
         </section>
     </div>
