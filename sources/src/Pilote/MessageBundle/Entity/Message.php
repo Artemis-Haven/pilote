@@ -152,4 +152,9 @@ class Message
     {
         return $this->sender;
     }
+
+    public function __toString()
+    {
+        return $this->body;
+    }
 }

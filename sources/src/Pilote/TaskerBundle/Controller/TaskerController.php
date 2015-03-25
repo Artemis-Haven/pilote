@@ -68,6 +68,7 @@ class TaskerController extends Controller
             $this->getUser()->addBoard($entity);
 
             $thread = new Thread($entity->getName());
+            $thread->setType(Thread::BOARD_THREAD);
             $metadata = new ThreadMetadata();
             $thread->addMetadata($metadata);
             $this->getUser()->addMetadata($metadata);

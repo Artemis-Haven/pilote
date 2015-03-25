@@ -59,5 +59,6 @@ security:
         - { path: ^/projets, roles: [ROLE_ADMIN, ROLE_USER] }
         - { path: ^/profile/*, roles: [ROLE_ADMIN, ROLE_USER] }
         - { path: ^/board/*, roles: [ROLE_ADMIN, ROLE_USER] }
+        - { path: ^/messages/*, roles: [ROLE_ADMIN, ROLE_USER] }
         - { path: ^/admin/*, roles: ROLE_ADMIN }
         #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }

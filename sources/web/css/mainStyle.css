@@ -409,6 +409,8 @@ a {
 	margin-bottom: 15px;
 }
 
+/* Page d'accueil de la messagerie */
+
 #messagesList {
 	min-height: 200px;    
 	overflow-y: scroll;
@@ -420,6 +422,30 @@ a {
 	text-align: center;
 	color: grey;
 }
+
+#messagesList .msgPreview {
+	display: block;
+	padding: 10px;
+	border-bottom: 1px solid #DDD;
+}
+
+#messagesList .msgPreview:hover {
+	display: block;
+	text-decoration: none;
+	background-color: #eee;
+}
+
+#messagesList .msgPreviewTitle {
+	display: block;
+	font-weight: bold;
+}
+
+#messagesList .msgPreviewContent {
+	display: block;
+	color: #666;
+}
+
+/* Colonne latérale */
 
 .threadsList > a {
 	display: block;

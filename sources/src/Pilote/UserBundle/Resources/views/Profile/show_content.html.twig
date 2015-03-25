@@ -5,11 +5,11 @@
         <aside class="col-md-3 sheet">
             <h2>{{ user.username }}</h2>
             <p class="photo">
-                {% if app.user.picture == null %}
+                {% if user.picture == null %}
                 <img src="{{ asset('img/img_profil_user.png') }}" 
                 alt="Photo de profil de {{user.username}}" class="img-thumbnail">
                 {% else %}
-                <img src="{{ asset(app.user.picture.webPath) }}" 
+                <img src="{{ asset(user.picture.webPath) }}" 
                 alt="Photo de profil de {{user.username}}" class="img-thumbnail">
                 {% endif %}
             </p>

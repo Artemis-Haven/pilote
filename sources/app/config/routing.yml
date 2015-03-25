@@ -11,7 +11,7 @@ pilote_user:
 # Inclusion du fichier de routing du MessageBundle
 pilote_message:
     resource: "@PiloteMessageBundle/Resources/config/routing.yml"
-    prefix:   /message
+    prefix:   /messages
 
 # Inclusion du fichier de routing du AdminBundle
 pilote_admin:
