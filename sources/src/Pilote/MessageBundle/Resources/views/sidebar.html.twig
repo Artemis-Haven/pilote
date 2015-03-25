@@ -1,4 +1,10 @@
 <aside>
+
+	<a class="sheet btn" href="{{ path('pilote_message_index') }}">
+		<span class="glyphicon glyphicon-inbox"></span> Boîte de réception
+	</a>
+	<br>
+
 	{# Discussion liées aux projets de l'utilisateur : boardThreads #}
 	{% if app.user.boards|length > 0 %}
 	<div class="threadsList sheet">
@@ -6,6 +12,8 @@
 		{% for board in app.user.boards %}
 			{% include 'PiloteMessageBundle::sidebarItem.html.twig' 
 				with {'thread': board.thread, 'text': board} %}
+		{% else %}
+			<br><br>Vous n'êtes associé à aucun projet.
 		{% endfor %}
 	</div>
 	<br>
@@ -17,6 +25,8 @@
 	{% for thread in app.user.threads if thread.type == simpleThread %}
 		{% include 'PiloteMessageBundle::sidebarItem.html.twig' 
 			with {'thread': thread, 'text': thread.participants|join(', ') } %}
+	{% else %}
+		<br><br>Aucune discussion privée.
 	{% endfor %}
 	</div>
 	<br>

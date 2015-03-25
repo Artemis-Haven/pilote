@@ -40,6 +40,7 @@ function submitMessage (event){
         data: { 'message': message, 'thread' : thread},
         cache: false,
         success: function(data){
+            $("#messagesList .emptyList").remove();
             $("#messagesList").append(data.message);
             $("#messagesList").scrollTop($("#messagesList")[0].scrollHeight);
         },

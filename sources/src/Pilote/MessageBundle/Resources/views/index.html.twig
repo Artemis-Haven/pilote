@@ -8,7 +8,20 @@
 <div class="sheet">
     <div id="messagesList">
         {% for metadata in app.user.metadata if not metadata.read %}
-            <div><a href="{{path('pilote_message_thread', {'id': metadata.thread.id})}}">->{{metadata.thread.title}}</a></div>
+            <a class="msgPreview" href="{{path('pilote_message_thread', {'id': metadata.thread.id})}}">
+            	<span class="msgPreviewTitle">
+	            	{% if metadata.thread.type == boardThread %}
+	            		Projet : {{metadata.thread.title}}
+	            	{% elseif metadata.thread.type == adminThread %}
+	            		Discussion avec les administrateurs
+	            	{% else %}
+	            		{{ metadata.thread.participants|join(', ') }}
+	            	{% endif %}
+            	</span>
+            	<span class="msgPreviewContent">
+            		{{metadata.thread.messages | last | truncate(200) }}
+            	</span>
+            </a>
         {% else %}
             <div class="emptyList">Aucun message non lu. <br><br>Sélectionnez une conversation dans la colonne de droite.</div>
         {% endfor %}
