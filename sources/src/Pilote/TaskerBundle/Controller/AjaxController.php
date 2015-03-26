@@ -879,7 +879,6 @@ class AjaxController extends Controller
 
                 // Notifications
                 $this->sendNotificationForTaskUpdate($task, $this->getUser(), "vous a assigné à la tâche");
-
                 return new Response(json_encode(array(
                     'name' => $user->getUsername(), 
                     'infos' => $this->renderView('PiloteTaskerBundle:Main:taskInfos.html.twig', array('task' => $task))
@@ -1130,7 +1129,6 @@ class AjaxController extends Controller
         $notifContent = ' du projet <em>'.$task->getTList()->getStep()->getDomain()->getBoard().'</em>.';
         $link = $this->generateUrl('pilote_tasker_board', array(
             'boardId' => $task->getTList()->getStep()->getDomain()->getBoard()->getId()));
-        
         $this->sendNotifications($sender, $receivers, $notifTitle, $notifContent, $link);
     }
 
@@ -1147,7 +1145,6 @@ class AjaxController extends Controller
                 $usersIds[] = $user->getUuid();
             }
             $em->flush();
-
             $client = $this->get('elephantio_client.default');
             $client->send('simple-notification', [
                 'html' => $this->renderView('PiloteUserBundle:Notifications:notification.html.twig', 
