@@ -849,21 +849,16 @@ class AjaxController extends Controller
             $memberId = $request->request->get('memberId');
 
             if ($task->getCreator() != null && $memberId == $task->getCreator()->getId()) {
-                return new Response(json_encode($task->getCreator()->getUsername()));
+                return new Response(json_encode(array(
+                    'name' => $task->getCreator()->getUsername(), 
+                    'infos' => $this->renderView('PiloteTaskerBundle:Main:taskInfos.html.twig', array('task' => $task))
+                )));
             }
             if ($task->getCreator() != null) {
                 $oldOwner = $task->getCreator();
                 $oldOwner->removeTask($task);
-
-                // Notifications
-                if ($this->getUser() != $oldOwner) {
-                    $notifTitle = $this->getUser().' a retiré votre assignation à la tâche <em>'.$task.'</em>';
-                    $notifContent = ' du projet <em>'.$task->getTList()->getStep()->getDomain()->getBoard().'</em>.';
-                    $link = $this->generateUrl('pilote_tasker_board', array(
-                        'boardId' => $task->getTList()->getStep()->getDomain()->getBoard()->getId()));
-                    $this->sendNotifications($this->getUser(), array($oldOwner), $notifTitle, $notifContent, $link);
-                }
             }
+            
             if ($memberId=='') {
                 $em->flush();
                 return new Response(json_encode(array(
@@ -879,7 +874,6 @@ class AjaxController extends Controller
 
                 // Notifications
                 $this->sendNotificationForTaskUpdate($task, $this->getUser(), "vous a assigné à la tâche");
-
                 return new Response(json_encode(array(
                     'name' => $user->getUsername(), 
                     'infos' => $this->renderView('PiloteTaskerBundle:Main:taskInfos.html.twig', array('task' => $task))
@@ -1130,7 +1124,6 @@ class AjaxController extends Controller
         $notifContent = ' du projet <em>'.$task->getTList()->getStep()->getDomain()->getBoard().'</em>.';
         $link = $this->generateUrl('pilote_tasker_board', array(
             'boardId' => $task->getTList()->getStep()->getDomain()->getBoard()->getId()));
-        
         $this->sendNotifications($sender, $receivers, $notifTitle, $notifContent, $link);
     }
 
@@ -1147,7 +1140,6 @@ class AjaxController extends Controller
                 $usersIds[] = $user->getUuid();
             }
             $em->flush();
-
             $client = $this->get('elephantio_client.default');
             $client->send('simple-notification', [
                 'html' => $this->renderView('PiloteUserBundle:Notifications:notification.html.twig', 
