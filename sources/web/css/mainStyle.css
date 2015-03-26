@@ -15,7 +15,7 @@ body {
 
 
 * {
-	outline: none;
+	outline: 0 !important;
 }
 
 button::-moz-focus-inner {
@@ -140,6 +140,16 @@ button::-moz-focus-inner {
     color: transparent !important;
 }
 
+#projectsMenu .glyphicon-none {
+    height: 13px;
+    width: 13px;
+    border-radius: 10px;
+    display: inline-block;
+    background-color: #C0C0C0;
+    vertical-align: middle;
+    margin-top: -5px;
+}
+
 /* Centrer le titre */
 .navbar .navbar-center {
     position: absolute;
@@ -171,7 +181,7 @@ button::-moz-focus-inner {
 /* ---------------- */
 
 .navbar-default {
-    background-color: #FFF;
+    background-color: rgba(255, 255, 255, 0.9);
     border-color: #CFCFCF;
     padding: 1rem 0;
 }

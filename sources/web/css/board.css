@@ -1,9 +1,14 @@
-body { background-color: #FFF; }
+html { height: 100%; }
+body { 
+    background-color: #FFF; 
+    height: 100%; 
+    padding-bottom: 0;
+}
 
 /* Board */
 .boardSection {
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
     background-color: #F6F6F6;
+    height: 100%;
 }
 
 .caret { color: #666; }
@@ -27,13 +32,20 @@ body { background-color: #FFF; }
 /**********************************/
 
 /* Domaine */
-.domain { background-color: transparent; }
+.domain { 
+    background-color: transparent; 
+    box-shadow: none;
+}
 
 /* Chaque élément masquable de l'accordéon : liste des onglets (step) et panneau des listes de taches */
 .panel-collapse > * {
     padding-left: 0;
     padding-right: 0;
     border-top: none !important;
+}
+
+.domain .panel-heading {
+    background-color: #E6E6E6;
 }
 
 /* Icones sur chaque domaine : sur le haut de l'accordéon, à droite */
@@ -58,7 +70,10 @@ body { background-color: #FFF; }
     margin: 0;
 }
 
-.panel-body .nav-tabs  { padding: 0 10px; }
+.panel-body .nav-tabs  { 
+    padding: 0 10px;
+    background-color: #E6E6E6;
+}
 
 .panel-body { padding: 0; }
 
@@ -177,6 +192,8 @@ body { background-color: #FFF; }
 
 .task .task-header {
     margin-bottom: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .taskInfos > * {
