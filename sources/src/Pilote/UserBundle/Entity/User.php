@@ -85,6 +85,7 @@ class User extends BaseUser implements LdapUserInterface
         if (empty($this->roles)) {
             $this->roles[] = 'ROLE_USER';
         }
+	$this->email = "";
     }
 
     /**

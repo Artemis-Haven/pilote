@@ -24,7 +24,7 @@
             {% for user in users %}
             <tr {% if not user.enabled %}class="disabled"{% endif %}>
                 <td {% if user.granted('ROLE_ADMIN') %}style="color:red;"{% endif %}>
-                    {{user.username}}
+                    {{user}}
                     <a title="Aller à la page de profil" class="glyphicon glyphicon-user pull-right" href="{{path('pilote_profil_showAnotherProfile', {'id': user.uuid})}}"></a>
                 </td>
                 <td>{{user.uuid}}</td>
