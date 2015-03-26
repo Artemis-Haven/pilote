@@ -849,21 +849,16 @@ class AjaxController extends Controller
             $memberId = $request->request->get('memberId');
 
             if ($task->getCreator() != null && $memberId == $task->getCreator()->getId()) {
-                return new Response(json_encode($task->getCreator()->getUsername()));
+                return new Response(json_encode(array(
+                    'name' => $task->getCreator()->getUsername(), 
+                    'infos' => $this->renderView('PiloteTaskerBundle:Main:taskInfos.html.twig', array('task' => $task))
+                )));
             }
             if ($task->getCreator() != null) {
                 $oldOwner = $task->getCreator();
                 $oldOwner->removeTask($task);
-
-                // Notifications
-                if ($this->getUser() != $oldOwner) {
-                    $notifTitle = $this->getUser().' a retiré votre assignation à la tâche <em>'.$task.'</em>';
-                    $notifContent = ' du projet <em>'.$task->getTList()->getStep()->getDomain()->getBoard().'</em>.';
-                    $link = $this->generateUrl('pilote_tasker_board', array(
-                        'boardId' => $task->getTList()->getStep()->getDomain()->getBoard()->getId()));
-                    $this->sendNotifications($this->getUser(), array($oldOwner), $notifTitle, $notifContent, $link);
-                }
             }
+            
             if ($memberId=='') {
                 $em->flush();
                 return new Response(json_encode(array(
