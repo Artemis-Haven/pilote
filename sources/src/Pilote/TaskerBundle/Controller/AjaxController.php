@@ -422,6 +422,8 @@ class AjaxController extends Controller
             $boardId = $request->request->get('boardId');
             $board = $em->getRepository('PiloteTaskerBundle:Board')->find($boardId);
             $newDomain = new Domain();
+            $newStep = new Step();
+            $newDomain->addStep($newStep);
             $board->addDomain($newDomain);
 
             $em->persist($newDomain);

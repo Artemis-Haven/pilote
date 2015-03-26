@@ -21,7 +21,7 @@
 			<ul class="nav navbar-nav">
 
 				{# Projets #}
-				<li class="dropdown">
+				<li class="dropdown" id="projectsMenu">
 					<a class="dropdown-toggle navbar-button" data-toggle="dropdown" href="#">
 						<span class="glyphicon glyphicon-list"></span> 
 						Mes projets
@@ -32,7 +32,7 @@
 						</li>
 						<li class="divider hidden-xs"></li>
 				            {% for b in app.user.boards if b.enabled %}
-				            	<li>
+				            	<li class="{{b.theme}}">
 				            		<a href="{{ path('pilote_tasker_board', { 'boardId': b.id }) }}">
 				            			<span class="glyphicon glyphicon-none"></span>&nbsp;{{ b.name }}
 				            		</a>

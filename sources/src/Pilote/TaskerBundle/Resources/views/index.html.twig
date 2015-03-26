@@ -1,10 +1,15 @@
 {% extends "PiloteMainBundle::base.html.twig" %}
 
+{% block styles %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('css/board-themes.css') }}" class="css">
+{% endblock %}
+
 {% block body %}
 	<div class="container boardList">
 		<div class="row">
 			{% for board in app.user.boards if board.enabled %}
-				<div class="col-md-4">
+				<div class="col-md-4 {{board.theme}}">
 					<a href="{{ path('pilote_tasker_board', {'boardId': board.id}) }}" class="vignette sheet">
 						<span onClick="validArchivage('{{ path('pilote_tasker_board_delete', {'boardId': board.id}) }}'); return false;" 
 							title="Archiver" 

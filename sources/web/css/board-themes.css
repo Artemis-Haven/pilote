@@ -3,7 +3,7 @@
 /*******************/
 
 /* Couleur de fond */
-.theme-polytechPurple {
+.theme-polytechPurple.boardSection {
 	background-color: #A76AD1;
 }
 /* Couleur de fond des domaines et des onglets */
@@ -41,12 +41,25 @@
 	background-color: rgba(221, 221, 221, 0.7);
 }
 
+/* Page des projets : vignette d'un board */
+.boardList .theme-polytechPurple .vignette,
+#projectsMenu .theme-polytechPurple .glyphicon-none {
+	background-color: #A76AD1;
+	color: #fff;
+}
+
+/* Page des projets : icônes de raccourcis sur la vignette d'un board */
+.boardList .theme-polytechPurple .glyphicon {
+	opacity: 0.7;
+}
+
+
 
 /**************/
 /* Mint Green */
 /**************/
 
-.theme-mintGreen {
+.theme-mintGreen.boardSection {
 	background-color: #84D36C;
 }
 .theme-mintGreen .domain .panel-heading,
@@ -77,13 +90,25 @@
 	background-color: rgba(221, 221, 221, 0.7);
 }
 
+/* Page des projets : vignette d'un board */
+.boardList .theme-mintGreen .vignette,
+#projectsMenu .theme-mintGreen .glyphicon-none {
+	background-color: #64B34C;
+	color: #fff;
+}
+
+/* Page des projets : icônes de raccourcis sur la vignette d'un board */
+.boardList .theme-mintGreen .glyphicon {
+	opacity: 0.7;
+}
+
 
 /***************/
 /* Carmine Red */
 /***************/
 
 /* Couleur de fond */
-.theme-carmineRed {
+.theme-carmineRed.boardSection {
 	background-color: #C35A5A;
 }
 /* Couleur de fond des domaines et des onglets */
@@ -120,4 +145,62 @@
 /* Fond des listes de tâches */
 .theme-carmineRed .taskList, .theme-carmineRed .addListBtn  {
 	background-color: rgba(221, 221, 221, 0.7);
+}
+
+/* Page des projets : vignette d'un board */
+.boardList .theme-carmineRed .vignette,
+#projectsMenu .theme-carmineRed .glyphicon-none {
+	background-color: #C35A5A;
+	color: #fff;
+}
+
+/* Page des projets : icônes de raccourcis sur la vignette d'un board */
+.boardList .theme-carmineRed .glyphicon {
+	opacity: 0.7;
+}
+
+
+/********/
+/* Sand */
+/********/
+
+/* Couleur de fond */
+.theme-sand.boardSection {
+	background-color: #EEE2A6;
+}
+/* Couleur de fond des domaines et des onglets */
+.theme-sand .domain .panel-heading,
+.theme-sand .nav-tabs {
+	background-color: #E2CB8D;
+}
+/* Séparation onglets / listes de tâches */
+.theme-sand .nav-tabs {
+	border-bottom: 1px solid #D2BB7D;
+}
+/* Onglets inactifs */
+.theme-sand .nav-tabs > li > a {
+    background-color: #F3EFCC;
+	border: 1px solid #D2BB7D;
+	color: #333;
+}
+/* Onglets inactifs au survol */
+.theme-sand .nav-tabs > li > a:hover {
+	background-color: #FAF6D2;
+	border: 1px solid #D2BB7D;
+}
+/* Onglet actif */
+.theme-sand .nav-tabs > li.active > a {
+    background-color: #EEE2A6;
+	border: 1px solid #D2BB7D;
+    border-bottom-color: #EEE2A6;
+}
+/* Fond des listes de tâches */
+.theme-sand .taskList, .theme-sand .addListBtn  {
+	background-color: rgba(221, 221, 221, 0.7);
+}
+
+/* Page des projets : vignette d'un board */
+.boardList .theme-sand .vignette,
+#projectsMenu .theme-sand .glyphicon-none {
+	background-color: #EEE2A6;
 }

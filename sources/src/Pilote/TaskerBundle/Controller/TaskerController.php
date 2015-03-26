@@ -155,9 +155,7 @@ class TaskerController extends Controller
         $form->handleRequest($request);
         if ($form->isValid()) {
             $em->flush();
-            return $this->forward('PiloteTaskerBundle:Tasker:board', array(
-                'boardId'  => $boardId,
-            ));
+            return $this->redirect($this->generateUrl('pilote_tasker_board', array('boardId' => $boardId)));
         }
 
         return $this->render('PiloteTaskerBundle:Main:settings.html.twig', array(
