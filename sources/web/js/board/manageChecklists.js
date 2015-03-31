@@ -31,12 +31,15 @@ function addChecklist(id) {
 function renameChecklist(id) {
     /* titleBlock sera l'élément contenant le titre */
     titleBlock = $(".checklist[data-checklistid="+id+"] .title");
-    /* on le rend éditable */
-    titleBlock.attr("contenteditable", "true");
-    /* on sauvegarde l'ancien titre au cas où */
-    titleBlock.data('oldTitleText', titleBlock.text());
-    titleBlock.focus();
-    selectText(titleBlock);
+    if (titleBlock.attr('contenteditable') != 'true') {    
+        /* on le rend éditable */
+        titleBlock.attr("contenteditable", "true");
+        /* on sauvegarde l'ancien titre au cas où */
+        titleBlock.data('oldTitleText', titleBlock.text());
+        titleBlock.focus();
+        selectText(titleBlock);
+        titleBlock.keydown(function(e){ limitCharCount(titleBlock, 50, e); });
+    }
 };
 
 function setChecklistTitle(id){
@@ -44,17 +47,22 @@ function setChecklistTitle(id){
     titleBlock = $(".checklist[data-checklistid="+id+"] .title");
     /* récupérer la nouvelle valeur */
     newTitleText = titleBlock.text();
-    $.ajax({
-    /* requête AJAX */
-        type: "POST",
-        dataType:"json",
-        url: Routing.generate('pilote_tasker_renameChecklist'),
-        data: { 'checklistId' : id, 'newName' : newTitleText },
-        cache: false,
-        error: function(data){
-            titleBlock.text(titleBlock.data('oldTitleText'));
-        }
-    });
+    /* si la nouvelle valeur est vide, on remet l'ancienne valeur */
+    if (newTitleText.replace(" ", "").length < 2) {
+        titleBlock.text(titleBlock.data('oldTitleText'));
+    } else {
+        $.ajax({
+        /* requête AJAX */
+            type: "POST",
+            dataType:"json",
+            url: Routing.generate('pilote_tasker_renameChecklist'),
+            data: { 'checklistId' : id, 'newName' : newTitleText },
+            cache: false,
+            error: function(data){
+                titleBlock.text(titleBlock.data('oldTitleText'));
+            }
+        });
+    }
     titleBlock.attr("contenteditable", "false");
 }
 
@@ -107,12 +115,14 @@ function addChecklistOption(id) {
 function renameChecklistOption(id) {
     /* textBlock sera l'élément contenant le titre */
     textBlock = $(".checkbox[data-checklistoption="+id+"] .optionText");
-    /* on le rend éditable */
-    textBlock.attr("contenteditable", "true");
-    /* on sauvegarde l'ancien titre au cas où */
-    textBlock.data('oldText', textBlock.text());
-    textBlock.focus();
-    selectText(textBlock);
+    if (textBlock.attr('contenteditable') != 'true') {
+        /* on le rend éditable */
+        textBlock.attr("contenteditable", "true");
+        /* on sauvegarde l'ancien titre au cas où */
+        textBlock.data('oldText', textBlock.text());
+        textBlock.focus();
+        selectText(textBlock);
+    }
 };
 
 function setChecklistOptionText(id){
@@ -120,17 +130,22 @@ function setChecklistOptionText(id){
     textBlock = $(".checkbox[data-checklistoption="+id+"] .optionText");
     /* récupérer la nouvelle valeur */
     newText = textBlock.text();
-    $.ajax({
-    /* requête AJAX */
-        type: "POST",
-        dataType:"json",
-        url: Routing.generate('pilote_tasker_renameChecklistOption'),
-        data: { 'checklistOptionId' : id, 'newName' : newText },
-        cache: false,
-        error: function(data){
-            textBlock.text(textBlock.data('oldText'));
-        }
-    });
+    /* si la nouvelle valeur est vide, on remet l'ancienne valeur */
+    if (newText.replace(" ", "").length < 2) {
+        textBlock.text(textBlock.data('oldText'));
+    } else {
+        $.ajax({
+        /* requête AJAX */
+            type: "POST",
+            dataType:"json",
+            url: Routing.generate('pilote_tasker_renameChecklistOption'),
+            data: { 'checklistOptionId' : id, 'newName' : newText },
+            cache: false,
+            error: function(data){
+                textBlock.text(textBlock.data('oldText'));
+            }
+        });
+    }
     textBlock.attr("contenteditable", "false");
 }
 

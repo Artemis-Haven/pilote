@@ -24,6 +24,8 @@ body {
     padding: 3px;
     min-height: 15px;
     border: 1px solid #CCC;
+    text-decoration: none;
+    min-width: 20px;
 }
 
 

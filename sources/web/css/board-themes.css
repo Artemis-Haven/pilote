@@ -36,6 +36,10 @@
     border-bottom-color: #A76AD1;
 	color: #fff;
 }
+/* Tous les champs éditables, en mode édition */
+.theme-polytechPurple [contenteditable="true"] {
+	color: #000;
+}
 /* Fond des listes de tâches */
 .theme-polytechPurple .taskList, .theme-polytechPurple .addListBtn  {
 	background-color: rgba(221, 221, 221, 0.7);
@@ -85,6 +89,9 @@
     background-color: #84D36C;
 	border: 1px solid #94E37C;
     border-bottom-color: #84D36C;
+}
+.theme-mintGreen [contenteditable="true"] {
+	color: #000;
 }
 .theme-mintGreen .taskList, .theme-mintGreen .addListBtn  {
 	background-color: rgba(221, 221, 221, 0.7);
@@ -142,6 +149,10 @@
     border-bottom-color: #C35A5A;
 	color: #fff;
 }
+/* Tous les champs éditables, en mode édition */
+.theme-carmineRed [contenteditable="true"] {
+	color: #000;
+}
 /* Fond des listes de tâches */
 .theme-carmineRed .taskList, .theme-carmineRed .addListBtn  {
 	background-color: rgba(221, 221, 221, 0.7);
@@ -193,6 +204,10 @@
     background-color: #EEE2A6;
 	border: 1px solid #D2BB7D;
     border-bottom-color: #EEE2A6;
+}
+/* Tous les champs éditables, en mode édition */
+.theme-sand [contenteditable="true"] {
+	color: #000;
 }
 /* Fond des listes de tâches */
 .theme-sand .taskList, .theme-sand .addListBtn  {

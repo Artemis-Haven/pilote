@@ -83,6 +83,7 @@ function renameDomain(id) {
 
 	/* Lorsque le focus n'est plus sur le champ texte... : */
 	titleParag.focusout(function(){
+        titleParag.attr("contenteditable", "false");
 		/* récupérer la nouvelle valeur */
 		newTitleText = titleParag.text();
 		$.ajax({
@@ -92,12 +93,7 @@ function renameDomain(id) {
 	        url: Routing.generate('pilote_tasker_renameDomain'),
 	        data: { 'domainId' : id, 'newTitle' : newTitleText },
 	        cache: false,
-	        success: function(data){
-                /* transformer le champ texte en paragraphe */
-                titleParag.attr("contenteditable", "false");
-	        },
 	        error: function(data){
-                titleParag.attr("contenteditable", "false");
                 titleParag.text(oldTitleText);
 	        }
 	    });
