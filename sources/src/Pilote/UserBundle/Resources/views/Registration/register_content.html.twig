@@ -1,4 +1,7 @@
 {% trans_default_domain 'FOSUserBundle' %}
+
+<h2>Enregistrez-vous :</h2>
+
 <form class="form-signin" action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST">
 <div id="fos_user_profile_form">
             {% if form_errors(form.username) or form_errors(form.email) or form_errors(form.plainPassword['first']) %}

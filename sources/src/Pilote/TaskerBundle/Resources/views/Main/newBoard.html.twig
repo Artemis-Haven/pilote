@@ -3,15 +3,22 @@
 {# Ceci est le bloc qui remplace le titre de la page (normalement dans le <head>) #}
 {% block pageTitle %} {{ parent() }} - Nouveau projet{% endblock %}
 
+{% block styles %}
+	<style>
+		body > .sheet {	max-width: 400px;}
+		body > .sheet, body > .container {	margin: 30px auto;}
+		form input, form textarea {margin-bottom: 20px;}
+		h2 {margin: 0 0 20px 0;}
+	</style>
+{% endblock %}
+
+
 {# Bloc principal #}
 {% block body %}
 
-<section class=" container newBoardSection">
-
-<div class="col-md-4 col-md-offset-4">
+<div class="sheet">
+	<h2>Créez un nouveau Board :</h2>
 	{{ form(form) }}
 </div>
-
-</section>
 
 {% endblock %}
