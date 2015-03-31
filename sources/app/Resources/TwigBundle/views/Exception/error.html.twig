@@ -1,0 +1,21 @@
+{% extends "PiloteMainBundle::base.html.twig" %}
+
+{% block pageTitle %} {{ parent() }} - Erreur{% endblock %}
+
+{% block body %}
+
+{% include 'PiloteMainBundle::nonAuthentNavbar.html.twig' %}
+
+<br>
+<section class="container">
+	<div class="row">
+		<article class="sheet col-md-6 col-md-offset-3">
+			<h1>Oups ! Une erreur est survenue : {{ status_text }}.</h1>
+			<h3>Le serveur a retourné une erreur "{{ status_code }} {{ status_text }}".</h3>
+			<br>
+			<a class="btn btn-primary" href="{{path('pilote_default')}}">Retourner à la page principale.</a>
+		</article>
+	</div>
+</section>
+
+{% endblock %}
