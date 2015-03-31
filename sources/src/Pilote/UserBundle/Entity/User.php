@@ -281,6 +281,12 @@ class User extends BaseUser implements LdapUserInterface
     public function getDisplayName() {
         return $this->displayName;
     }
+
+    public function setUsername($username) {
+        $this->username = $username;
+        if ($this->displayName == NULL)
+	    $this->displayName = $username;
+    }
     
     public function isGranted($role)
     {

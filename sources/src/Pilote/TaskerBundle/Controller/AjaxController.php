@@ -850,7 +850,7 @@ class AjaxController extends Controller
 
             if ($task->getCreator() != null && $memberId == $task->getCreator()->getId()) {
                 return new Response(json_encode(array(
-                    'name' => $task->getCreator()->getUsername(), 
+                    'name' => $task->getCreator()->__toString(), 
                     'infos' => $this->renderView('PiloteTaskerBundle:Main:taskInfos.html.twig', array('task' => $task))
                 )));
             }
@@ -875,7 +875,7 @@ class AjaxController extends Controller
                 // Notifications
                 $this->sendNotificationForTaskUpdate($task, $this->getUser(), "vous a assigné à la tâche");
                 return new Response(json_encode(array(
-                    'name' => $user->getUsername(), 
+                    'name' => $user->__toString(), 
                     'infos' => $this->renderView('PiloteTaskerBundle:Main:taskInfos.html.twig', array('task' => $task))
                 )));
             }
