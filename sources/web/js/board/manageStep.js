@@ -93,17 +93,22 @@ function setStepTitle(id){
 	if (titleParag.attr('contenteditable')=="true") {
 		/* récupérer la nouvelle valeur */
 		newTitleText = titleParag.text();
-		$.ajax({
-			/* requête AJAX */
-	        type: "POST",
-	        dataType:"json",
-	        url: Routing.generate('pilote_tasker_renameStep'),
-	        data: { 'stepId' : id, 'newTitle' : newTitleText },
-	        cache: false,
-	        error: function(data){
-	            titleParag.text(titleParag.data('oldTitleText'));
-	        }
-	    });
+	    /* si la nouvelle valeur est vide, on remet l'ancienne valeur */
+	    if (newTitleText.replace(" ", "").length < 2) {
+	        titleParag.text(titleParag.data('oldTitleText'));
+	    } else {
+			$.ajax({
+				/* requête AJAX */
+		        type: "POST",
+		        dataType:"json",
+		        url: Routing.generate('pilote_tasker_renameStep'),
+		        data: { 'stepId' : id, 'newTitle' : newTitleText },
+		        cache: false,
+		        error: function(data){
+		            titleParag.text(titleParag.data('oldTitleText'));
+		        }
+		    });
+		}
 	    titleParag.attr("contenteditable", "false");
 	}
 }

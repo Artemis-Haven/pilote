@@ -116,12 +116,15 @@ function getTaskDetails(id) {
 function renameTask(id) {
     /* titleBlock sera l'élément contenant le titre */
     var titleBlock = $(".modal-taskTitle b");
-    /* on le rend éditable */
-    titleBlock.attr("contenteditable", "true");
-    /* on sauvegarde l'ancien titre au cas où */
-    titleBlock.data('oldTitleText', titleBlock.text());
-    titleBlock.focus();
-    selectText(titleBlock);
+    if (titleBlock.attr('contenteditable') != 'true') {
+        /* on le rend éditable */
+        titleBlock.attr("contenteditable", "true");
+        /* on sauvegarde l'ancien titre au cas où */
+        titleBlock.data('oldTitleText', titleBlock.text());
+        titleBlock.focus();
+        selectText(titleBlock);
+        titleBlock.keydown(function(e){ limitCharCount(titleBlock, 60, e); });
+    };
 };
 
 function setTaskTitle(id){
@@ -129,35 +132,39 @@ function setTaskTitle(id){
     var titleBlock = $(".modal-taskTitle b");
     /* récupérer la nouvelle valeur */
     var newTitleText = titleBlock.text();
-    $.ajax({
-    /* requête AJAX */
-        type: "POST",
-        dataType:"json",
-        url: Routing.generate('pilote_tasker_renameTask'),
-        data: { 'taskId' : id, 'newTitle' : newTitleText },
-        cache: false,
-        success: function(data){
-            /* transformer le champ texte en paragraphe */
-            titleBlock.attr("contenteditable", "false");
-            /* met à jour la miniature de la tâche */
-            $('#task-'+id+' .task-header').text(newTitleText);
+    /* si la nouvelle valeur est vide, on remet l'ancienne valeur */
+    if (newTitleText.replace(" ", "").length < 2) {
+        titleBlock.text(titleBlock.data('oldTitleText'));
+    } else {
+        $.ajax({
+        /* requête AJAX */
+            type: "POST",
+            dataType:"json",
+            url: Routing.generate('pilote_tasker_renameTask'),
+            data: { 'taskId' : id, 'newTitle' : newTitleText },
+            cache: false,
+            success: function(data){
+                /* met à jour la miniature de la tâche */
+                $('#task-'+id+' .task-header').text(newTitleText);
 
-            // A faire juste sur la page du Gantt
-            if (typeof gantt != 'undefined') {
-                gantt.getTask("t"+id).text = newTitleText;
-                gantt.refreshTask("t"+id);
-            };
-            if ($('#calendarView').length) {
-                calTask = $('#calendarView').fullCalendar('clientEvents', id)[0];
-                calTask.title = newTitleText;
-                $('#calendarView').fullCalendar('updateEvent', calTask);
+                // A faire juste sur la page du Gantt
+                if (typeof gantt != 'undefined') {
+                    gantt.getTask("t"+id).text = newTitleText;
+                    gantt.refreshTask("t"+id);
+                };
+                if ($('#calendarView').length) {
+                    calTask = $('#calendarView').fullCalendar('clientEvents', id)[0];
+                    calTask.title = newTitleText;
+                    $('#calendarView').fullCalendar('updateEvent', calTask);
+                }
+            },
+            error: function(data){
+                titleBlock.text(titleBlock.data('oldTitleText'));
             }
-        },
-        error: function(data){
-            titleBlock.attr("contenteditable", "false");
-            titleBlock.text(titleBlock.data('oldTitleText'));
-        }
-    });
+        });
+    }
+    /* transformer le champ texte en paragraphe */
+    titleBlock.attr("contenteditable", "false");
 }
 
 /**
@@ -238,6 +245,13 @@ function preventEnterKey(obj) {
 }
 preventEnterKey($('.taskList > .tList-heading > p'));
 preventEnterKey($('.stepTitle'));
+
+function limitCharCount(block, max, e) {   
+    if(e.which != 8 && e.keyCode != 10 && e.keyCode != 13 && block.text().length > max)
+    {
+       e.preventDefault();
+    }
+}
 
 function selectText(elt){
    var doc = document;
