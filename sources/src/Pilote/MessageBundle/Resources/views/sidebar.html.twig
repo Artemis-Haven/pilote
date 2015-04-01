@@ -21,7 +21,7 @@
 
 	{# Discussion simples entre les utilisateurs : simpleThreads #}
 	<div class="threadsList sheet">
-	<strong>Discussion privées</strong>
+	<strong>Discussions privées</strong>
 	{% for thread in app.user.threads if thread.type == simpleThread %}
 		{% include 'PiloteMessageBundle::sidebarItem.html.twig' 
 			with {'thread': thread, 'text': thread.participants|join(', ') } %}

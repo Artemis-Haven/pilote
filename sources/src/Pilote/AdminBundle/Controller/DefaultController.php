@@ -14,6 +14,8 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use FOS\UserBundle\Model\UserInterface;
+use \Pilote\MessageBundle\Entity\Thread;
+use \Pilote\MessageBundle\Entity\ThreadMetadata;
 
 class DefaultController extends Controller
 {
@@ -52,6 +54,23 @@ class DefaultController extends Controller
             throw $this->createNotFoundException('Unable to find User entity.');
         }
 
+        // Supprimer l'éventuelle conversation d'aide avec les admins qui lui est liée
+        foreach ($user->getMetadata() as $md) {
+            if ($md->getThread()->getType() ==  Thread::ADMIN_THREAD) {
+                $em->remove($md->getThread());
+                break;
+            }
+        }
+
+        // Lier l'utilisateur avec toutes les discussions d'aides avec les admins
+        $allThreads = $em->getRepository('PiloteMessageBundle:Thread')->findAll();
+        foreach ($allThreads as $thread) {
+            if ($thread->getType() ==  Thread::ADMIN_THREAD) {
+                $md = new ThreadMetadata($user, $thread);
+                $em->persist($md);
+            }
+        }
+
         $user->addRole('ROLE_ADMIN');
         $em->flush();
 
@@ -64,6 +83,13 @@ class DefaultController extends Controller
         $user = $em->getRepository('PiloteUserBundle:User')->findOneByUuid($id);
         if (!$user) {
             throw $this->createNotFoundException('Unable to find User entity.');
+        }
+        
+        // Supprimer le lien (metadata) entre l'utilisateur et les discussions avec les admins
+        foreach ($user->getMetadata() as $md) {
+            if ($md->getThread()->getType() ==  Thread::ADMIN_THREAD) {
+                $em->remove($md);
+            }
         }
 
         $user->removeRole('ROLE_ADMIN');
