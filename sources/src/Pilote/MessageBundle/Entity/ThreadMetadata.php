@@ -23,6 +23,7 @@ class ThreadMetadata
      *   targetEntity="Pilote\MessageBundle\Entity\Thread",
      *   inversedBy="metadata"
      * )
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE") 
      * @var ThreadInterface
      */
     private $thread;
