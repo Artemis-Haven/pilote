@@ -8,7 +8,7 @@
         </aside>
         <section class="col-md-9">
             <div class="sheet">
-		{% if app.user.displayName is null %}
+		{% if not app.user.fromLDAP %}
                 <form class="form-horizontal" action="{{ path('pilote_profil_edit') }}"  {{ form_enctype(form) }} method="POST">
                     <div class="form-group">
                         <div class="col-sm-3">{{ form_label(form.username) }}</div>

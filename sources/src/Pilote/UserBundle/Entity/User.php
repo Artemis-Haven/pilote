@@ -315,6 +315,11 @@ class User extends BaseUser implements LdapUserInterface
         return $result;
     }
 
+    public function isFromLDAP()
+    {
+       return ($this->dn != null);
+    }
+
     public function __toString()
     {
         if ($this->displayName != null)
