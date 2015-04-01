@@ -201,6 +201,9 @@ class TaskerController extends Controller
      */
     private function AccessGranted($board)
     {
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            return true;
+        }
         $boards = $this->getUser()->getBoards();
         foreach ($boards as $b)
             if($board==$b) return true;
