@@ -13,7 +13,11 @@
 	            	{% if metadata.thread.type == boardThread %}
 	            		Projet : {{metadata.thread.title}}
 	            	{% elseif metadata.thread.type == adminThread %}
-	            		Discussion avec les administrateurs
+                        {% if is_granted('ROLE_ADMIN') %}
+                            Demande d'aide aux administrateurs : {{ metadata.thread.creator }}
+                        {% else %}
+                            Discussion avec les administrateurs
+                        {% endif %}
 	            	{% else %}
 	            		{{ metadata.thread.participants|join(', ') }}
 	            	{% endif %}
