@@ -134,6 +134,26 @@ class DefaultController extends Controller
             throw $this->createNotFoundException('Unable to find User entity.');
         }
 
+        // Supprimer l'utilisateur de tous les boards
+        foreach ($user->getBoards() as $board) {
+            $board->removeUser($user);
+        }
+
+        // Supprimer les liens d'assignation de l'utilisateur à des tâches
+        foreach ($user->getTasks() as $task) {
+            $user->removeTask($task);
+        }
+
+        // Supprimer tous les messages de l'utilisateur
+        $messages = $em->getRepository('PiloteMessageBundle:Message')->findBy( array('sender' => $user) );
+        foreach ($messages as $msg) {
+            $em->remove($msg);
+        }
+        // Supprimer l'utilisateur de toutes ces conversations
+        foreach ($user->getMetadata() as $md) {
+            $em->remove($md);
+        }
+
         $em->remove($user);
         $em->flush();
 

@@ -20,14 +20,23 @@ class UserRepository extends EntityRepository
 	        ->where('board.id = :boardId')
 	        ->setParameter(':boardId', $boardId)
 	        ->getQuery()->getResult();
-	        
-        $query = $this->createQueryBuilder('u')
-        	->select('u')
-        	->where('u.id NOT IN(:members)')
-        	->andWhere('u.username LIKE :username')
-	        ->orderBy('u.username', 'ASC')
-	        ->setParameter('members', array_values($nots))
-	        ->setParameter('username', '%'.$username.'%');
+
+	    if (empty($nots)) {
+	        $query = $this->createQueryBuilder('u')
+	        	->select('u')
+	        	->where('u.username LIKE :username')
+		        ->orderBy('u.username', 'ASC')
+		        ->setParameter('username', '%'.$username.'%');
+	    } else {
+	        $query = $this->createQueryBuilder('u')
+	        	->select('u')
+	        	->where('u.id NOT IN(:members)')
+	        	->andWhere('u.username LIKE :username')
+		        ->orderBy('u.username', 'ASC')
+		        ->setParameter('members', array_values($nots))
+		        ->setParameter('username', '%'.$username.'%');
+	    }
+
         return $query->getQuery()->getResult();
 	}
 
