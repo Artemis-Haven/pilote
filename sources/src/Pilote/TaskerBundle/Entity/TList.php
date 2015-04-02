@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * TList
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Pilote\TaskerBundle\Entity\TListRepository")
+ * @ORM\Entity()
  */
 class TList
 {

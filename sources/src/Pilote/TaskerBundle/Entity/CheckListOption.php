@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * CheckListOption
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity()
  */
 class CheckListOption
 {

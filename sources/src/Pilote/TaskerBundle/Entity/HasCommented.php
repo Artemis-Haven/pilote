@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * HasCommented
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Pilote\TaskerBundle\Entity\HasCommentedRepository")
+ * @ORM\Entity()
  */
 class HasCommented
 {
