@@ -262,6 +262,19 @@ class DefaultController extends Controller
 		return $this->redirect($this->generateUrl('pilote_message_index'));
 	}
 
+	public function setAllReadAction()
+	{
+		$em = $this->getDoctrine()->getManager();
+
+		foreach ($this->getUser()->getMetadata() as $md) {
+			$md->setRead(true);
+		}
+
+		$em->flush();
+
+		return $this->redirect($this->generateUrl('pilote_message_index'));
+	}
+
     private function findOr404($em, $bundle, $class, $id)
     {
         $entity = $em->getRepository($bundle.':'.$class)->find($id);
