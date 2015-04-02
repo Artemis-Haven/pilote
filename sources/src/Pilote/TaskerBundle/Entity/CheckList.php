@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * CheckList
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Pilote\TaskerBundle\Entity\CheckListRepository")
+ * @ORM\Entity()
  */
 class CheckList
 {
