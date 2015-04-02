@@ -119,7 +119,7 @@ $( "#removeAllNotifications" ).on('click', function (event) {
         cache: false,
         success: function(data){
 			$( "#notificationsMenu > *" ).remove();
-			$( "#notificationsMenu").prepend('<li><a>Aucune notification.</a></li>');
+			$( "#notificationsMenu").prepend('<li class="dropdown-header text-center">Aucune notification</li>');
         }
     }); 
 });

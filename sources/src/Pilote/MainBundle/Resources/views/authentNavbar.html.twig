@@ -103,7 +103,10 @@
 									<span class="glyphicon glyphicon-record"></span> {{metadata.thread.board}}
 								</a>
 							</li>
+						{% else %}
+							<li class="dropdown-header">Aucune discussion de projet</li>
 						{% endfor %}
+						<li class="divider"></li>
 						{% set simpleThread = constant('\\Pilote\\MessageBundle\\Entity\\Thread::SIMPLE_THREAD') %}
 						{% for thread in app.user.threads if thread.type == simpleThread %}
 							<li>
@@ -111,12 +114,11 @@
 									<span class="glyphicon glyphicon-user"></span> {{ thread.participants|join(', ') }}
 								</a>
 							</li>
+						{% else %}
+							<li class="dropdown-header">Aucune discussion privée</li>
 						{% endfor %}
 						<li class="divider"></li>
-						<li>
-							<a href="#"><span class="glyphicon glyphicon-pencil"></span> Rédiger un message</a>
-						</li>
-						<li><a href="#"><span class="glyphicon glyphicon-ok"></span> Tout marquer comme lu</a></li>
+						<li><a href="{{path('pilote_message_setAllRead')}}"><span class="glyphicon glyphicon-ok"></span> Tout marquer comme lu</a></li>
 					</ul>
 				</li>
 
@@ -139,7 +141,7 @@
 								<a><span class="glyphicon glyphicon-trash"></span> Tout effacer</a>
 							</li>
 						{% else %}
-							<li><a>Aucune notification.</a></li>
+							<li class="dropdown-header text-center">Aucune notification</li>
 						{% endif %}
 					</ul>
 				</li>

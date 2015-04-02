@@ -55,3 +55,7 @@ pilote_message_addParticipant_searchUser:
         expose: true
     requirements:
         threadId: \d+
+
+pilote_message_setAllRead:
+    pattern:  /setAllRead
+    defaults: { _controller: PiloteMessageBundle:Default:setAllRead }
