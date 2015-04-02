@@ -7,36 +7,20 @@
 {% endblock %}
 
 {% block body %}
-<div class="content-section-a">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-5 col-sm-6">
-
-				<div class="clearfix"></div>
-				<h2 class="section-heading">Nous contacter</h2>
-				<hr class="section-heading-spacer">	
-				<br>		
-				<div id="form">
-					<form class="form-signin" action="/PILote/web/app_dev.php/login_check" method="post">
-						<br>
-						<label for="username">Nom d&#039;utilisateur :</label>
-						<input type="text" class="form-control" placeholder="Pseudo" id="username" name="_username" value="" required="required" />
-						<br>
-						<label for="email">Adresse email :</label><br>
-						<input id="email" name="_email" value="" type="email" placeholder="Your email here"/>
-						<br><br>
-						<label for="message">Message :</label>
-						<br>
-						<textarea name="_message" placeholder="Your comments here"></textarea>
-						<input class="btn btn-lg btn-primary btn-block" type="submit" id="_submit" name="_submit" value="Envoyer" />
-					</form>
-				</div>
-			</div>
-			<div class="col-lg-5 col-lg-offset-2 col-sm-6">
-				<img class="img-responsive" src="{{ asset('img/ipad.png') }}" alt="">
-			</div>
-		</div>
-	</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-7">
+            <h1 class="text-center">Nous contacter</h1>
+            <p><br>Pour toute demande d'aide, vous pouvez envoyer un mail à l'adresse suivante : <a href="mailto:remi.patrizio@me.com">remi.patrizio@me.com</a></p>
+	        <p>Pour signaler des bugs ou des problèmes, vous pouvez aussi créer un billet de bug <a href="https://github.com/Artemis-Haven/pilote/issues">sur GitHub</a>.</p>
+	        <p>Enfin, pour de la documentation technique, référez-vous à la documentation disponible également <a href="https://github.com/Artemis-Haven/pilote/blob/master/README.md">sur GitHub</a>.</p>
+        </div>
+        <div class="col-md-5">
+            <br>
+            <img class="img-responsive" src="{{ asset('img/ipad.png') }}" alt="">
+        </div>
+    </div>
 </div>
+
 
 {% endblock %}
