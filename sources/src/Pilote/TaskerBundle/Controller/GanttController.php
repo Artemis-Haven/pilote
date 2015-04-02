@@ -20,7 +20,8 @@ class GanttController extends Controller {
          /* Structure avec deux tableaux  */
         $ganttData = array(
             'data' => array(), 
-            'links' => array() );
+            'links' => array(), 
+            'totalTasksCount' => 0 );
 
         $ganttData = $this->getDataForBoard($board, $ganttData, $currentTasks, $uuid);
         
@@ -29,7 +30,8 @@ class GanttController extends Controller {
             'ganttData' => json_encode($ganttData),
             'currentTasks' => $currentTasks,
             'uuid' => $uuid,
-            'scale' => $scale
+            'scale' => $scale,
+            'totalTasksCount' => $ganttData['totalTasksCount']
         ));
     }
 
@@ -43,7 +45,8 @@ class GanttController extends Controller {
          /* Structure avec deux tableaux  */
         $ganttData = array(
             'data' => array(), 
-            'links' => array() );
+            'links' => array(), 
+            'totalTasksCount' => 0 );
         foreach ($this->getUser()->getBoards() as $board) {
             $ganttData = $this->getDataForBoard($board, $ganttData, $currentTasks, $this->getUser()->getUuid(), true);
             $ganttData['data'][] = array (
@@ -59,7 +62,8 @@ class GanttController extends Controller {
         return $this->render('PiloteTaskerBundle:GanttCalendar:gantt.html.twig', array(
             'ganttData' => json_encode($ganttData),
             'currentTasks' => $currentTasks,
-            'scale' => $scale
+            'scale' => $scale,
+            'totalTasksCount' => $ganttData['totalTasksCount']
         ));
     }
 
@@ -67,6 +71,7 @@ class GanttController extends Controller {
     private function getDataForBoard($board, $ganttData, $currentTasks, $uuid, $userGantt = false)
     {
         $em = $this->getDoctrine()->getManager();
+        $totalTasksCount = 0;
 
         foreach ($board->getDomains() as $domain) {
             $stepCount = 0;
@@ -88,6 +93,7 @@ class GanttController extends Controller {
                             if ( !$this->isFiltered($currentTasks, $uuid, $task) ) {
                                 $ganttData['data'][] = $t;
                                 $taskCount++;
+                                $totalTasksCount++;
                             }
                         } else if ($task->getEndDate() != null) {
                             $t = array (
@@ -102,6 +108,7 @@ class GanttController extends Controller {
                             if ( !$this->isFiltered($currentTasks, $uuid, $task) ) {
                                 $ganttData['data'][] = $t;
                                 $taskCount++;
+                                $totalTasksCount++;
                             }
                         }
 
@@ -139,6 +146,8 @@ class GanttController extends Controller {
                 $stepCount = 0;
             }
         }    /* Fin pour chaque domaine */
+
+        $ganttData['totalTasksCount'] += $totalTasksCount;
         return $ganttData;
     }
 

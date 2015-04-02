@@ -98,6 +98,11 @@
     </section>
 
     <section id="gantt_here" style='width:100%; height:100%;'>
+        {% if totalTasksCount == 0 %}
+            <div class="text-center">
+                <h3>Il n'y a aucune tâche à afficher.</h3>
+            </div>
+        {% endif %}
     </section>
 
     {# Cette section contient la fenêtre modale qui s'affichera
@@ -126,6 +131,7 @@
     <script src="{{ asset('js/board/manageTask.js') }}"></script>
     <script src="{{ asset('js/board/manageChecklists.js') }}"></script>
     <script src="{{ asset('js/board/taskDetails.js') }}"></script>
+    {% if totalTasksCount != 0 %}
     <script type="text/javascript">
         $(function () {
             gantt.config.scale_unit = "{{scale | default('week') }}"; 
@@ -134,4 +140,5 @@
             gantt.parse({{ganttData|raw}});
         })
     </script>  
+    {% endif %}
 {% endblock %}
