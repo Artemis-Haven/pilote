@@ -83,35 +83,6 @@ pilote_tasker_board_searchUser:
     requirements:
         boardId: \d+
 
-
-pilote_tasker_crud_board:
-    resource: "@PiloteTaskerBundle/Resources/config/routing/board.yml"
-    prefix:   /crud/board
-
-pilote_tasker_crud_domain:
-    resource: "@PiloteTaskerBundle/Resources/config/routing/domain.yml"
-    prefix:   /crud/domain
-
-pilote_tasker_crud_step:
-    resource: "@PiloteTaskerBundle/Resources/config/routing/step.yml"
-    prefix:   /crud/step
-
-pilote_tasker_crud_tlist:
-    resource: "@PiloteTaskerBundle/Resources/config/routing/tlist.yml"
-    prefix:   /crud/tlist
-
-pilote_tasker_crud_task:
-    resource: "@PiloteTaskerBundle/Resources/config/routing/task.yml"
-    prefix:   /crud/task
-
-pilote_tasker_crud_checklist:
-    resource: "@PiloteTaskerBundle/Resources/config/routing/checklist.yml"
-    prefix:   /crud/checklist
-
-pilote_tasker_crud_checklistoption:
-    resource: "@PiloteTaskerBundle/Resources/config/routing/checklistoption.yml"
-    prefix:   /crud/checklistoption
-
 # Toutes les requêtes AJAX liées aux pages des boards
 pilote_tasker_ajax_board_request:
     resource: "@PiloteTaskerBundle/Resources/config/routing/ajaxBoardRequest.yml"
