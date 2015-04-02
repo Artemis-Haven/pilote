@@ -23,29 +23,29 @@
         <tbody>
             {% for user in users %}
             <tr {% if not user.enabled %}class="disabled"{% endif %}>
-                <td {% if user.granted('ROLE_ADMIN') %}style="color:red;"{% endif %}>
-                    {{user.username}}
-                    <a title="Aller à la page de profil" class="glyphicon glyphicon-user pull-right" href="{{path('pilote_profil_showAnotherProfile', {'id': user.uuid})}}"></a>
+                <td>
+                    <a title="Aller à la page de profil" href="{{path('pilote_profil_showAnotherProfile', {'id': user.uuid})}}">
+                        <span {% if user.granted('ROLE_ADMIN') %}style="color:red;"{% endif %}>{{user.username}}</span>
+                    </a>
                 </td>
                 <td>{{user.uuid}}</td>
                 <td>
-                    <span title="{{user.email}}">{{user.email | truncate(30)}} </span>
-                    <a title="Envoyer un e-mail" class="glyphicon glyphicon-envelope pull-right" href="mailto:{{user.email}}"></a>
+                    <a title="Envoyer un e-mail à ''{{user.email}}''" href="mailto:{{user.email}}">{{user.email | truncate(30)}} </a>
                 </td>
                 <td style="max-width: 300px;">
-                    <select class="form-control">
+                    <select class="form-control" id="user-{{user.uuid}}" onchange="goToBoard('{{user.uuid}}');">
                         <optgroup label="Projets actifs">
                         {% for board in user.boards if board.enabled %}
-                            <option onclick="goToBoard('{{board.id}}');">{{board}}</option>
+                            <option value="{{board.id}}">{{board}}</option>
                         {% else %}
-                            <option value="0">-</option>
+                            <option value="">-</option>
                         {% endfor %}
                         </optgroup>
                         <optgroup label="Projets inactifs">
                         {% for board in user.boards if not board.enabled %}
                             <option value="{{board.id}}">{{board}}</option>
                         {% else %}
-                            <option value="0">-</option>
+                            <option value="">-</option>
                         {% endfor %}
                         </optgroup>
                     </select>
@@ -54,9 +54,9 @@
                 <td>
                 {% if user != app.user %}
                     {% if user.granted('ROLE_ADMIN') %}
-                        <a class="glyphicon glyphicon-user" style="color:red;" title="Destituer en simple utilisateur" href="{{path('pilote_admin_user_demote', {'id': user.uuid})}}"></a>
+                        <a class="glyphicon glyphicon-star" style="color:red;" title="Destituer en simple utilisateur" href="{{path('pilote_admin_user_demote', {'id': user.uuid})}}"></a>
                     {% else %}
-                        <a class="glyphicon glyphicon-user" title="Promouvoir administrateur" href="{{path('pilote_admin_user_promote', {'id': user.uuid})}}"></a>
+                        <a class="glyphicon glyphicon-star-empty" title="Promouvoir administrateur" href="{{path('pilote_admin_user_promote', {'id': user.uuid})}}"></a>
                     {% endif %} &nbsp;
                     {% if user.enabled %}
                         <a href="{{path('pilote_admin_user_disable', {'id' : user.uuid})}}" class="glyphicon glyphicon-off" title="Désactiver l'utilisateur"></a>
@@ -78,8 +78,10 @@
 {% block scripts %}
     {{ parent() }}
     <script type="text/javascript">
-    function goToBoard (id) {
-        location.href= Routing.generate('pilote_tasker_board', { boardId: id});
+    function goToBoard (uuid) {
+        var board = $("select#user-" + uuid + " option:selected").val();
+        if (board != null && board != "")
+            location.href= Routing.generate('pilote_tasker_board', { boardId: board});
         return false;
     }
     function confirmDelete () {
