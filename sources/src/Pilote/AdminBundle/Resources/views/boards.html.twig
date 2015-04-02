@@ -13,7 +13,6 @@
         <thead>
             <tr>
                 <th>Nom du projet</th>
-                <th>Accès rapide</th>
                 <th>Date de création</th>
                 <th>Utilisateurs associés</th>
                 <th>Actions</th>
@@ -23,24 +22,21 @@
             {% for board in boards %}
             <tr {% if not board.enabled %}class="disabled"{% endif %}>
                 <td>
-                    {{board}}
+                    <a title="Aller au projet" href="{{path('pilote_tasker_board', {'boardId': board.id})}}">{{board}}</a>
                     <span title="Description : {{board.description}}" class="glyphicon glyphicon-info-sign"></span>
-                </td>
-                <td>
-                    <a title="Aller au projet" class="glyphicon glyphicon-tasks" href="{{path('pilote_tasker_board', {'boardId': board.id})}}"></a> &nbsp;
-                    <a title="Aller à la page de configuration" class="glyphicon glyphicon-cog" href="{{path('pilote_tasker_board_settings', {'boardId': board.id})}}"></a>
                 </td>
                 <td>{{board.creationDate | date("d/m/Y")}}</td>
                 <td style="max-width: 300px;">
-                    <select class="form-control">
+                    <select class="form-control" id="board-{{board.id}}" onchange="goToProfile({{board.id}});">
                     {% for user in board.users %}
-                        <option onclick="goToProfile('{{user.uuid}}');">{{user}}</option>
+                        <option value="{{user.uuid}}">{{user}}</option>
                     {% else %}
-                        <option value="0">-</option>
+                        <option value="">-</option>
                     {% endfor %}
                     </select>
                 </td>
                 <td>
+                    <a title="Aller à la page de configuration" class="glyphicon glyphicon-cog" href="{{path('pilote_tasker_board_settings', {'boardId': board.id})}}"></a> &nbsp;
                     {% if board.enabled %}
                     <a class="glyphicon glyphicon-off" title="Archiver le projet" href="{{path('pilote_admin_board_disable', {'id': board.id})}}"></a>
                     {% else %}
@@ -62,8 +58,10 @@
 {% block scripts %}
     {{ parent() }}
     <script type="text/javascript">
-    function goToProfile (uuid) {
-        location.href= Routing.generate('pilote_profil_showAnotherProfile', { id: uuid});
+    function goToProfile (boardId) {
+        var uuid = $("select#board-" + boardId + " option:selected").val();
+        if (uuid != null && uuid != "")
+            location.href= Routing.generate('pilote_profil_showAnotherProfile', { id: uuid});
         return false;
     }
     function confirmDelete () {
