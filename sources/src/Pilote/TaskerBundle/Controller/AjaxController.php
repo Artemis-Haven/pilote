@@ -782,6 +782,14 @@ class AjaxController extends Controller
                     "The user '".$user->getUsername()."' isn't related to this board.");
             }
 
+            // Supprimer les liens d'assignation de l'utilisateur à des tâches
+            foreach ($user->getTasks() as $task) {
+                if ($task->getTList()->getStep()->getDomain()->getBoard() == $board) {
+                    $user->removeTask($task);
+                }
+            }
+
+            // Supprimer le lien entre l'utilisateur et la conversation de groupe
             $user->getBoards()->removeElement($board);
             $board->getUsers()->removeElement($user);
             $thread = $board->getThread();
