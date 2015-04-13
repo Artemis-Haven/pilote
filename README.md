@@ -1,116 +1,72 @@
-#Projet Pilote : Application Web de gestion collaborative de projets
+# Pilote
 
+## Outils de gestion collaborative de projets
 
-##Project Management Tool from Polytech students (French engineering school)
+Pilote est une application web Open Source développée en **PHP** (_Symfony2_) et en **Javascript** (_jQuery_ et _Node.Js_) permettant de faciliter la gestion d'un grand nombre de projets de groupes et d'utilisateurs.
 
+----
 
-Ce site a été développé dans le cadre d'un Projet d'Ingénierie  du Logiciel de 4e année à **Polytech Tours**.
-Il est principalement écrit en PHP et en Javascript et utilise le framework PHP **Symfony2** et **JQuery**.
+## Présentation
 
-#####*Info :* Pendant la durée de mon Projet de Fin d'Études à Polytech Tours, de septembre 2014 à mai 2015, les sources à jour de ce projet seront hébergées sur le dépôt interne de l'École. Ce dépôt sera mis à jour à la fin de l'année :)
+#### Création de projets
 
-------
+Les utilisateurs ont la possibilité de créer des projets et d'inviter d'autres utilisateurs à le rejoindre.
 
-##Installation
-_(Temps de déploiement estimé : 5 min dans le meilleur des cas)_
+<photo des projets en vignette>
 
-###Sous Linux et OSX (Mac) :
+#### Affichage des tâches en listes (méthode Kanban)
 
-**Pré-requis :**  Apache, PHP, MySQL, un client Git et une bonne connexion à internet.
+Dans chaque projet, une interface simple permet de créer des tâches et des listes de tâches, et de les regrouper dans des étapes et dans des domaines plus généraux. Un simple glisser-déposer suffit à les réorganiser. Pour ce projet de conception de drônes par exemple, le domaine _Mécanique_ contiendra les étapes _Conception_, _Assemblages_ et _Tests de fiabilité_ alors que le domaine _Informatique_ aura plutôt les étapes _Étude de l'existant_, _Développement_ et _Tests_. Ainsi les différents corps de métier qui composent un projet complexe sont regroupés au sein du même outil.
 
-> Pour installer ces paquets, ou juste pour vérifier qu'ils sont déjà présents, tapez dans une console : `sudo apt-get install apache2 php5 mysql-server libapache2-mod-php5 php5-mysql`
+<photo gros plan d un board>
 
-1. Ouvrez une console et, dans le dossier souhaité, tapez`git clone https://github.com/Artemis-Haven/pilote.git`
+Pour chaque tâche, il est possible de définir plusieurs paramètres optionnels :
+- Définir des dates de début et de fin
+- Poster des commentaires
+- Assigner une tâche à un membre du projet
+- Définir un label (_Important_, _Peu important_, _En retard_, etc)
+- Lier une pièce jointe
+- Définir un pourcentage de progression
+- Ajouter des listes de cases à cocher
 
-2. Entrez dans le dossier sources avec `cd pilote/sources`
+<photo détail d une tâche>
 
-3. Si besoin, éditez le fichier php.ini pour allouer suffisament de mémoire pour php
+#### Diagrammes de Gantt et calendrier
 
-4. Installez les dépendances avec `php composer.phar install`
+Afin d'afficher de manière plus visuelle d'évolution du projet, Pilote offre la possibilité d'afficher les tâches sous la forme de diagrammes de Gantt et de calendriers relativement flexibles avec des options de filtrages.
 
-5. Pendant l'installation, remplir les champs demandés (ceux de `parameters.yml`)
+<photo gantt>
 
-6. Réglez les problèmes de cache en faisant `sudo chmod 777 -R app/logs/* app/cache/* && sudo php app/console cache:clear && sudo chmod 777 -R app/logs/* app/cache/*`
+De plus, il est aussi possible pour l'utilisateur courant d'afficher un diagramme de Gantt pour toutes les tâches qui lui sont assignées sur tous les projets auxquels il est rattaché.
 
-7. Si besoin, éditez le fichier `app/config/parameters.yml` pour rajouter le chemin d'accès à votre site depuis `localhost`. Cela sert à générer les routes pour les fichiers Javascript.
-Par exemple si vous accédez à la page d'accueil via l'url `localhost/pilote/sources/web/app_dev.php/accueil`
-la ligne à rajouter sera `router.request_context.base_url: /pilote/sources/web/app_dev.php` 
+#### Messagerie
 
-8. Générez la base de données avec la commande `php app/console doctrine:database:create && php app/console doctrine:schema:update --force`
+Pilote propose un système de messagerie instantanée : Une discussion de groupe est automatiquement créée pour chaque projet, mais il est possible de créer des conversations privées avec les autres utilisateurs de Pilote.
 
-9. Générez le fichier de *routing* pour les requêtes AJAX avec `php app/console fos:js-routing:dump`
+<photo de chat de groupe de projet>
 
-10. Si tout s'est bien passé, le site est désormais opérationnel. Sinon, appelez les pompiers.
+#### Zone d'administration
 
-###Sous Windows
+L'administrateur de Pilote a accès à une zone d'administration pour afficher et gérer l'ensemble des utilisateurs et des projets, créer un nouvel utilisateur ou vérifier différents paramètres de configuration.
 
-**Pré-requis :**  Wamp||Xamp avec Apache, PHP et MySQL, un client Git et une bonne connexion à internet.
+Pilote étant basé sur le framework PHP Symfony2, il s'installera très facilement sur n'importe quel serveur Linux (mais peut aussi tourner sur OS X ou Windows) grâce à _Composer_.
 
-1. Depuis votre client Git, récupérez les fichiers du projet depuis l'adresse `https://github.com/Artemis-Haven/pilote.git`. Selon votre client, la procédure n'est pas la même. _Pour un client en ligne de commande, ouvrez une invite de commande et placez vous dans le répertoire dans lequel vous souhaitez installer le projet. Tapez ensuite la commande `git clone https://github.com/Artemis-Haven/pilote.git`_
+<photo de la liste des utilisateurs>
 
-2. Placez-vous dans le répertoire sources `cd pilote/sources` depuis une invite de commande.
+#### Connexion à un annuaire LDAP
 
-4. Installez les dépendances avec `php composer.phar install`. Quelques erreurs à cette étape peuvent survenir :
- 1. Si vous utilisez un client graphique, vous devrez peut-être indiquer dans les variables d'environnement de votre système l'emplacement du git en ligne de commande utilisé par votre client graphique _(Exemple pour le client SourceTree : `C:\Users\<nom_utilisateur>\AppData\Local\Atlassian\SourceTree\git_local\bin`)_
- 2. Si php indique que vous n'avez pas assez de mémoire, modifiez le fichier `php.ini` de votre PHP en ligne de commande afin d'allouer plus de mémoire, en modifiant la ligne `memory_limit = 128M ;`
- 3. Si l'erreur `Failed to download incenteev/composer-parameter-handler from dist: You must enable the openssl extension to download files via https` survient, suivez les étapes suivantes :
-   1. Ouvrez le fichier `php.ini` de votre PHP en ligne de commande situé dans le répertoire `wamp\bin\php\php#.#.##`
-    2. Décommentez la ligne `;extension=php_openssl.dll` en retirant le point-virgule `;` en début de ligne
+Il existe deux branches disponibles de Pilote, une classique nécessitant l'inscription des utilisateurs, et une permettant d'utiliser les comptes définis sur un serveur LDAP distant.
 
-5. Pendant l'installation, remplir les champs demandés (ceux de `parameters.yml`). Certains paramètres peuvent être laissés par défaut et éditables plus tard si besoin. Dans ce cas, appuyez simplement sur la touche [Entrée]. (_Si la commande lève une exception PDO, indiquez le port de MySQL pour le champ database_port (3306)_)
+Il est possible de faire cohabiter les utilisateurs connectés via l'annuaire LDAP et ceux inscrits directement sur le site. L'administrateur peut aussi bloquer les inscriptions en changeant simplement un paramètre, et aussi rajouter des utilisateurs depuis la zone d'administration.
 
-```
-Creating the "app/config/parameters.yml" file
-Some parameters are missing. Please provide them.
-database\_driver (pdo_mysql): [Entrée]
-database_host (127.0.0.1): [Entrée]
-database_port (null): [Entrée]
-database_name (symfony): <nom_base_de_données>
-database_user (root): [Entrée]
-database_password (null): [Entrée]
-mailer_transport (smtp): [Entrée]
-mailer_host (127.0.0.1): [Entrée]
-mailer_user (null): [Entrée]
-mailer_password (null): [Entrée]
-locale (en): fr
-secret (ThisTokenIsNotSoSecretChangeIt): [Entrée]
-```
-6. Générez la base de données avec la commande `php app/console doctrine:database:create && php app/console doctrine:schema:update --force`
+----
 
-7. Générez le fichier de *routing* pour les requêtes AJAX avec `php app/console fos:js-routing:dump`
+## Documentation technique
 
-8. Lancez le serveur au moyen de la commande `php app/console server:run`
+#### Installation 
 
-9. Si tout s'est bien passé, le site est désormais disponible à l'adresse `http://localhost:8000/accueil`.
+Voir le [tutoriel d'installation](doc/installation.md).
 
-##Organisation du projet
-Voici l'arborescence du site :
+#### Vous souhaitez contribuer ou _forker_ le projet ?
 
-* `/sources/app` contenant plusieurs fichiers importants :
-  * `config/config*.yml` configuration des services (*FosUserBundle*, *SwiftMailer*, *Doctrine*) ;
-  * `config/parameters.yml` **paramètres spécifiques** à la machine sur laquelle est le site ;
-  * `config/security.yml` paramètres sur le type d'encodage, les limitations d'accès au pages, les groupes d'utilisateurs, ... ;
-  * `config/routing.yml` fichier de **routing principal** (il inclut les autres fichiers de routing secondaires) ;
-  * `Resources/views` Les vues qui ne font pas partie d'un bundle (ici, pages d'accueil, de contact, squelette principal des pages dans `base.html.twig`, etc ...) ;
-  * `AppKernel.php` fichier dans lequel on inclut les bundles ;
-* `/sources/bin`
-* `/sources/src` contenant nos bundles :
- * `PIL/TaskerBundle` Bundle principal avec
-   * `Controllers` contenant les contrôleurs suivants :
-     * `BoardController.php` Gère les pages du CRUD des entités *Board* ;
-     * `DomainController.php` Gère les pages du CRUD des entités *Domain* ;
-     * `StepController.php` Gère les pages du CRUD des entités *Step* ;
-     * Etc ... pour *TList*, *Task*, *CheckList*, *CheckListOption* ;
-     * `TaskerController.php` Gère les pages générales du site (index, etc ...) et les actions de la page principale du **Board** (notamment les requêtes AJAX) ;
-   * `Entities` contenant les classes PHP de nos entités : *Board*, *Domain*, *Step*, *TList*, *Task*, *CheckList*, *CheckListOption* ;
-   * `Form` contenant les classes PHP générant les formulaires (voir doc Symfony2) ;
-   * `Resources/config/routing.yml` fichier de routing général du bundle ;
-   * `Resources/config/routing/ajaxBoardRequest.yml` fichier de routing des requêtes AJAX de la page principale du Board ;
-   * `Resources/config/routing/*.yml` fichiers de routing des pages CRUD des entités du bundle ;
-   * `Resources/views` fichiers TWIG des vues du bundle ;
- * `PIL/AdminBundle` Bundle principal avec toutes les vues de la partie Admin, et les contrôleurs associés ;
- * `PIL/UserBundle` Bundle gérant les utilisateurs ;
-   * `Entities/User.php` est notre classe utilisateur. Elle hérite de la classe abstraite *BaseUser* de **FosUserBundle**.
-* `/sources/vendors` contenant différentes briques logicielles du framework Symfony2 ainsi que les différents bundles que nous avons rajoutés : *FosUserBundle* et *FosJsRouting* ;
-* `/sources/web` contenant toutes les ressources qui ne sont pas dans un bundle : CSS, JS, images, etc ...
-* `/composer.json` contenant la liste des dépendances de notre projet. Le fichier `composer.phar` va récupérer en ligne les fichiers manquants ou pas à jour du projet.
+Voir la [page concernée](doc/contribution.md).
