@@ -2,7 +2,9 @@
 
 ## Outils de gestion collaborative de projets
 
-Pilote est une application web Open Source développée en **PHP** (_Symfony2_) et en **Javascript** (_jQuery_ et _Node.Js_) permettant de faciliter la gestion d'un grand nombre de projets de groupes et d'utilisateurs.
+Pilote est une application web Open Source, sous licence GNU GPL v3, développée en **PHP** (_Symfony2_) et en **Javascript** (_jQuery_ et _Node.Js_) permettant de faciliter la gestion d'un grand nombre de projets de groupes et d'utilisateurs.
+
+Il est le résultat de deux projets d'études à l'École d'Ingénieurs [Polytech Tours](http://polytech.univ-tours.fr).
 
 ----
 
