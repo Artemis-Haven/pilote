@@ -40,8 +40,15 @@ use FOS\UserBundle\Model\UserInterface;
 use \Pilote\MessageBundle\Entity\Thread;
 use \Pilote\MessageBundle\Entity\ThreadMetadata;
 
+/**
+ * Contrôleur des pages de la zone d'administration
+ */
+
 class DefaultController extends Controller
 {
+    /**
+     * Page d'accueil de la zone d'administration
+     */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
@@ -53,6 +60,9 @@ class DefaultController extends Controller
         ));
     }
     
+    /**
+     * Page listant les utilisateurs
+     */
     public function usersAction()
     {
         $users = $this->get('fos_user.user_manager')->findUsers();
@@ -61,6 +71,9 @@ class DefaultController extends Controller
             ));
     }
     
+    /**
+     * Page listant les projets
+     */
     public function boardsAction()
     {
         $em = $this->getDoctrine()->getManager();
@@ -69,6 +82,10 @@ class DefaultController extends Controller
             ));
     }
     
+    /**
+     * Promouvoir un utilisateur en tant qu'administrateur.
+     * Action faite au clic dans la liste des utilisateurs
+     */
     public function promoteUserAction($id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -100,6 +117,10 @@ class DefaultController extends Controller
         return $this->redirect($this->generateUrl('pilote_admin_users'));
     }
     
+    /**
+     * Destituer un administrateur en tant que simple utilisateur.
+     * Action faite au clic dans la liste des utilisateurs
+     */
     public function demoteUserAction($id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -121,6 +142,10 @@ class DefaultController extends Controller
         return $this->redirect($this->generateUrl('pilote_admin_users'));
     }
     
+    /**
+     * Désactiver un compte utilisateur.
+     * Un utilisateur désactivé ne peut plus se connecter.
+     */
     public function disableUserAction($id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -135,6 +160,10 @@ class DefaultController extends Controller
         return $this->redirect($this->generateUrl('pilote_admin_users'));
     }
     
+    /**
+     * Réactiver un compte utilisateur désactivé.
+     * Un utilisateur désactivé ne peut plus se connecter.
+     */
     public function enableUserAction($id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -149,6 +178,14 @@ class DefaultController extends Controller
         return $this->redirect($this->generateUrl('pilote_admin_users'));
     }
     
+    /**
+     * Supprimer définitivement un utilisateur.
+     * Toute trace de cet utilisateur est effacée :
+     * - Tâches affectées
+     * - Projets associés
+     * - Discussions liées
+     * - Messages envoyés
+     */
     public function removeUserAction($id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -183,6 +220,11 @@ class DefaultController extends Controller
         return $this->redirect($this->generateUrl('pilote_admin_users'));
     }
     
+    /**
+     * Ajouter un nouvel utilisateur.
+     * Utilisé pour ajouter manuellement un utilisateur
+     * depuis la zone d'administration.
+     */
     public function newUserAction(Request $request)
     {
         $formFactory = $this->get('fos_user.registration.form.factory');
@@ -205,6 +247,11 @@ class DefaultController extends Controller
         ));
     }
     
+    /**
+     * Désactiver un Board (= projet).
+     * Les utilisateurs liés à ce board ne le verront plus
+     * dans leur liste de projets, ne pourront plus y accéder, etc.
+     */
     public function disableBoardAction($id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -219,6 +266,9 @@ class DefaultController extends Controller
         return $this->redirect($this->generateUrl('pilote_admin_boards'));
     }
     
+    /**
+     * Réactiver un board désactivé.
+     */
     public function enableBoardAction($id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -233,6 +283,11 @@ class DefaultController extends Controller
         return $this->redirect($this->generateUrl('pilote_admin_boards'));
     }
     
+    /**
+     * Supprimer définitivement un Board.
+     * Seul l'administrateur peut supprimer un board.
+     * Les membres d'un board ne peuvent que le désactiver.
+     */
     public function removeBoardAction($id)
     {
         $em = $this->getDoctrine()->getManager();

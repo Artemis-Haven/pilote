@@ -30,6 +30,11 @@ use Pilote\MessageBundle\Entity\Thread;
 use Pilote\UserBundle\Entity\User;
 
 /**
+ * Les métadonnées d'une conversation (ThreadMetadata) font le lien entre
+ * une conversation et ses participants. Une métadonnée contient l'information
+ * permettant de savoir si un participant a lu les derniers messages de la
+ * conversation ($read).
+ * 
  * @ORM\Entity
  */
 class ThreadMetadata

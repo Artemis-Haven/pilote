@@ -35,6 +35,9 @@ use Doctrine\ORM\EntityRepository;
  */
 class MessageRepository extends EntityRepository
 {
+    /**
+     * Compter le nombre total de messages envoyés sur Pilote.
+     */
 	public function count()
 	{
 		return $this->createQueryBuilder('m')

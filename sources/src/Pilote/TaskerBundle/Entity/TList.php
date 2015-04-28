@@ -29,7 +29,21 @@ namespace Pilote\TaskerBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * TList
+ * Une TList est une liste de tâches. C'est une subdivision d'une Étape (Step)
+ * qui contient un ensemble de tâches.
+ * Elle a une position ($position) pour se situer dans l'étape.
+ *
+ * Board
+ * - Domain1
+ *   - Step1
+ *     - TList1
+ *       - Task1
+ *       - Task2
+ *     - TList2
+ *   - Step2
+ *     - TList3
+ * - Domain2
+ *   - Step3
  *
  * @ORM\Table()
  * @ORM\Entity()

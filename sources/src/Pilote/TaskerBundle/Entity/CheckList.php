@@ -29,7 +29,9 @@ namespace Pilote\TaskerBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * CheckList
+ * Une CheckList est une liste de cases à cocher.
+ * Elle contient donc une liste de ChecklistOption, et est
+ * ratachée à une tâche.
  *
  * @ORM\Table()
  * @ORM\Entity()

@@ -19,6 +19,10 @@
 #     along with Pilote.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+#####################################################################
+# Fichier de routes des pages liées aux boards, gantt et calendrier #
+#####################################################################
+
 # Page listant les projets de l'utilisateur courant
 pilote_projects:
     path: /projets

@@ -36,6 +36,9 @@ use Doctrine\ORM\EntityRepository;
  */
 class BoardRepository extends EntityRepository
 {
+    /**
+     * Compter le nombre total de Boards sur Pilote.
+     */
 	public function count()
 	{
 		return $this->createQueryBuilder('b')

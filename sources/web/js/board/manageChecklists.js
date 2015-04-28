@@ -23,6 +23,11 @@ This file is part of Pilote.
 */
 
 /**
+ * Script gérant toutes les actions concernant les CheckLists
+ * dans la popup de détails d'une tâche
+ */
+
+/**
  * Ajouter une checklist dans la BdD et, en cas de succès, l'ajouter aussi
  * dans la tâche appropriée.
  *

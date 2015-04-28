@@ -21,6 +21,10 @@ This file is part of Pilote.
 
 */
 
+/**
+ * Scripts de la messagerie
+ */
+
 // envoyer le message si on appuie sur ENTREE
 $("#messageForm textarea").keypress(function(event) {
     if (event.which == 13) {

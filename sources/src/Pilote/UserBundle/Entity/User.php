@@ -34,6 +34,9 @@ use Pilote\MessageBundle\Entity\Thread;
 use FR3D\LdapBundle\Model\LdapUserInterface as LdapUserInterface;
 
 /**
+ * Un User représente un utilisateur de notre site web.
+ * Il hérite de la classe User du FOSUserBundle.
+ * 
  * @ORM\Entity
  * @ORM\Table(name="pilote_user")
  * @ORM\Entity(repositoryClass="Pilote\UserBundle\Entity\UserRepository")

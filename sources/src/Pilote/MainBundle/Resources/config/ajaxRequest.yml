@@ -18,6 +18,16 @@
 #     along with Pilote.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+####################################################################
+# Fichier de routes des requêtes AJAX communes à toutes les pages. #
+# Pour l'instant, il ne s'agit que des requêtes concernant le      #
+# système de notifications                                         #
+####################################################################
+
+###################################
+# Requêtes AJAX des notifications #
+###################################
+
 pilote_main_loadNextNotifications:
     path: /loadNextNotifications
     defaults: { _controller: PiloteMainBundle:Ajax:loadNextNotifications }

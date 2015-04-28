@@ -22,6 +22,14 @@ This file is part of Pilote.
 
 #}
 
+{# 
+	Template affichant un domaine. 
+	C'est une partie du template board.html.twig
+	Pour chaque étape du domaine, on inclut le template stepTab.html.twig 
+	dans la barre des onglets, et le template step.html.twig dans la zone 
+	en dessous des onglets.
+#}
+
 <div id="domain-{{ domain.id }}" class="panel domain">
 	<div class="panel-heading"> {# Titre des domaines #}
 		<h4 class="panel-title">

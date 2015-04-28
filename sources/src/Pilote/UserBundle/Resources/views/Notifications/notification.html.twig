@@ -21,6 +21,12 @@ This file is part of Pilote.
 
 #}
 
+{# 
+	Template affichant une notification. 
+	C'est ce même template qui affiche à la fois les notifications temporaires 
+	dans le coin de l'écran, et les notifications dans le menu.
+#}
+
 <div class="notification" onclick="location.href='{{notif.link}}';" data-id="{{notif.id}}" data-read="{{notif.read ? 1 : 0 }}">
 	<div class="glyphicon glyphicon-remove pull-right" title="Fermer" onclick="removeNotification($(this).parent());"></div>
 	<div class="notif-aside">

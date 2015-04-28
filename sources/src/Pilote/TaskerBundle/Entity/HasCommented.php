@@ -30,7 +30,8 @@ use Pilote\UserBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * HasCommented
+ * HasCommented représente le commentaire ($comment) posté par un
+ * utilisateur ($user) sur une tâche ($task).
  *
  * @ORM\Table()
  * @ORM\Entity()

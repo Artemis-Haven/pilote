@@ -29,7 +29,11 @@ namespace Pilote\TaskerBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * CheckListOption
+ * Une CheckListOption est une case à cocher. Elle fait partie
+ * d'une Checklist, elle-même ratachée à une tâche (Task).
+ *
+ * Elle contient un libellé ($optionText) et une position dans la liste ($position),
+ * 
  *
  * @ORM\Table()
  * @ORM\Entity()

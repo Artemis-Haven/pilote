@@ -21,16 +21,25 @@ This file is part of Pilote.
 
 */
 
+/**
+ * Serveur Node.JS
+ * Il sert à faire circuler les notifications entre le serveur PHP
+ * et les clients
+ */
+
 var io = require('socket.io').listen(8010);
 
+// Cette variable contient l'ensemble des clients connectés
 var connectedClients = {
 	connected : [],
+	// Ajouter un client à la liste
 	add : function (newConnected) {
 		if (typeof newConnected === 'object'
 			&& newConnected.phpUserId) {
 			this.connected.push(newConnected);
 		};
 	},
+	// Supprimer un client de la liste
 	remove : function (id) {
 		var conn = [];
 		this.connected.forEach(function (data) {
@@ -40,6 +49,8 @@ var connectedClients = {
 		});
 		this.connected = conn;
 	},
+	// Renvoie la liste des identifiants des sessions PHP
+	// des clients connectés
 	getIdList : function () {
 		var conn = [];
 		this.connected.forEach(function (data) {
@@ -47,12 +58,16 @@ var connectedClients = {
 		})
 		return conn;
 	},
+	// Affiche en console la liste des identifiants des 
+	// sessions PHP des clients connectés
 	printIdList : function () {
     	console.log("Socket.IO connected clients :")
 		this.connected.forEach(function (data) {
         	console.log("- " + data.phpUserId);
 		})
 	},
+	// Prend un identifiant de session PHP en paramètre
+	// et renvoie l'utilisateur connecté correspondant
 	getSocketsForId : function (id) {
 		var conn = [];
 		this.connected.forEach(function (data) {
@@ -62,6 +77,8 @@ var connectedClients = {
 		});
 		return conn;
 	},
+	// Renvoie la liste des utilisateurs connectés
+	// qui sont sur la bonne page et sur le bon Board
 	getSocketsForPageAndBoard : function (page, board) {
 		var conn = [];
 		this.connected.forEach(function (data) {
@@ -73,8 +90,10 @@ var connectedClients = {
 	}
 }
 
+// A la connexion d'un client
 io.sockets.on('connection', function (socket) {
     socket.emit('connect');
+    // Le client envoie des données permettant de l'identifier plus tard
     socket.on('sendUserData', function (data) { 
     	console.log('connection');
     	socket.phpUserId = data.userId;
@@ -83,6 +102,8 @@ io.sockets.on('connection', function (socket) {
     	connectedClients.add(socket);
     });
     
+    // Lorsque le serveur PHP envoie une "simple-notification", on la renvoie
+    // à tous les clients concernés.
     socket.on('simple-notification', function (data) { 
     	console.log('simple-notification');
     	for (var i = 0; i < data.users.length; i++) {
@@ -94,6 +115,8 @@ io.sockets.on('connection', function (socket) {
     	
     });
     
+    // Lorsque le serveur PHP envoie une notif "newMessage", on a renvoie à 
+    // tous les utilisateurs concernés
     socket.on('newMessage', function (data) { 
     	console.log('newMessage');
     	for (var i = 0; i < data.users.length; i++) {
@@ -107,6 +130,8 @@ io.sockets.on('connection', function (socket) {
     	connectedClients.printIdList();
     });
     
+    // Lorsqu'une tâche est déplacée sur un board, on répercute la modifications
+    // chez les clients ayant la même page affichée
     socket.on('move-task', function (data) {
     	console.log('move-task');
 		var boardClients = connectedClients.getSocketsForPageAndBoard('board', data.boardId);
@@ -121,6 +146,8 @@ io.sockets.on('connection', function (socket) {
     	};
     });
     
+    // Lorsqu'une tList est déplacée sur un board, on répercute la modifications
+    // chez les clients ayant la même page affichée
     socket.on('move-tlist', function (data) {
     	console.log('move-tlist');
 		var boardClients = connectedClients.getSocketsForPageAndBoard('board', data.boardId);
@@ -135,6 +162,8 @@ io.sockets.on('connection', function (socket) {
     	};
     });
 
+    // Lorsqu'une tâche est renommée sur un board, on répercute la modifications
+    // chez les clients ayant la même page affichée
     socket.on('rename-task', function (data) {
     	console.log('rename-task');
 		var boardClients = connectedClients.getSocketsForPageAndBoard('board', data.boardId);
@@ -148,6 +177,8 @@ io.sockets.on('connection', function (socket) {
     	};
     });
     
+    // Lorsqu'une tList est renommée sur un board, on répercute la modifications
+    // chez les clients ayant la même page affichée
     socket.on('rename-tlist', function (data) {
     	console.log('rename-tlist');
 		var boardClients = connectedClients.getSocketsForPageAndBoard('board', data.boardId);
@@ -161,6 +192,8 @@ io.sockets.on('connection', function (socket) {
     	};
     });
     
+    // Lorsqu'une étape est renommée sur un board, on répercute la modifications
+    // chez les clients ayant la même page affichée
     socket.on('rename-step', function (data) {
     	console.log('rename-step');
 		var boardClients = connectedClients.getSocketsForPageAndBoard('board', data.boardId);
@@ -174,6 +207,8 @@ io.sockets.on('connection', function (socket) {
     	};
     });
     
+    // Lorsqu'une tâche est ajoutée sur un board, on répercute la modifications
+    // chez les clients ayant la même page affichée
     socket.on('new-task', function (data) {
     	console.log('new-task');
 		var boardClients = connectedClients.getSocketsForPageAndBoard('board', data.boardId);
@@ -187,6 +222,8 @@ io.sockets.on('connection', function (socket) {
     	};
     });
     
+    // Lorsqu'une tList est ajoutée sur un board, on répercute la modifications
+    // chez les clients ayant la même page affichée
     socket.on('new-tlist', function (data) {
     	console.log('new-tlist');
 		var boardClients = connectedClients.getSocketsForPageAndBoard('board', data.boardId);
@@ -201,6 +238,8 @@ io.sockets.on('connection', function (socket) {
     	};
     });
     
+    // Lorsqu'une tâche est supprimée sur un board, on répercute la modifications
+    // chez les clients ayant la même page affichée
     socket.on('remove-task', function (data) {
     	console.log('remove-task');
 		var boardClients = connectedClients.getSocketsForPageAndBoard('board', data.boardId);
@@ -213,6 +252,8 @@ io.sockets.on('connection', function (socket) {
     	};
     });
     
+    // Lorsqu'une tList est supprimée sur un board, on répercute la modifications
+    // chez les clients ayant la même page affichée
     socket.on('remove-tlist', function (data) {
     	console.log('remove-tlist');
 		var boardClients = connectedClients.getSocketsForPageAndBoard('board', data.boardId);
@@ -225,6 +266,7 @@ io.sockets.on('connection', function (socket) {
     	};
     });
 
+    // Déconnexion du client
     socket.on('disconnect', function () { 
     	console.log('disconnect');
     	connectedClients.remove(socket.phpUserId);

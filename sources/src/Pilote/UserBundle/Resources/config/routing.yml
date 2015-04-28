@@ -19,28 +19,38 @@
 #     along with Pilote.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+#########################################
+# Fichier de routes des pages de profil #
+#########################################
+
+# Page affichant le profil de l'utilisateur courant
 pilote_profil_show:
     pattern: /
     defaults: { _controller: PiloteUserBundle:Profile:show}
 
+# Page affichant le profil de l'utilisateur donc l'UUID est passé en paramètre
 pilote_profil_showAnotherProfile:
     pattern:  /id-{id}
     defaults: { _controller: PiloteUserBundle:Profile:show}
     options:
         expose: true
 
+# Page d'édition du profil de l'utilisateur courant
 pilote_profil_edit:
     pattern:  /edit
     defaults: { _controller: PiloteUserBundle:Profile:edit }
 
+# Page validant l'upload d'une photo de profil
 pilote_profil_picture_new:
     pattern:  /picture/new
     defaults: { _controller: PiloteUserBundle:Profile:checkNewPicture }
 
+# Page validant le remplacement de la photo de profil
 pilote_profil_picture_checkEdit:
     pattern:  /picture/checkEdit
     defaults: { _controller: PiloteUserBundle:Profile:checkEditPicture }
 
+# Page validant la suppression de la photo de profil
 pilote_profil_picture_delete:
     pattern:  /picture/delete
     defaults: { _controller: PiloteUserBundle:Profile:deletePicture }

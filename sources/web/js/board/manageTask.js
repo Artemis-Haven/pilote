@@ -23,6 +23,11 @@ This file is part of Pilote.
 */
 
 /**
+ * Script gérant toute les actions concernant les tâches affichés dans
+ * la vue du Board, ainsi que dans la poopup de détail d'une tâche
+ */
+
+/**
  * Ajouter une tâche dans la BdD et, en cas de succès, l'ajouter aussi
  * dans la liste appropriée.
  *

@@ -31,6 +31,16 @@ use Pilote\MessageBundle\Entity\Message;
 use Pilote\MessageBundle\Entity\ThreadMetadata as Metadata;
 
 /**
+ * Un thread est une conversation, une discussion entre plusieurs utilisateurs.
+ * Il est constitué d'un ensemble de messages et d'un ensemble de métadonnées.
+ * Chaque métadonnée fait le lien entre un thread et un utilisateur.
+ *
+ * Un thread peut être de trois types :
+ * SIMPLE_THREAD : Discussion classique entre plusieurs utilisateurs.
+ * BOARD_THREAD : Discussion liée à un projet, créée automatiquement.
+ * ADMIN_THREAD : Discussion créée par un utilisateur ayant besoin d'aidé, 
+ * intégrant automatiquement tous les administrateurs.
+ * 
  * @ORM\Entity
  */
 class Thread

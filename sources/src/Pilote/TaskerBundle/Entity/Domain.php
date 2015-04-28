@@ -29,7 +29,21 @@ namespace Pilote\TaskerBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Domain
+ * Un Domaine est la principale composante d'un Board et est découpé
+ * en plusieurs Étapes (Step).
+ * Il est représenté dans la vue du Board par un "accordéon".
+ *
+ * Board
+ * - Domain1
+ *   - Step1
+ *     - TList1
+ *       - Task1
+ *       - Task2
+ *     - TList2
+ *   - Step2
+ *     - TList3
+ * - Domain2
+ *   - Step3
  *
  * @ORM\Table()
  * @ORM\Entity()

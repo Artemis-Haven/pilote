@@ -21,6 +21,10 @@ This file is part of Pilote.
 
 */
 
+/**
+ * Scripts gérant le diagramme de Gantt
+ */
+
 $(function () {
 
     /**************************/

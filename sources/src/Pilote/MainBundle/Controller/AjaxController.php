@@ -28,8 +28,22 @@ namespace Pilote\MainBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Contrôleur gérant les requêtes AJAX communes à toutes les pages.
+ * Pour l'instant, il ne s'agit que des requêtes concernant le système
+ * de notifications.
+ */
+
 class AjaxController extends Controller
 {
+    /**
+     * Requête AJAX :
+     * Renvoie les 5 notifications suivantes à afficher dans le menu
+     * des notifications de la barre de menu.
+     * @param [POST] lastNotifId : l'Id de la plus ancienne notification
+     * actuellement affichée dans le menu
+     * @return [HTML] Le rendu HTML des 5 notifications suivantes
+     */
     public function loadNextNotificationsAction()
     {
         $request = $this->container->get('request');
@@ -56,6 +70,11 @@ class AjaxController extends Controller
         }
     }
 
+    /**
+     * Requête AJAX :
+     * Définit toutes les notifications de l'utilisateur
+     * courant comme étant lues.
+     */
     public function setAllNotificationsReadAction()
     {
         $request = $this->container->get('request');
@@ -77,6 +96,10 @@ class AjaxController extends Controller
         }
     }
 
+    /**
+     * Requête AJAX :
+     * Supprime toutes les notifications de l'utilisateur courant.
+     */
     public function removeAllNotificationsAction()
     {
         $request = $this->container->get('request');
@@ -98,6 +121,11 @@ class AjaxController extends Controller
         }
     }
 
+    /**
+     * Requête AJAX :
+     * Surpprime une notification.
+     * @param [POST] id : L'id de la notification à supprimer
+     */
     public function removeNotificationAction()
     {
         $request = $this->container->get('request');

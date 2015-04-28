@@ -32,8 +32,23 @@ use Pilote\TaskerBundle\Entity\Task as Task;
 use Pilote\TaskerBundle\Entity\TList as TList;
 use Pilote\TaskerBundle\Entity\Step as Step;
 
+/**
+ * Contrôleur gérant les déplacements des tâches et des
+ * listes de tâches dans la vue du Board.
+ *
+ * Ce sont toutes des requêtes AJAX.
+ */
+
 class PositionController extends Controller
 {    
+    /**
+     * Déplacement d'une tâche.
+     * @param [POST] movedTaskId : L'id de la tâche à déplacer
+     * @param [POST] upperTaskId ! L'id de la tâche juste au-dessus du nouvel
+     * emplacement de la tâche. Vaut -1 si la tâche est tout en haut de la liste.
+     * @param [POST] newListId : L'id de la liste dans laquelle la tâche est déplacée, 
+     * si upperTaskId = -1.
+     */
     public function moveTaskAction()
     {
         $request = $this->container->get('request');
@@ -114,6 +129,13 @@ class PositionController extends Controller
         
     }
     
+    /**
+     * Déplacement d'une liste de tâches dans une étape.
+     * @param [POST] movedListId : L'id de la liste à déplacer
+     * @param [POST] leftListId : L'id de la liste à gauche de la liste à déplacer,
+     * à son nouvel emplacement. Si leftListId = -1, alors la liste est déplacée
+     * en première position.
+     */
     public function moveListAction()
     {
         $request = $this->container->get('request');

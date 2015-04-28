@@ -39,8 +39,26 @@ use Pilote\TaskerBundle\Entity\CheckListOption;
 use Pilote\UserBundle\Entity\Notification;
 use Pilote\MessageBundle\Entity\ThreadMetadata;
 
+/**
+ * Contrôleur de toutes les requêtes AJAX des pages du Board,
+ * du détail d'une tâche, et de la page des réglages d'un Board.
+ *
+ * Seules les requêtes AJAX des déplacements des tâches et des listes
+ * de tâches sont séparées, dans le fichier PositionController.php.
+ *
+ * Les requêtes AJAX concernant le diagramme de Gantt sont dans 
+ * GanttController.php.
+ */
+
 class AjaxController extends Controller
 {
+    /**
+     * Créer une tâche.
+     * @param [POST] tListId : L'id de la liste dans laquelle ajouter la
+     * nouvelle tâche
+     * @return [JSON] Tableau avec le rendu HTML de l'aperçu de la tâche
+     * et l'id de cette tâche.
+     */
     public function createTaskAction()
     {
         $request = $this->container->get('request');
@@ -82,7 +100,10 @@ class AjaxController extends Controller
         }
     }
 
-
+    /**
+     * Supprimer une tâche.
+     * @param [POST] taskId : L'id de la tâche à supprimer
+     */
     public function deleteTaskAction()
     {
         $request = $this->container->get('request');
@@ -110,7 +131,11 @@ class AjaxController extends Controller
         return new Response("");
     }
 
-
+    /**
+     * Renommer une tâche
+     * @param [POST] taskId : L'id de la tâche à renommer
+     * @param [POST] newTitle : Le nouveau titre de la tâche
+     */
     public function renameTaskAction()
     {
         $request = $this->container->get('request');
@@ -146,6 +171,11 @@ class AjaxController extends Controller
     }
 
 
+    /**
+     * Modifier le contenu de la tâche.
+     * @param [POST] taskId : L'id de la tâche à modifier
+     * @param [POST] newContent : Le nouveau contenu
+     */
     public function updateTaskContentAction()
     {
         $request = $this->container->get('request');
@@ -175,7 +205,11 @@ class AjaxController extends Controller
         }
     }
 
-
+    /**
+     * Afficher la fenêtre de détail d'une tâche.
+     * @param [POST] taskId : L'id de la tâche à afficher
+     * @return [HTML] Le contenu de la fenêtre de détail
+     */
     public function getTaskDetailsAction()
     {
         $request = $this->container->get('request');
@@ -203,6 +237,13 @@ class AjaxController extends Controller
         }
     }
 
+    /**
+     * Créer une liste de tâches.
+     * @param [POST] stepId : L'id de l'étape dans laquelle ajouter la
+     * nouvelle liste
+     * @return [JSON] Tableau avec l'id de cette liste, le rendu HTML de la liste
+     * et le nombre de listes dans cette étape.
+     */
     public function createTListAction()
     {
         $request = $this->container->get('request');
@@ -246,6 +287,10 @@ class AjaxController extends Controller
     }
 
 
+    /**
+     * Supprimer une liste de tâches.
+     * @param [POST] tListId : L'id de la liste de tâches à supprimer
+     */
     public function deleteTListAction()
     {
         $request = $this->container->get('request');
@@ -288,6 +333,11 @@ class AjaxController extends Controller
     }
 
 
+    /**
+     * Renommer une liste de tâches
+     * @param [POST] tListId : L'id de la liste à renommer
+     * @param [POST] newTitle : Le nouveau titre de la liste
+     */
     public function renameTListAction()
     {
         $request = $this->container->get('request');
@@ -322,6 +372,13 @@ class AjaxController extends Controller
         }
     }
 
+    /**
+     * Créer une étape.
+     * @param [POST] domainId : L'id du domaine dans lequel ajouter la
+     * nouvelle étape
+     * @return [JSON] Tableau avec le rendu HTML de l'onglet de l'étape,
+     * le rendu HTML du contenu de l'étape, et l'id de cette étape.
+     */
     public function createStepAction()
     {
         $request = $this->container->get('request');
@@ -355,6 +412,10 @@ class AjaxController extends Controller
     }
 
 
+    /**
+     * Supprimer une étape.
+     * @param [POST] stepId : L'id de l'étape à supprimer
+     */
     public function deleteStepAction()
     {
         $request = $this->container->get('request');
@@ -398,6 +459,11 @@ class AjaxController extends Controller
     }
 
 
+    /**
+     * Renommer une étape
+     * @param [POST] stepId : L'id de l'étape à renommer
+     * @param [POST] newTitle : Le nouveau titre de l'étape
+     */
     public function renameStepAction()
     {
         $request = $this->container->get('request');
@@ -433,6 +499,12 @@ class AjaxController extends Controller
     }
 
 
+    /**
+     * Créer un domaine.
+     * @param [POST] boardId : L'id du board dans lequel ajouter le
+     * nouveau domaine.
+     * @return [JSON] Tableau avec l'id du domaine et le rendu HTML du domaine
+     */
     public function createDomainAction()
     {
         $request = $this->container->get('request');
@@ -468,6 +540,10 @@ class AjaxController extends Controller
     }
 
 
+    /**
+     * Supprimer un domaine.
+     * @param [POST] domainId : L'id du domaine à supprimer
+     */
     public function deleteDomainAction()
     {
         $request = $this->container->get('request');
@@ -504,6 +580,11 @@ class AjaxController extends Controller
     }
 
 
+    /**
+     * Renommer un domaine
+     * @param [POST] domainId : L'id du domaine à renommer
+     * @param [POST] newTitle : Le nouveau titre du domaine
+     */
     public function renameDomainAction()
     {
         $request = $this->container->get('request');
@@ -530,7 +611,12 @@ class AjaxController extends Controller
         }
     }
 
-
+    /**
+     * Créer une liste de cases à cocher (Checklist).
+     * @param [POST] taskId : L'id de la tâche dans laquelle créer une checklist.
+     * @return [JSON] Tableau contenant l'id de la checklist et le rendu HTML de 
+     * celle-ci.
+     */
     public function createChecklistAction()
     {
         $request = $this->container->get('request');
@@ -563,6 +649,11 @@ class AjaxController extends Controller
     }
 
 
+    /**
+     * Renommer une checklist
+     * @param [POST] checklistId : L'id de la checklist à renommer
+     * @param [POST] newName : Le nouveau titre de la checklist
+     */
     public function renameChecklistAction()
     {
         $request = $this->container->get('request');
@@ -587,6 +678,10 @@ class AjaxController extends Controller
         }
     }
 
+    /**
+     * Supprimer une checklist.
+     * @param [POST] checklistId : L'id de la checklist à supprimer
+     */
     public function deleteChecklistAction()
     {
         $request = $this->container->get('request');
@@ -613,6 +708,12 @@ class AjaxController extends Controller
 
 
 
+    /**
+     * Créer une case à cocher (ChecklistOption).
+     * @param [POST] checklistId : L'id de la checklist dans laquelle créer une option.
+     * @return [JSON] Tableau contenant l'id de l'option et le rendu HTML de 
+     * celle-ci.
+     */
     public function createChecklistOptionAction()
     {
         $request = $this->container->get('request');
@@ -644,6 +745,11 @@ class AjaxController extends Controller
     }
 
 
+    /**
+     * Renommer une option de checklist
+     * @param [POST] checklistOptionId : L'id de l'option à renommer
+     * @param [POST] newName : Le nouveau titre de l'option
+     */
     public function renameChecklistOptionAction()
     {
         $request = $this->container->get('request');
@@ -669,6 +775,12 @@ class AjaxController extends Controller
     }
 
 
+    /**
+     * Activer / Désactiver une option de checklist
+     * @param [POST] checklistOptionId : L'id de l'option concernée
+     * @param [POST] value : La nouvelle valeur de l'option
+     * @param [POST] newName : Le nouveau titre de l'option
+     */
     public function toggleChecklistOptionAction()
     {
         $request = $this->container->get('request');
@@ -692,6 +804,10 @@ class AjaxController extends Controller
         }
     }
 
+    /**
+     * Supprimer une option de checklist.
+     * @param [POST] optionId : L'id de l'option à supprimer
+     */
     public function deleteChecklistOptionAction()
     {
         $request = $this->container->get('request');
@@ -712,7 +828,13 @@ class AjaxController extends Controller
         }
     }
 
-    
+    /**
+     * Créer un commentaire pour une tâche.
+     * @param [POST] taskId : L'id de la tâche concernée
+     * @param [POST] content : Le contenu du commentaire
+     * @return [JSON] Tableau contenant l'id du nouveau commentaire
+     * et le rendu HTML de celui-ci.
+     */
     public function createCommentAction() {
         $request = $this->container->get('request');
 
@@ -764,7 +886,10 @@ class AjaxController extends Controller
         }
     }
 
-    
+    /**
+     * Supprimer un commentaire.
+     * @param [POST] commentId : L'id du commentaire à supprimer
+     */
     public function deleteCommentAction() {
         $request = $this->container->get('request');
 
@@ -787,7 +912,11 @@ class AjaxController extends Controller
         }
     }
 
-    
+    /**
+     * Supprimer un utilisateur du board (=projet).
+     * @param [POST] userId : l'id de l'utilisateur à supprimer
+     * @param [POST] boardId : l'id du board concerné
+     */
     public function removeUserAction() {
         $request = $this->container->get('request');
 
@@ -840,7 +969,11 @@ class AjaxController extends Controller
         }
     }
 
-    
+    /**
+     * Ajouter un utilisateur à un board (=projet)
+     * @param [POST] userId : L'id de l'utilisateur à ajouter
+     * @param [int] $boardId : L'id du board concerné
+     */
     public function addUserAction($boardId) {
         $request = $this->container->get('request');
 
@@ -867,7 +1000,11 @@ class AjaxController extends Controller
         return $this->redirect($this->generateUrl('pilote_tasker_board_settings', array('boardId' => $boardId)));
     }
 
-    
+    /**
+     * Assigner un utilisateur à une tâche.
+     * @param [POST] memberId : l'id de l'utilisateur concerné
+     * @param [POST] taskId : l'id de la tâche concerné
+     */
     public function assignAction() {
         $request = $this->container->get('request');
 
@@ -917,6 +1054,11 @@ class AjaxController extends Controller
     }
 
     
+    /**
+     * Définir un label pour une tâche.
+     * @param [POST] label : le label à définir
+     * @param [POST] taskId : l'id de la tâche concerné
+     */
     public function labelAction() {
         $request = $this->container->get('request');
 
@@ -936,6 +1078,14 @@ class AjaxController extends Controller
         }
     }
 
+    /**
+     * Activer et afficher / Désactiver et masquer 
+     * la barre de progression sur une tâche.
+     * @param [POST] taskId : L'id de la tâche concernée
+     * @param [POST] activte : Booléan indiquant si l'on veut activer ou désactiver la progression
+     * @return [JSON] Tableau contenant le rendu HTML de la zone de l'aperçu de la tâche résumant
+     * ses différentes caractéristiques.
+     */
     public function activateProgressAction()
     {
         $request = $this->container->get('request');
@@ -966,6 +1116,13 @@ class AjaxController extends Controller
         }
     }
 
+    /**
+     * Modifier la progression d'une tâche.
+     * @param [POST] taskId : L'id de la tâche concernée
+     * @param [POST] value : La nouvelle valeur de la progression
+     * @return [JSON] Tableau contenant le rendu HTML de la zone de l'aperçu de la tâche résumant
+     * ses différentes caractéristiques.
+     */
     public function updateProgressAction()
     {
         $request = $this->container->get('request');
@@ -999,6 +1156,15 @@ class AjaxController extends Controller
         }
     }
 
+    /**
+     * Upload d'un fichier joint à une tâche.
+     * La fenêtre de détail d'une tâche contient un formulaire d'upload
+     * de fichier. Lorsque celui-ci est validé, cette fonction est appelée.
+     * @param [POST] taskId : L'id de la tâche concernée
+     * @return [JSON] Tableau contenant le rendu HTML de l'aperçu du document,
+     * et le rendu HTML de la zone de l'aperçu de la tâche résumant
+     * ses différentes caractéristiques.
+     */
     public function fileUploadAction()
     {
         $request = $this->container->get('request');
@@ -1041,6 +1207,13 @@ class AjaxController extends Controller
         }
     }
 
+    /**
+     * Suppression d'un fichier joint à une tâche.
+     * @param [POST] taskId : L'id de la tâche concernée
+     * @return [JSON] Tableau contenant le rendu HTML de l'aperçu du document,
+     * et le rendu HTML de la zone de l'aperçu de la tâche résumant
+     * ses différentes caractéristiques.
+     */
     public function deleteFileAction()
     {
         $request = $this->container->get('request');
@@ -1075,6 +1248,16 @@ class AjaxController extends Controller
         }
     }
 
+    /**
+     * Définir une date de début et/ou une date de fin pour une tâche.
+     * Note : Dans la vue, il n'est pas possible de ne définir qu'une
+     * date de début.
+     * @param [POST] taskId : L'id de la tâche concernée
+     * @param [POST] startDate : La date de début
+     * @param [POST] endDate : La date de fin
+     * @return [JSON] Tableau contenant le rendu HTML de la zone de l'aperçu 
+     * de la tâche résumant ses différentes caractéristiques.
+     */
     public function setDatesAction()
     {
         $request = $this->container->get('request');
@@ -1115,6 +1298,14 @@ class AjaxController extends Controller
     }
 
 
+    /**
+     * Trouver rapidement une entité par sonidentifiant, 
+     * ou bien renvoyer une erreur 404.
+     * @param  $em     L'EntityManager
+     * @param  $bundle Le bundle de la classe de l'entité
+     * @param  $class  La classe de l'entité
+     * @param  $id     L'id de l'entité
+     */
     private function findOr404($em, $bundle, $class, $id)
     {
         $entity = $em->getRepository($bundle.':'.$class)->find($id);
@@ -1145,6 +1336,15 @@ class AjaxController extends Controller
         return $errors;
     }
 
+    /**
+     * Envoyer des notifications au serveur Node lors de la modification
+     * des éléments d'une tâche.
+     * @param  Task   $task    La tâche concernée
+     * @param  User   $sender  L'utilisateur à l'origine de la notification
+     * @param  string $message Un message précisant la modification effectuée (facultatif)
+     * Des notifications seront envoyées aux personnes concernées, à savoir la personne
+     * assignée à la tâche, sauf s'il s'agit de $sender.
+     */
     private function sendNotificationForTaskUpdate($task, $sender, $message = 'a modifié la tâche')
     {
         $receivers = array();
@@ -1158,7 +1358,18 @@ class AjaxController extends Controller
         $this->sendNotifications($sender, $receivers, $notifTitle, $notifContent, $link);
     }
 
-
+    /**
+     * Envoyer des notifications au serveur Node avec quelques 
+     * paramètres prédéfinis :
+     * - Les notifications seront de type "simple-notification".
+     * - Elles afficheront une notification visible par l'utilisateur,
+     * et seront stockées dans le menu des notifications.
+     * @param  User        $sender    L'utilisateur à l'origine de la notification
+     * @param  Array(User) $receivers Les utilisateurs concernés par la notification
+     * @param  string      $title     Le titre de la notification
+     * @param  string      $content   Le contenu de la notification
+     * @param  string      $link      Le lien vers lequel la notification va renvoyer
+     */
     private function sendNotifications($sender, $receivers, $title, $content, $link)
     {
         if (sizeof($receivers) > 0) {

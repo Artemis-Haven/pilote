@@ -23,6 +23,11 @@ This file is part of Pilote.
 */
 
 /**
+ * Script gérant toute les actions concernant les étapes affichés dans
+ * la vue du Board
+ */
+
+/**
  * Ajouter une étape dans la BdD et, en cas de succès, l'ajouter aussi
  * dans le domaine approprié.
  *

@@ -21,6 +21,13 @@ This file is part of Pilote.
 
 */
 
+/**
+ * Scripts gérant le Calendrier
+ */
+
+/**
+ * Au déplacement d'une tâche, effectuer l'action en base de données
+ */
 function moveEvent (task) {
     var startDate = moment(task.start).format("DD/MM/YYYY");
     var endDate = moment(task.end).subtract(1, 'days').format("DD/MM/YYYY");

@@ -18,6 +18,11 @@
 #     along with Pilote.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+#######################################################
+# Fichier de route des requêtes AJAX de la messagerie #
+#######################################################
+
+# Poster un message dans une discussion
 pilote_message_post:
     pattern:  /post
     defaults: { _controller: PiloteMessageBundle:Default:post }

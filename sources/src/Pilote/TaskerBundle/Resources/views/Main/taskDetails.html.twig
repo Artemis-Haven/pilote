@@ -22,6 +22,15 @@ This file is part of Pilote.
 
 #}
 
+{# 
+	Ce template affiche la popup de détails d'une tâche.
+	Cette popup est appelée lorsque l'on clique sur une tâche dans la
+	vue du Board, dans le diagramme de Gantt ou dans le calendrier.
+
+	Pour chaque commentaire associé à cette tâche, on inclut le template comment.html.twig
+	Pour chaque checklist associé à cette tâche, on inclut le template checkList.html.twig
+#}
+
 <div class="modal-content">
   	<div class="modal-header">
   		{# Pour rajouter un bouton de fermeture de la fenêtre, en haut à droite #}
