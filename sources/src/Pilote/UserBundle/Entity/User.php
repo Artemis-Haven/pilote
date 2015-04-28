@@ -33,6 +33,9 @@ use Pilote\MessageBundle\Entity\ThreadMetadata as Metadata;
 use Pilote\MessageBundle\Entity\Thread;
 
 /**
+ * Un User représente un utilisateur de notre site web.
+ * Il hérite de la classe User du FOSUserBundle.
+ * 
  * @ORM\Entity
  * @ORM\Table(name="pilote_user")
  * @ORM\Entity(repositoryClass="Pilote\UserBundle\Entity\UserRepository")
@@ -47,41 +50,58 @@ class User extends BaseUser
     protected $id;
 
     /**
+     * L'UUID est un identifiant unique généré automatiquement à la création de l'utilisateur.
+     * Cela permet d'éviter que les identifiants utilisés se suivent. En effet, les $id
+     * des utilisateurs sont : 01, 02, 03, etc.
+     * Alors qu'un UUID ressemble plutôt à "552bab3da65e6".
+     * 
      * @ORM\Column(type="string", length=255)
      */
     protected $uuid;
     
 
     /**
+     * Commentaires postés par l'utilisateur
+     * 
      * @ORM\OneToMany(targetEntity="Pilote\TaskerBundle\Entity\HasCommented", mappedBy="user")
      */
     private $comments; 
     
 
     /**
+     * Tâches assignées à l'utilisateur
+     * 
      * @ORM\OneToMany(targetEntity="Pilote\TaskerBundle\Entity\Task", mappedBy="creator")
      */
     private $tasks; 
 
 
     /**
-    * @ORM\ManyToMany(targetEntity="Pilote\TaskerBundle\Entity\Board", inversedBy="users")
-    * @ORM\JoinTable(name="boards_users")
-    */
+     * Boards (=projets) rattaché à l'utilisateur
+     * 
+     * @ORM\ManyToMany(targetEntity="Pilote\TaskerBundle\Entity\Board", inversedBy="users")
+     * @ORM\JoinTable(name="boards_users")
+     */
     private $boards;
 
     /**
+     * Image de profil de l'utilisateur
+     * 
      * @ORM\OneToOne(targetEntity="Pilote\UserBundle\Entity\Picture")
      * @ORM\JoinColumn(name="picture_id", referencedColumnName="id", nullable=true)
      */
     private $picture;
 
     /**
+     * Notifications reçues par l'utilisateur
+     * 
      * @ORM\OneToMany(targetEntity="Pilote\UserBundle\Entity\Notification", mappedBy="receiver", cascade={"remove", "persist"})
      */
     private $notifications;
 
     /**
+     * Liens avec les conversations associées à l'utilisateur.
+     * 
      * @ORM\OneToMany(
      *     targetEntity="Pilote\MessageBundle\Entity\ThreadMetadata", 
      *     mappedBy="participant", 

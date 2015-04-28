@@ -36,6 +36,17 @@ use Doctrine\ORM\EntityRepository;
  */
 class UserRepository extends EntityRepository
 {
+	/**
+	 * Trouver parmi tous les utilisateurs de Pilote,
+	 * la liste des utilisateurs potientiellement
+	 * ajoutables à un projet. Cela reviens à prendre la liste
+	 * des utilisateurs non inactifs, à supprimer l'ensemble 
+	 * des membres du projet et à filtrer selon le pseudonyme
+	 * passé en paramètre.
+	 * @param  int    $boardId  : Le board concerné
+	 * @param  string $username : Filtre sur le pseudonyme
+	 * @return array() : Tableau des utilisateurs ajoutables
+	 */
 	public function findUsersForBoard($boardId, $username)
     {
     	$nots = $this->createQueryBuilder('user')
@@ -64,6 +75,17 @@ class UserRepository extends EntityRepository
         return $query->getQuery()->getResult();
 	}
 
+	/**
+	 * Trouver parmi tous les utilisateurs de Pilote,
+	 * la liste des utilisateurs potientiellement
+	 * ajoutables à une discussion. Cela reviens à prendre la liste
+	 * des utilisateurs non inactifs, à supprimer l'ensemble 
+	 * des membres de la conversation et à filtrer selon le pseudonyme
+	 * passé en paramètre.
+	 * @param  int    $threadId  : La conversation concernée
+	 * @param  string $username : Filtre sur le pseudonyme
+	 * @return array() : Tableau des utilisateurs ajoutables
+	 */
 	public function findUsersForThread($threadId, $username)
     {
     	$nots = $this->createQueryBuilder('user')
@@ -83,6 +105,9 @@ class UserRepository extends EntityRepository
         return $query->getQuery()->getResult();
 	}
 
+	/**
+	 * Compter l'ensemble des utilisateurs inscrits
+	 */
 	public function count()
 	{
 		return $this->createQueryBuilder('u')
@@ -91,6 +116,12 @@ class UserRepository extends EntityRepository
 					->getSingleScalarResult();
 	}
 
+	/**
+	 * Trouver tous les utilisateurs correspondants
+	 * à un rôle passé en paramètre
+	 * @param  string $role : Le rôle à chercher
+	 * @return array() : Tableau des utilisateurs ayant ce rôle
+	 */
 	public function findByRole($role) 
 	{
 	    $qb = $this->createQueryBuilder('u')
@@ -100,6 +131,12 @@ class UserRepository extends EntityRepository
     	return $qb->getQuery()->getResult();
 	}
 
+	/**
+	 * Trouver l'expéditeur du dernier message
+	 * dans une conversation
+	 * @param  int $threadId : L'id du thread concerné
+	 * @return User : L'utilisateur en question
+	 */
 	public function findLastSenderForThread($threadId)
 	{
 		$query = $this->createQueryBuilder('u')
@@ -112,6 +149,14 @@ class UserRepository extends EntityRepository
 	    return $query->getQuery()->getOneOrNullResult();
 	}
 
+	/**
+	 * Trouver tous les utilisateurs, à l'exception de celui
+	 * passé en paramètre. Si ce paramètre est null, on 
+	 * considère l'utilisateur courant. Un filtre sur les
+	 * pseudonymes peut être appliqué en deuxième paramètre.
+	 * @param  User   $userId : L'utilisateur à ne pas renvoyer (facultatif)
+	 * @param  string $filter : Le filtre sur le pseudonyme (facultatif)
+	 */
 	public function findAllOthers($userId = null, $filter = null)
     {
     	if ($userId == null) {

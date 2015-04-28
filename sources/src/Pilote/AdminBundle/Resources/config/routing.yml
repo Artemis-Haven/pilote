@@ -19,19 +19,29 @@
 #     along with Pilote.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+#################################################
+# Fichier de routes de la zone d'administration #
+#################################################
+
+# Page d'accueil
 pilote_admin_homepage:
     pattern:  /
     defaults: { _controller: PiloteAdminBundle:Default:index }
 
+# Page listant les utilisateurs
 pilote_admin_users:
     pattern:  /users
     defaults: { _controller: PiloteAdminBundle:Default:users }
 
+# Page listant les projets (=boards)
 pilote_admin_boards:
     pattern:  /boards
     defaults: { _controller: PiloteAdminBundle:Default:boards }
 
 
+#######################################
+# Actions de la page des utilisateurs #
+#######################################
 
 pilote_admin_user_promote:
     pattern:  /user-promote/{id}
@@ -58,6 +68,9 @@ pilote_admin_user_new:
     defaults: { _controller: PiloteAdminBundle:Default:newUser }
 
 
+#################################
+# Action de la page des projets #
+#################################
 
 pilote_admin_board_enable:
     pattern:  /board-enable/{id}

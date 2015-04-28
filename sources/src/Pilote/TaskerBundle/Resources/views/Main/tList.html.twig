@@ -22,6 +22,12 @@ This file is part of Pilote.
 
 #}
 
+{# 
+	Template affichant une liste de tâches. 
+	C'est une partie du template step.html.twig, lui-même partie du template board.html.twig
+	Pour chaque tâche de la liste, on inclut le template taskThumbnail.html.twig 
+#}
+
 <div id="tList-{{ tList.id }}" class="taskList sheet"> {# Début de la liste de taches #}
 	<div class="tList-heading">
 		<p>{{ tList }}</p>

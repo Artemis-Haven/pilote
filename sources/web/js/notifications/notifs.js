@@ -21,13 +21,28 @@ This file is part of Pilote.
 
 */
 
+/**
+ * Gestion des notifications côté clients
+ *
+ * Connexion au serveur Node.JS, affichage des notifications à l'écran
+ * et mise à jour de la vue en cas de modifications.
+ */
+
 $.fn.exists = function () {
     return this.length !== 0;
 }
 
+/**
+ * Connection au serveur Node.JS
+ * @param  userId    : Identifiant de session PHP de l'utilisateur courant
+ * @param  connexion : URL et port de connexion au serveur Node.JS
+ * @param  page      : Type de la page sur laquelle est l'utilisateur (ex : 'calendar')
+ * @param  boardId   : Id du board sur lequel est l'utilisateur (s'il y en a un)
+ */
 function notifServerConnection (userId, connexion, page, boardId) {
 	var socket = io(connexion);
 
+	// Connexion au serveur
 	socket.on('connect', function () {
 		socket.emit('sendUserData', {
 			'userId': userId,
@@ -37,10 +52,12 @@ function notifServerConnection (userId, connexion, page, boardId) {
 		$("#nodejsState").text("Actif").addClass("text-success").removeClass("text-muted");
 	});
 
+	// Réception d'une notification du serveur
 	socket.on('notification', function (data) {
 		displayNotification(data, true);
 	});
 
+	// Réception d'un nouveau message du serveur
 	socket.on('newMessage', function (data) {
 		if ( $('#messagesList[data-thread="'+data.threadId+'"]').exists() ) {
             $("#messagesList").append(data.htmlMessage);
@@ -50,6 +67,7 @@ function notifServerConnection (userId, connexion, page, boardId) {
 		}
 	});
 
+	// Application des modifications de la vue du Board
 	if (page=="board") {
 		socket.on('board-move-task', function (data) {
 			var task = $('#task-'+data.taskId).detach();
@@ -104,6 +122,13 @@ function notifServerConnection (userId, connexion, page, boardId) {
 	};
 }
 
+/**
+ * Affichage d'une notification dans la vue et, si
+ * storeInMenu vaut TRUE, ajout dans le menu des notifications
+ * @param  data        : Données de la notification
+ * @param  storeInMenu : vaut TRUE s'il faut l'ajouter au menu
+ * des notifications, FALSE sinon
+ */
 function displayNotification (data, storeInMenu) {
 	$('#notificationsContainer').append(data);
 	if (storeInMenu) {
@@ -116,6 +141,8 @@ function displayNotification (data, storeInMenu) {
 	});
 }
 
+// Au clic sur le bouton "Afficher plus de notifications"
+// du menu des notifications, charger les 5 suivantes.
 $( "#loadNextNotifications" ).on('click', function (event) {
 	event.stopPropagation();
 	var lastNotif = $("#notificationsMenu > .notification:last");
@@ -133,6 +160,8 @@ $( "#loadNextNotifications" ).on('click', function (event) {
     }); 
 });
 
+// Au clic sur le bouton "Supprimer toutes les notifications"
+// du menu des notifications, effectuer l'action
 $( "#removeAllNotifications" ).on('click', function (event) {
 	event.stopPropagation();
 	$.ajax({
@@ -147,6 +176,8 @@ $( "#removeAllNotifications" ).on('click', function (event) {
     }); 
 });
 
+// A l'affichage du menu des notifications, considérer les 
+// notifs affichées comme étant lues
 $( "#notificationsDropdown" ).on('shown.bs.dropdown', function () {
 	if ( $("#notificationsDropdown").hasClass('unread') ) {
 		/* requête AJAX */
@@ -163,6 +194,11 @@ $( "#notificationsDropdown" ).on('shown.bs.dropdown', function () {
 	};
 });
 
+/**
+ * Supprimer la notification concernée, à la fois
+ * dans la vue et dans la base de données
+ * @param  notif : le DIV de la notification
+ */
 function removeNotification (notif) {
 	var id = notif.data('id');
 	$('.notification[data-id="'+id+'"]').remove();

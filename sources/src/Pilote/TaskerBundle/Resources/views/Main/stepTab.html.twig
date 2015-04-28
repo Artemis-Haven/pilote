@@ -22,6 +22,11 @@ This file is part of Pilote.
 
 #}
 
+{# 
+	Template affichant l'onglet représentant une étape, ainsi que le menu déroulant associé. 
+	C'est une partie du template domain.html.twig, lui-même partie du template board.html.twig
+#}
+
 <li {% if activeStep %} class="active" {% endif %}>
 	<a data-target="#tab-{{ step.id }}" data-toggle="tab">
 		<span class="stepTitle">{{ step }} </span>

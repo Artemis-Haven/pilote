@@ -32,13 +32,25 @@ use Pilote\MessageBundle\Entity\ThreadMetadata;
 use Pilote\MessageBundle\Entity\Message;
 use Pilote\UserBundle\Entity\Notification;
 
+/**
+ * Contrôleur de toutes les pages et actions (requêtes AJAX)
+ * concernant la messagerie.
+ */
+
 class DefaultController extends Controller
 {
+	/**
+	 * Page principale de la messagerie.
+	 */
 	public function indexAction()
 	{
         return $this->render('PiloteMessageBundle::index.html.twig');
 	}
 
+	/**
+	 * Page d'une discussion.
+	 * @param  int    $id : L'id de la discussion à afficher
+	 */
 	public function threadAction($id)
 	{
 		$em = $this->getDoctrine()->getManager();
@@ -61,6 +73,12 @@ class DefaultController extends Controller
         ));
 	}
 
+	/**
+	 * Requête AJAX :
+	 * Poster un message dans une discussion
+	 * @param [POST] thread : L'id de la discussion
+	 * @param [POST] message : Le contenu du message
+	 */
 	public function postAction()
 	{
 		$request = $this->container->get('request');
@@ -125,6 +143,15 @@ class DefaultController extends Controller
         }
 	}
 
+	/**
+	 * Envoyer un message dans une discussion.
+	 * @param  $em      L'EntityManager
+	 * @param  $message Le message à envoyer
+	 * @param  $thread  La discussion concernée
+	 * Cette fonction lie l'utilisateur au message, définit
+	 * les dates, marque la discussion non lue pour les
+	 * autres lecteurs, et envoie le message.
+	 */
 	private function sendMessage($em, $message, $thread)
 	{
 		$message->setSender($this->getUser());
@@ -140,6 +167,14 @@ class DefaultController extends Controller
 		$em->flush();
 	}
 
+	/**
+	 * Créer une discussion avec les administrateurs.
+	 * Uniquement pour les non-administrateurs.
+	 *
+	 * Vérifie si une discussion entre l'utilisateur courant et
+	 * les administrateurs existe déjà. Si oui, redirection vers celle-ci.
+	 * Sinon, création d'une discussion.
+	 */
 	public function adminThreadAction()
 	{
 		$foundThread = false;
@@ -168,6 +203,11 @@ class DefaultController extends Controller
 		return $this->redirect($this->generateUrl('pilote_message_thread', array('id' => $thread->getId())));
 	}
 
+	/**
+	 * Création d'une nouvelle discussion.
+	 * @param [POST] userId : L'id de l'utilisateur avec lequel
+	 * l'utilisateur courant veut créer une conversation.
+	 */
 	public function newThreadAction()
 	{
 		$em = $this->getDoctrine()->getManager();
@@ -187,6 +227,12 @@ class DefaultController extends Controller
 		return $this->redirect($this->generateUrl('pilote_message_thread', array('id' => $thread->getId())));
 	}
 
+	/**
+	 * Requête AJAX :
+	 * Recherche des utilisateurs potentiels pour démarrer une conversation.
+	 * @param [POST] term : Le terme sur lequel faire la recherche de pseudo.
+	 * @return [JSON] Tableau d'utilisateurs potentiels
+	 */
 	public function newThreadSearchUserAction()
 	{
         $em = $this->getDoctrine()->getManager();
@@ -201,6 +247,11 @@ class DefaultController extends Controller
         return new Response(json_encode($response));
 	}
 
+	/**
+	 * Ajout d'un utilisateur à une discussion.
+	 * @param [POST] addParticipantUserId : L'id de l'utilisateur que
+	 * l'utilisateur courant veut ajouter à une conversation.
+	 */
 	public function addParticipantAction($id)
 	{
 		$em = $this->getDoctrine()->getManager();
@@ -229,6 +280,12 @@ class DefaultController extends Controller
 		return $this->redirect($this->generateUrl('pilote_message_thread', array('id' => $id)));
 	}
 
+	/**
+	 * Requête AJAX :
+	 * Recherche des utilisateurs potentiels à ajouter à une conversation.
+	 * @param [POST] term : Le terme sur lequel faire la recherche de pseudo.
+	 * @return [JSON] Tableau d'utilisateurs potentiels
+	 */
 	public function addParticipantSearchUserAction($threadId)
 	{
         $em = $this->getDoctrine()->getManager();
@@ -243,6 +300,10 @@ class DefaultController extends Controller
         return new Response(json_encode($response));
 	}
 
+	/**
+	 * Supprimer l'utilisateur courant de la discussion.
+	 * @param  $id : L'id de la discussion à quitter
+	 */
 	public function leaveThreadAction($id)
 	{
         $em = $this->getDoctrine()->getManager();
@@ -262,6 +323,10 @@ class DefaultController extends Controller
 		return $this->redirect($this->generateUrl('pilote_message_index'));
 	}
 
+	/**
+	 * Fermer une discussion.
+	 * @param  $id : L'id de la discussion à fermer
+	 */
 	public function closeThreadAction($id)
 	{
         $em = $this->getDoctrine()->getManager();
@@ -285,6 +350,10 @@ class DefaultController extends Controller
 		return $this->redirect($this->generateUrl('pilote_message_index'));
 	}
 
+	/**
+	 * Marquer toutes les discussions de l'utilisateur courant
+	 * comme étant lues par lui-même.
+	 */
 	public function setAllReadAction()
 	{
 		$em = $this->getDoctrine()->getManager();
@@ -298,6 +367,14 @@ class DefaultController extends Controller
 		return $this->redirect($this->generateUrl('pilote_message_index'));
 	}
 
+	/**
+	 * Trouver rapidement une entité par sonidentifiant, 
+	 * ou bien renvoyer une erreur 404.
+	 * @param  $em     L'EntityManager
+	 * @param  $bundle Le bundle de la classe de l'entité
+	 * @param  $class  La classe de l'entité
+	 * @param  $id     L'id de l'entité
+	 */
     private function findOr404($em, $bundle, $class, $id)
     {
         $entity = $em->getRepository($bundle.':'.$class)->find($id);

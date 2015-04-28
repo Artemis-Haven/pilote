@@ -23,6 +23,11 @@ This file is part of Pilote.
 */
 
 /**
+ * Script gérant toute les actions concernant les domaines affichés dans
+ * la vue du Board
+ */
+
+/**
  * Ajouter un domaine dans la BdD et, en cas de succès, l'ajouter aussi
  * dans le board approprié.
  *

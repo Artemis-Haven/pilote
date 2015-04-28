@@ -18,19 +18,21 @@
 #     along with Pilote.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-#################
-# PAGE DU GANTT #
-#################
+#########################################
+# Fichier de routes de la page du Gantt #
+#########################################
 
+# Déplacer une tâche dans le Gantt
 pilote_tasker_gantt_moveTask:
     path: /moveTask
     defaults: { _controller: PiloteTaskerBundle:Gantt:moveTask }
 
+# Ajouter un Lien de Dépendance
 pilote_tasker_gantt_addLink:
     path: /addLink
     defaults: { _controller: PiloteTaskerBundle:Gantt:addLink }
 
-
+# Supprimer un Lien de Dépendance
 pilote_tasker_gantt_deleteLink:
     path: /deleteLink
     defaults: { _controller: PiloteTaskerBundle:Gantt:deleteLink }

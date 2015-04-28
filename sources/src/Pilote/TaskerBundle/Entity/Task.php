@@ -29,7 +29,37 @@ namespace Pilote\TaskerBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Task
+ * Une tâche (Task), en gestion de projet, est une action à mener pour
+ * aboutir à un résultat. Elles sont souvent représentées par des post-its
+ * sur un tableau. Ici, les tâches ont la même signification.
+ *
+ * C'est une subdivision d'une TList.
+ * Elle a une position ($position) pour se situer dans celle-ci.
+ * 
+ * Une tâche possède un titre, une description, un pourcentage de progression,
+ * un label, des dates de début ou de fin, mais aussi un fichier en pièce jointe,
+ * un utilisateur assigné, une liste de commentaires, un ensemble de checklists
+ * ou encore des liens vers d'autres tâches via des Liens de Dépendances (DependencyLink).
+ *
+ * Dates :
+ * Une tâche peut avoir une date de début et une date de fin. Dans ce
+ * cas, elle sera représentée dans le diagramme de Gantt et dans le 
+ * calendrier.
+ * Si seule la date de fin est renseignée, elle sera représentée sous
+ * la forme d'un jalon dans ceux-ci.
+ * On ne peut pas juste renseigner la date de début.
+ *
+ * Board
+ * - Domain1
+ *   - Step1
+ *     - TList1
+ *       - Task1
+ *       - Task2
+ *     - TList2
+ *   - Step2
+ *     - TList3
+ * - Domain2
+ *   - Step3
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Pilote\TaskerBundle\Entity\TaskRepository")

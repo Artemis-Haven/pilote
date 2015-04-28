@@ -22,14 +22,24 @@ This file is part of Pilote.
 
 */
 
+/**
+ * Gère les diverses actions possibles dans la popup de détails
+ * d'une tâche
+ */
+
 /* Zone des commentaires */
 
-
+/**
+ * Afficher le bouton "Commenter"
+ */
 function btnappear()
 {
     $(".commentBtn").show();
 }
 
+/**
+ * Poster le comentaire saisi dans la zone.
+ */
 function addComment() {
     var content = $("#commentArea").val(); 
     var id = $("#commentArea").data('taskid'); 
@@ -48,6 +58,10 @@ function addComment() {
     });
 }
 
+/**
+ * Supprimer le commentaire voulu
+ * @param  id : L'id du commentaire à supprimer
+ */
 function deleteComment(id)
 {
     $.ajax({

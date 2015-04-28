@@ -28,18 +28,32 @@ namespace Pilote\MainBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+/**
+ * Contrôleur gérant les pages statiques et la barre de menu en 
+ * haut de chaque page.
+ */
+
 class DefaultController extends Controller
 {
+    /**
+     * Page d'accueil du site
+     */
 	public function indexAction()
 	{
 		return $this->render('PiloteMainBundle::accueil.html.twig');
 	}
 
+    /**
+     * Page "A propos"
+     */
 	public function aproposAction()
 	{
 		return $this->render('PiloteMainBundle::apropos.html.twig');
 	}
 
+    /**
+     * Page de contact
+     */
 	public function contactAction()
 	{
 		return $this->render('PiloteMainBundle::contact.html.twig');
@@ -51,17 +65,16 @@ class DefaultController extends Controller
      * Cette fonction est appelée depuis le template '::base.html.twig'.
      * Si l'utilisateur courant est dans un board particulier, la vue contient
      * un menu spécial avec le nom de ce board.
-     * @param  int $boardId   Identifiant du board courant
+     * @param  int    $boardId   Identifiant du board courant
      * @param  string $boardName Nom du board courant
      */
-    public function navbarAction($boardId=null, $boardName=null, $admin=null)
+    public function navbarAction($boardId=null, $boardName=null)
     {
         if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
             $em = $this->getDoctrine()->getManager();
             return $this->render('PiloteMainBundle::authentNavbar.html.twig', array(
                 'boardId'   => $boardId,
                 'boardName' => $boardName,
-                'admin' => $admin,
                 'notifications' => $em->getRepository('PiloteUserBundle:Notification')->findLastFives($this->getUser())
             ));
         } else {

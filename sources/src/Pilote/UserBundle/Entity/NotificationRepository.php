@@ -35,6 +35,12 @@ use Doctrine\ORM\EntityRepository;
  */
 class NotificationRepository extends EntityRepository
 {
+    /**
+     * Trouver les 5 dernières notifications envoyées
+     * à l'utilisateur passé en paramètre.
+     * @param  User $user : L'utilisateur concerné
+     * @return array() : Tableau des 5 dernières notifications
+     */
 	public function findLastFives($user)
     {
         $query = $this->createQueryBuilder('n')
@@ -46,6 +52,17 @@ class NotificationRepository extends EntityRepository
         return $query->getQuery()->getResult();
 	}
 
+    /**
+     * Trouver les 5 dernières notifications envoyées
+     * à l'utilisateur passé en paramètre, dont la date
+     * d'émission précède celle de la notification passée
+     * en paramètre.
+     * @param  Notification $notif : La notification dont on
+     * veut trouver les prédécesseures.
+     * @param  User         $user  : L'utilisateur concerné
+     * @return array() : Tableau des 5 dernières notifications
+     * avant celle passée en paramètre
+     */
 	public function findNextFives($notif, $user)
     {
         $query = $this->createQueryBuilder('n')

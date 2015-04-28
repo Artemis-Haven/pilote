@@ -22,6 +22,11 @@ This file is part of Pilote.
 
 #}
 
+{# 
+    Template affichant case à cocher. 
+    C'est une partie du template checkList.html.twig, lui-même partie du template taskDetails.html.twig
+#}
+
 <span data-checklistOption="{{ option.id }}" class="checkbox">
 	<input id="checklistOption-{{option.id}}" {% if option.checked %} checked="true" {% endif %} type="checkbox"
 		onclick="toggleChecklistOption({{option.id}});">

@@ -30,8 +30,19 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use FOS\UserBundle\Controller\ProfileController as BaseController;
 use Pilote\UserBundle\Entity\Picture;
 
+/**
+ * Ce contrôleur gère les pages concernant le profil de l'utilisateur courant.
+ * Il hérite du contrôleur équivalent de FOSUserBundle.
+ */
+
 class ProfileController extends BaseController
 {
+		/**
+		 * Affiche le profil de l'utilisateur dont l'uuid est passé
+		 * en paramètre. Si aucun uuid n'est passé en paramètre, c'est
+		 * le profil de l'utilisateur courant qui est affiché.
+		 * @param  integer $id : L'uuid de l'utilisateur concerné.
+		 */
 		public function showAction($id=-1)
 		{
 			$user;
@@ -54,6 +65,9 @@ class ProfileController extends BaseController
 				));
 		}
 
+		/**
+		 * Page d'édition du profil de l'utilisateur courant.
+		 */
 		public function editPictureAction()
 		{
 			$request = $this->container->get('request');
@@ -75,6 +89,10 @@ class ProfileController extends BaseController
 				));
 		}
 
+		/**
+		 * Page validant la mise en ligne d'une photo de profil
+		 * pour l'utilisateur courant, s'il n'y en avait aucune.
+		 */
 		public function checkNewPictureAction()
 		{
 			$picture = new Picture;
@@ -94,6 +112,10 @@ class ProfileController extends BaseController
 			return $this->redirect($this->generateUrl('pilote_profil_edit'));
 		}
 
+		/**
+		 * Page validant la mise en ligne d'une nouvelle photo de profil
+		 * remplaçant l'ancienne, pour l'utilisateur courant.
+		 */
 		public function checkEditPictureAction()
 		{
 			$picture = $this->getUser()->getPicture();
@@ -113,6 +135,10 @@ class ProfileController extends BaseController
 			return $this->redirect($this->generateUrl('pilote_profil_edit'));
 		}
 
+		/**
+		 * Page validant la suppression de la photo de profil
+		 * de l'utilisateur courant.
+		 */
 		public function deletePictureAction()
 		{
 			$request = $this->container->get('request');

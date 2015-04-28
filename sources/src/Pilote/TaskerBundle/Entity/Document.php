@@ -29,7 +29,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Document
+ * Un Document est une pièce jointe associée à une tâche.
  *
  * @ORM\Table()
  * @ORM\Entity()

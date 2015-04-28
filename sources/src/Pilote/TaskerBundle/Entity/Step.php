@@ -29,7 +29,21 @@ namespace Pilote\TaskerBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Step
+ * Une Étape (Step) est une subdivision d'un Domain, lui-même
+ * subdivision d'un Board. Elle contient un ensemble de Listes
+ * de Tâches (TList).
+ *
+ * Board
+ * - Domain1
+ *   - Step1
+ *     - TList1
+ *       - Task1
+ *       - Task2
+ *     - TList2
+ *   - Step2
+ *     - TList3
+ * - Domain2
+ *   - Step3
  *
  * @ORM\Table()
  * @ORM\Entity()

@@ -28,7 +28,15 @@ namespace Pilote\TaskerBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * DependencyLink
+ * Un DependencyLink est un lien de dépendance entre deux tâches.
+ * Ces liens de dépendances ne sont affichés que sur le Diagramme de Gantt.
+ * 
+ * Le type ($type) de ces liens est un paramètre de la librairie DHTMLXGantt.
+ * Il peut prendre 4 valeurs : 
+ * - "finish_to_start"  : "0"
+ * - "start_to_start"   : "1"
+ * - "finish_to_finish" : "2"
+ * - "start_to_finish"  : "3"
  *
  * @ORM\Table()
  * @ORM\Entity

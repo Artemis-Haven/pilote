@@ -22,6 +22,11 @@ This file is part of Pilote.
 
 */
 
+/**
+ * Feuille de style consacrée à la vue du Board et à la fenêtre de
+ * détails d'une tâche
+ */
+
 html { height: 100%; }
 body { 
     background-color: #FFF; 

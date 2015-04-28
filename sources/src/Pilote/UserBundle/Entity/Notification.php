@@ -28,7 +28,15 @@ namespace Pilote\UserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Notification
+ * Une Notification est une information concise envoyée à une liste d'utilisateurs.
+ * Elle est générée en général lorsqu'un utilisateur effectue une action qui
+ * nécessite d'en informer certains autres utilisateurs.
+ *
+ * Une notification dépent d'un envoyeur ($sender) et d'un destinataire ($receiver) et
+ * possède un champ ($read) permettant de savoir si elle a été vue ou non.
+ *
+ * Elle possède de plus un titre ($title), un contenu ($content), une date
+ * d'émission ($date) et un lien ($link) cliquable dans la vue.
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Pilote\UserBundle\Entity\NotificationRepository")

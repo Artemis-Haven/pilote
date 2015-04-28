@@ -21,6 +21,15 @@ This file is part of Pilote.
 
 #}
 
+{# 
+	Ce template représente, dans l'aperçu d'une tâche, sur un Board, la zone en dessous
+	du titre qui contient un résumé des informations de la tâche, de manière très concise :
+	- Pourcentage de progression
+	- Dates de début et/ou de fin
+	- Utilisateur assigné à la tâche
+	- Pièce jointe
+#}
+
 {# Progression #}
 {% if task.progressActivated %}
 	<div class="infoProgress" title="Progression : {{task.progress}} %">

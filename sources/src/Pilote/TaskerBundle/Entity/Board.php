@@ -30,7 +30,25 @@ use Doctrine\ORM\Mapping as ORM;
 use Pilote\MessageBundle\Entity\Thread;
 
 /**
+ * Un Board représente un Projet. Il regroupe des domaines (Domain), contenant 
+ * des étapes (Step), contenant eux-mêmes des listes de tâches (TList et Task).
+ * Une liste de membres (User) est associé à un Board, ainsi qu'une conversation
+ * de groupe (Thread) automatiquement créée.
+ *
+ * Un utilisateur ne peut que désactiver un projet. Alors, un administrateur pourra 
+ * soit le réactiver, soit le supprimer.
+ *
  * Board
+ * - Domain1
+ *   - Step1
+ *     - TList1
+ *       - Task1
+ *       - Task2
+ *     - TList2
+ *   - Step2
+ *     - TList3
+ * - Domain2
+ *   - Step3
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Pilote\TaskerBundle\Entity\BoardRepository")

@@ -36,6 +36,9 @@ use Doctrine\ORM\EntityRepository;
  */
 class TaskRepository extends EntityRepository
 {
+    /**
+     * Compter l'ensemble des tâches créées dans Pilote.
+     */
 	public function count()
 	{
 		return $this->createQueryBuilder('t')

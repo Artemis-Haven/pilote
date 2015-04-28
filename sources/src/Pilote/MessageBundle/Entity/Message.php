@@ -31,6 +31,10 @@ use Pilote\MessageBundle\Entity\Thread;
 use Pilote\UserBundle\Entity\User;
 
 /**
+ * Représente un message publié au sein d'une conversation.
+ * Un message est envoyé par un utilisateur ($sender), dans une conversation ($thread).
+ * Il possède un contenu ($body) et une date de création ($createdAt).
+ * 
  * @ORM\Entity
  * @ORM\Entity(repositoryClass="Pilote\MessageBundle\Entity\MessageRepository")
  */

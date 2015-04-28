@@ -19,6 +19,10 @@
 #     along with Pilote.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+#########################################
+# Fichier de routes des pages statiques #
+#########################################
+
 pilote_accueil:
     path: /accueil
     defaults: { _controller: PiloteMainBundle:Default:index }

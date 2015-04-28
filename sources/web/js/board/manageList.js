@@ -23,6 +23,11 @@ This file is part of Pilote.
 */
 
 /**
+ * Script gérant toute les actions concernant les listes de tâches 
+ * affichés dans la vue du Board
+ */
+
+/**
  * Ajouter une liste de tâches dans la BdD et, en cas de succès, l'ajouter 
  * aussi dans l'étape appropriée.
  *

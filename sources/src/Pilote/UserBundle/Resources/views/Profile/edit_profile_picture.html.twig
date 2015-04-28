@@ -22,6 +22,11 @@ This file is part of Pilote.
 
 #}
 
+{# 
+	Template affichant soit le formulaire d'upload de photo de profil s'il
+	n'y en a pas encore, soit le formulaire de modification de cette photo.
+#}
+
 <div class="sheet">
     {% if app.user.picture == null %}  
 	    <p class="photo">

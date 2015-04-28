@@ -29,7 +29,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Picture
+ * Une Picture représente une image de profil, et est associée à un
+ * utilisateur (User).
  *
  * @ORM\Table(name="profile_picture")
  * @ORM\Entity(repositoryClass="Pilote\UserBundle\Entity\PictureRepository")

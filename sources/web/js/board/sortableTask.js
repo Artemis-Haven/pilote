@@ -23,6 +23,11 @@ This file is part of Pilote.
 */
 
 /**
+ * Script gérant toute les actions concernant le déplacement des tâches et des
+ * listes de tâches dans la vue du Board
+ */
+
+/**
  * Rend les tâches et les listes de tâches triables
  */
 function setSortableTask() {

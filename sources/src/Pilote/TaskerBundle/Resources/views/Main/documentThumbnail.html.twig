@@ -21,6 +21,14 @@ This file is part of Pilote.
 
 #}
 
+{# 
+	Template affichant l'aperçu d'un document joint à une tâche.
+	Si la tâche comporte un document, on affiche l'aperçu et deux boutons
+	"Télécharger" et "Supprimer", sinon on affiche un bouton "Joindre".
+	
+	C'est une partie du template taskDetails.html.twig
+#}
+
 <h4>Pièce jointe</h4>
 
 {% if document == null %}
